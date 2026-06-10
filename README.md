@@ -1700,3 +1700,39 @@ while (st.hasMoreTokens()) {
     System.out.println(token);
 }
 ```
+
+### String.format y System.out.printf()
+
+El método `String.format` permite crear cadenas con formato utilizando especificadores. Dos características potentes son el uso de índices de argumentos y el relleno con ceros.
+
+#### Índices de argumentos (`1$`, `2$`, etc.)
+Permiten referenciar un argumento específico por su posición, lo que es útil para reutilizar el mismo valor varias veces o cambiar el orden en que aparecen en la cadena sin cambiar el orden de los argumentos pasados al método.
+
+```java
+String nombre = "Juan";
+String saludo = String.format("Hola %1$s, ¿cómo estás %1$s?", nombre);
+// Output: Hola Juan, ¿cómo estás Juan?
+```
+
+#### Prefijo de relleno con ceros (`%02d`)
+El especificador `%d` se usa para enteros. Al añadir `02` (o cualquier número), indicamos el ancho mínimo de la cadena. Si el número tiene menos dígitos, se rellena con ceros a la izquierda.
+
+```java
+int hora = 8;
+int minuto = 5;
+String tiempo = String.format("La hora es %02d:%02d", hora, minuto);
+// Output: La hora es 08:05
+```
+
+#### Ejemplo combinado
+Podemos combinar ambas técnicas para formatear fechas de manera precisa:
+
+```java
+int dia = 9;
+String resultado = String.format("Hoy es el día %1$02d del mes %1$02d (repetido)", dia);
+// Output: Hoy es el día 09 del mes 09 (repetido)
+```
+
+## Conversión de Datos
+
+### Convertir un String a un primitivo

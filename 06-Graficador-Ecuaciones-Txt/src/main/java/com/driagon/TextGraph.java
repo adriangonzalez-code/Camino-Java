@@ -35,5 +35,26 @@ public class TextGraph {
             setCharAt(col, y, '-');
             setCharAt(col, y + height, '-');
         }
+
+        setCharAt(x, y, '+');
+        setCharAt(x + width, y, '+');
+        setCharAt(x, y + height, '+');
+        setCharAt(x + width, y + height, '+');
+    }
+
+    public void println() {
+        for (int row = 0; row < canvas.length; row++) {
+            System.out.println(canvas[row]);
+        }
+
+        System.out.println();
+    }
+
+    public int getWidth() {
+        return canvas[0].length;
+    }
+
+    public int getHeight() {
+        return canvas.length;
     }
 }
