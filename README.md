@@ -1736,3 +1736,120 @@ String resultado = String.format("Hoy es el día %1$02d del mes %1$02d (repetido
 ## Conversión de Datos
 
 ### Convertir un String a un primitivo
+
+Se puede convertir un número a String de manera automática, pero no es lo mismo al revés. Java ofrece algunos métodos para convertir un String a número:
+
+* Integer.parseInt(): Convierte un String a un entero.
+* Double.parseDouble(): Convierte un String a un número de punto flotante.
+* Long.parseLong(): Convierte un String a un número largo.
+* Float.parseFloat(): Convierte un String a un número de punto flotante de precisión simple.
+* Boolean.parseBoolean(): Convierte un String a un valor booleano.
+
+```java
+String numeroStr = "123";
+int numero = Integer.parseInt(numeroStr);
+System.out.println(numero); // Output: 123
+```
+Al convertir un String a nùmero, es altamente recomendable realizar una validación previa para asegurarse de que el String contiene un valor numérico válido. Esto evita excepciones como `NumberFormatException`; o en su caso manejar excepciones usando el bloque `try`-`catch`, especificando el tipo de excepción `NumberFormatException`.
+
+```java
+String numeroStr = "123";
+if (numeroStr.matches("\\d+")) {
+    int numero = Integer.parseInt(numeroStr);
+    System.out.println(numero); // Output: 123
+} else {
+    System.out.println("El String no contiene un número válido.");
+}
+``` 
+
+```java
+String numeroStr = "123";
+try {
+    int numero = Integer.parseInt(numeroStr);
+    System.out.println(numero); // Output: 123
+} catch (NumberFormatException e) {
+    System.out.println("El String no contiene un número válido.");
+}   
+```
+
+### Convertir fechas
+
+No existe un formato universal para representar una fecha. En Java, se pueden utilizar diferentes formatos y clases para representar fechas, como `java.util.Date`, `java.util.Calendar`, `java.time.LocalDate`, `java.time.LocalDateTime`, `java.time.ZonedDateTime`, entre otros. Es importante elegir el formato y la clase adecuadas según las necesidades del proyecto y las especificaciones de la aplicación.
+
+Ejemplo: 01/02/03 puede ser interpretado de muchas maneras, por ejemplo como una fecha en formato `dd/MM/yy` o `MM/dd/yy`, entre otros. Es importante tener en cuenta el formato de la fecha y utilizar la clase adecuada para su representación.
+
+```java
+String strDate = "20/01/2019";
+int date, month, year;
+
+String tmp = strDate.substring(0, 2);
+date = Integer.parseInt(tmp);
+tmp = strDate.substring(3, 5);
+month = Integer.parseInt(tmp);
+tmp = strDate.substring(6, 10);
+year = Integer.parseInt(tmp);
+
+
+// Para manejar fechas, se utiliza java.util.Date, pero no se recomienda hacerlo directamente con esa clase, en su caso, es recomendable usar java.util.Calendar que representa un objeto de fecha y hora
+Calendar cal = Calendar.getInstance();
+cal.set(Calendar.YEAR, year);
+cal.set(Calendar.MONTH, month - 1);
+cal.set(Calendar.DATE, date);
+cal.set(Calendar.HOUR, 0);
+cal.set(Calendar.MINUTE, 0);
+cal.set(Calendar.SECOND, 0);
+cal.set(Calendar.MILLISECOND, 0);
+
+Date result = cal.getTime();
+```
+
+La clase `java.util.Calendar` también nos sirve para realizar operaciones con fechas, como sumar o restar días, meses o años, obtener el día de la semana, el mes, el año, etc. Además, también nos permite formatear fechas de acuerdo a un patrón específico, utilizando la clase `java.text.SimpleDateFormat`.
+
+### Nuevas clases para manejar fechas
+
+A partir de Java 8, se introdujeron nuevas clases para manejar fechas y horas, como `java.time.LocalDate`, `java.time.LocalTime`, `java.time.LocalDateTime`, `java.time.ZonedDateTime`, `java.time.Period`, `java.time.Duration`, `java.time.format.DateTimeFormatter`, entre otras. Estas clases proporcionan una API más moderna y fácil de usar para trabajar con fechas y horas, y también son más eficientes y seguras que las clases anteriores.
+
+## Programación Orientada a Objetos (POO)
+
+La programación orientada a objetos es un método de programación que imita la manera en que todos nosotros hacemos las cosas. Es una evolución natural de las innovaciones anteriores al diseño de lenguajes de programación: Es más estructurado que intentos anteriores de programación estructurada y más modular y abstracto que intentos anteriores de abstracción de datos y ocultamiento de los detalles. Hay tres propiedades principales que caracterizan a la programación orientada a objetos:
+
+* Encapsulamiento: Es la combinación de un registro con procedimientos y funciones para manipular sus datos, con lo que se forma un nuevo tipo de datos: El objeto.
+* Herencia: Se refiere a definir un objeto y entonces usarlo para construir una jerarquía de objetos descendientes, donde cada descendiente hereda el acceso al código y datos de su antecesor.
+* Polimorfismo: Es darle un nombre a una acción que se comparte de arriba a abajo en la jerarquía de objetos, donde cada objeto en la jerarquía implementa la acción en una forma única para sí mismo.
+
+El reto de la programación orientada a objetos es que requiere que hagas a un lado tus hábitos en la forma en que piensas sobre cómo programar que ha sido un estándar por muchos años. Sin embargo, una vez que haces eso, OOP es una herramienta simple, directa y superior para resolver muchos de los problemas de los que están plagados los programas tradicionales.
+
+Una nota para los que ha han programado OOP en otros lenguajes: Hagan a un lado sus impresiones previas de OOP y aprendan las características de este lenguaje en sus propios términos. OOP no es la única forma de programar; es un continuo de ideas.
+
+Nota para los que no tienen idea de lo que se trata OOP: Demasiado desarrollo, demasiada confusión, y mucha gente hablando acerca de algo que no entienden ha enturbiado las aguas en años recientes. Esfuérzate por olvidar lo que la gente te ha dicho acerca de OOP. La mejor manera (de hecho la única manera) de aprender algo útil sobre OOP es hacer lo que estás a punto de hacer: sentarte e intentarlo por ti mismo.
+
+### Campos
+
+En las clases se pueden definir las variables que determinan el estado del objeto y a esas variables se les llama campos o fields.
+
+### Encapsulamiento
+
+Uno de los tres principios de OOP es esconder la información interna de un objeto. Existen tres tipos de acceso a los campos: público (public), privado (private) y protegido (protected).
+
+* Público (public): El campo es accesible desde cualquier parte del programa.
+* Privado (private): El campo es accesible solo desde dentro de la clase en la que se define.
+* Protegido (protected): El campo es accesible desde dentro de la clase en la que se define y desde las clases que heredan de esa clase (subclases).
+
+#### Niveles de acceso
+
+| Nivel de acceso | Clase | Package | Subclase | Mundo |
+|-----------------|-------|---------|----------|-------|
+| public          | Si    | Si      | Si       | Si    | 
+| protected       | Si    | Si      | Si       | No    |
+| private         | Si    | No      | No       | No    |
+| ninguno         | Si    | Si      | No       | No    |
+
+### Herencia
+
+Es posible crear una clase derivada de otra, con lo que la nueva clase automáticamente active todas las características de su antecesor, más las características o particularidades que se definan en la nueva clase.
+
+Todas las clases extienden de la clase Object, que es la clase base de todas las clases en Java.
+
+### Polimorfismo
+
+El polimorfismo es la capacidad de un objeto de tomar diferentes formas dependiendo del contexto en el que se utilice. En Java, el polimorfismo se logra a través de la herencia y la sobrescritura de métodos.
