@@ -32,7 +32,7 @@ Para modificar o alterar la precedencia podemos hacer uso de los paréntesis, co
 Todos los operadores binarios, con la excepción de los operadores de asignación, son evaluados de izquierda a derecha, los operadores de asignación son evaluados de derecha a izquierda. Los operadores de asignación son de menor precedencia.
 
 #### Tabla de precedencia de operadores
-
+º
 | Precedencia | Operador | Descripción |
 |-------------|----------|-------------|
 | 1 (mayor) | `()` `[]` `.` | Paréntesis, corchetes, punto |
@@ -1853,3 +1853,118 @@ Todas las clases extienden de la clase Object, que es la clase base de todas las
 ### Polimorfismo
 
 El polimorfismo es la capacidad de un objeto de tomar diferentes formas dependiendo del contexto en el que se utilice. En Java, el polimorfismo se logra a través de la herencia y la sobrescritura de métodos.
+
+## Type casting
+
+El type casting es el proceso de convertir un tipo de dato en otro. En Java, existen dos tipos de type casting: implícito y explícito.
+
+* Implícito: También conocido como widening, ocurre cuando se convierte un tipo de dato de menor rango a un tipo de dato de mayor rango automáticamente.
+* Explícito: También conocido como narrowing, ocurre cuando se convierte un tipo de dato de mayor rango a un tipo de dato de menor rango, y debe hacerse de manera explícita utilizando paréntesis.
+
+```java
+int i = 10;
+double d = i; // Widening (implícito)
+
+double x = 10.5;
+int y = (int) x; // Narrowing (explícito)
+
+double d = 10.5;
+int i = d; // ❌ Error: incompatible types: possible lossy conversion from double to int
+int i = (int) d; // ✅ Correcto: se realiza un type casting explícito
+```
+
+## Identificador super
+
+El identificador `super` se utiliza para referirse a la clase base inmediata de un objeto. Se puede usar para acceder a métodos y constructores de la clase base desde una subclase.
+
+```java
+class Animal {
+    void hacerSonido() {
+        System.out.println("El animal hace un sonido");
+    }
+}
+
+class Perro extends Animal {
+    void hacerSonido() {
+        super.hacerSonido();
+        System.out.println("El perro ladra");
+    }
+}
+```
+
+## Constructor
+
+Un constructor es un método especial que se utiliza para inicializar objetos de una clase. Tiene el mismo nombre que la clase y no tiene un tipo de retorno, ni siquiera `void`. Los constructores pueden ser sobrecargados, lo que significa que una clase puede tener múltiples constructores con diferentes parámetros.
+
+```java
+class Persona {
+    String nombre;
+    int edad;
+
+    // Constructor
+    Persona(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    // Sobrecarga del constructor
+    Persona() {
+        this.nombre = "Desconocido";
+        this.edad = 0;
+    }
+}
+```
+
+Los constructores no se heredan, pero una subclase puede llamar al constructor de su clase base utilizando `super()`. Si no se llama explícitamente a un constructor de la clase base, el compilador insertará automáticamente una llamada al constructor sin argumentos de la clase base.
+
+```java
+class Empleado extends Persona {
+    double salario;
+
+    // Constructor
+    Empleado(String nombre, int edad, double salario) {
+        super(nombre, edad);
+        this.salario = salario;
+    }
+
+    // Sobrecarga del constructor
+    Empleado() {
+        super();
+        this.salario = 0.0;
+    }
+}
+```
+
+## Destructores
+
+El destructor es la contraparte del constructor y se utiliza para liberar recursos que un objeto pueda estar utilizando antes de que sea destruido. En Java, no existen destructores como en otros lenguajes como C++ o Python. En su lugar, Java utiliza un recolector de basura (garbage collector) que se encarga de liberar automáticamente la memoria ocupada por los objetos que ya no son referenciados.
+
+Sin embargo, en Java todos los objetos tienen un método llamado `finalize()`, que se puede sobrescribir para realizar tareas de limpieza antes de que el objeto sea recolectado por el garbage collector. Es importante tener en cuenta que el método `finalize()` no garantiza cuándo se ejecutará, y su uso no es recomendado en la práctica moderna de Java.
+
+## Interfaces
+
+Una interfaz en Java es una colección de métodos abstractos (sin implementación) que una clase puede implementar. Las interfaces se utilizan para definir un contrato que las clases deben cumplir, lo que permite la programación orientada a interfaces en lugar de la programación orientada a clases.
+
+```java
+interface Animal {
+    void hacerSonido();
+}
+```
+
+### Métodos default
+
+A partir de Java 8, las interfaces pueden contener métodos con implementación utilizando la palabra clave `default`. Esto permite agregar nuevos métodos a las interfaces sin romper las clases que ya las implementan.
+
+```java
+interface Animal {
+    void hacerSonido();
+
+    default void dormir() {
+        System.out.println("El animal está durmiendo");
+    }
+}
+```
+
+## Clases anidadas
+
+Es una clase declarada dentro de otra clase. Las clases anidadas pueden ser estáticas o no estáticas (también conocidas como clases internas). Las clases anidadas permiten organizar mejor el código y encapsular la funcionalidad relacionada.
