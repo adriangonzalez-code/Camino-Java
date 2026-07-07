@@ -1965,6 +1965,184 @@ interface Animal {
 }
 ```
 
-## Clases anidadas
+## Type Casting (Cambio de tipos)
 
-Es una clase declarada dentro de otra clase. Las clases anidadas pueden ser estáticas o no estáticas (también conocidas como clases internas). Las clases anidadas permiten organizar mejor el código y encapsular la funcionalidad relacionada.
+En Java, el type casting se utiliza para convertir un objeto de un tipo a otro temporalmente. Hay dos tipos de type casting: implícito y explícito.
+
+* Type casting implícito: El compilador realiza automáticamente la conversión de tipos cuando es posible. Por ejemplo, cuando se asigna un valor de tipo int a una variable de tipo double.
+* Type casting explícito: El programador realiza la conversión de tipos utilizando la sintaxis `(tipo)`. Por ejemplo, cuando se asigna un valor de tipo double a una variable de tipo int.
+
+```java
+int num = 10;
+double decimal = num; // Type casting implícito
+double decimal2 = 10.5;
+int num2 = (int) decimal2; // Type casting explícito
+```
+
+## Clases Anidadas (Nested Classes)
+
+Una clase anidada es una clase declarada dentro de otra clase, pero las clases anidadas no están relacionadas a la jerarquía de la clase a la que pertenecen, pero si están enlazadas con esta.
+
+Las clases anidadas pueden ser:
+
+* no estáticas: Llamadas simplemente clases anidadas
+* estáticas: Llamadas static nested classes o clases anidadas estáticas
+* internas: Llamada inner classes o clases internas
+
+Para declarar una clase anidada, se utiliza la misma sintaxis que para declarar una clase normal dentro de otra clase. Por ejemplo:
+
+```java
+public class OuterClass {
+    // Clase anidada
+    public class NestedClass {
+        // Código de la clase anidada
+    }
+}
+```
+
+Para crear una instancia de una clase anidada, primero se crea una instancia de la clase externa y luego se crea una instancia de la clase anidada utilizando la instancia de la clase externa. Por ejemplo:
+
+```java
+OuterClass outer = new OuterClass();
+OuterClass.NestedClass nested = outer.new NestedClass();
+```
+
+Una clase anidada también puede ser privada (private), y en este caso solo puede ser accedida desde dentro de la clase externa.
+
+Las clases anidadas tienen acceso a los campos de su clase base.
+
+```java
+public class OuterClass {
+    private int outerField = 10;
+
+    // Clase anidada
+    public class NestedClass {
+        public void display() {
+            // Accediendo al campo de la clase externa
+            System.out.println("Valor del campo externo: " + outerField);
+        }
+    }
+}
+```
+
+```java
+OuterClass outer = new OuterClass();
+OuterClass.NestedClass nested = outer.new NestedClass();
+nested.display(); // Output: Valor del campo externo: 10
+```
+
+Las clases anidadas estáticas no tienen acceso a los campos de su clase base, ya que no tienen una referencia a la instancia de la clase externa. Sin embargo, pueden acceder a los campos estáticos de la clase externa.
+
+```java
+public class OuterClass {
+    private static int outerStaticField = 10;
+    
+    // Clase anidada estática
+    public static class StaticNestedClass {
+        public void display() {
+            // Accediendo al campo estático de la clase externa
+            System.out.println("Valor del campo estático externo: " + outerStaticField);
+        }
+    }
+}
+```
+
+### Uso de las clases anidadas
+
+* Para agrupar clases que se usarán en un solo lugar. Si la clase es útil solo para otra clase, es mas fácil tenerlas juntas.
+* Para aumentar la encapsulación. Si tienes una clase con campos privados que deseas mantener privados, es más fácil crear una clase anidada que pueda accesarlos, de otro modo tendrías que declararlos como package.
+* Para producir código más claro de entender y mantener. Definir una clase pequeña como una clase anidada hace que sea más fácil de localizar que si estuviera declarada en un archivo separado.
+
+## Clases Internas (Inner Classes)
+
+Una clase interna es una clase declarada dentro de otra clase, y está relacionada a la jerarquía de la clase a la que pertenece. Las clases internas pueden acceder a los miembros privados de la clase externa.
+
+```java
+public class OuterClass {
+    private int outerField = 10;
+
+    // Clase interna
+    public class InnerClass {
+        public void display() {
+            // Accediendo al miembro privado de la clase externa
+            System.out.println("Valor del campo externo: " + outerField);
+        }
+    }
+}
+```
+
+## Alcances de variables
+
+En Java, existen cinco alcances de una variable:
+
+* Variables estáticas: Son variables que pertenecen a la clase en lugar de a una instancia específica de la clase, por lo que pueden ser accedidas desde cualquier clase siempre y cuando estén declaradas como públicas. Se declaran utilizando la palabra clave `static`.
+* Alcance a nivel de clase: Son variables que pertenecen a una instancia específica de la clase y se declaran dentro de la clase, pero fuera de cualquier método. Pueden ser accedidas desde cualquier método de la clase.
+* Alcance a nivel de método: Son variables que se declaran dentro de un método y solo son accesibles dentro de ese método.
+* Alcance a nivel de bucle: Son variables que se declaran dentro de un bucle y solo son accesibles dentro de ese bucle.
+* Alcance a nivel bloque: Son variables que se declaran dentro de un bloque de código (por ejemplo, dentro de una estructura condicional) y solo son accesibles dentro de ese bloque.
+
+## Métodos y clases abstractas
+
+Una clase abstracta es una clase que se declara con la palabra `abstract` y no se puede instanciar directamente. Se utiliza como una plantilla para definir métodos que deben ser implementados por las clases que heredan de ella. Las clases abstractas pueden contener tanto métodos abstractos como métodos concretos. Las subclases deben implementar los métodos abstractos. Una clase abstracta también puede definir campos, métodos estáticos y variables estáticas.
+
+Un método abstracto es un método declarado en una clase abstracta sin implementación. Las clases que heredan de una clase abstracta deben proporcionar una implementación para todos los métodos abstractos heredados. Las clases abstractas pueden tener constructores y campos, pero no pueden ser instanciadas directamente.
+
+### Diferencia entre una clase abstracta y una interface
+
+Una clase abstracta y una interface son dos conceptos diferentes en Java que se utilizan para lograr la abstracción y la reutilización de código. Aunque ambas permiten la definición de métodos sin implementación, hay algunas diferencias clave entre ellas:
+
+- **Herencia múltiple**: Una clase abstracta puede heredar de otra clase abstracta o de una clase concreta, mientras que una interface solo puede heredar de otras interfaces.
+- **Implementación de métodos**: Una clase abstracta puede proporcionar una implementación parcial de los métodos abstractos, mientras que una interface solo puede definir métodos sin implementación.
+- **Campos**: Una clase abstracta puede tener campos, mientras que una interface solo puede tener constantes (campos estáticos y finales).
+- **Constructor**: Una clase abstracta puede tener un constructor, mientras que una interface no puede tener un constructor.
+- **Herencia e implementación**: Una clase solo puede heredar de una clase, pero una clase puede implementar muchas interfaces.
+
+En resumen, una clase abstracta es más flexible y permite la implementación parcial de métodos, mientras que una interface es más restrictiva y solo define métodos sin implementación. La elección entre una clase abstracta y una interface depende de las necesidades específicas del diseño de la aplicación.
+
+## Argumentos en métodos
+
+### Argumentos por valor y por referencia
+
+En Java, los argumentos se pasan por valor, lo que significa que se copia el valor del argumento en una variable local dentro del método. Si el argumento es un objeto, se copia la referencia al objeto, pero no se copia el objeto en sí mismo. Esto puede ser confuso al principio, ya que puede parecer que se está pasando el objeto en sí, pero en realidad solo se está pasando una referencia al objeto.
+
+Por ejemplo, considere el siguiente código:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        int x = 10;
+        System.out.println("Antes del método: " + x); // Output: 10
+        modificarValor(x);
+        System.out.println("Después del método: " + x); // Output: 10
+    }
+
+    public static void modificarValor(int valor) {
+        valor = 20;
+    }
+}
+```
+
+En este ejemplo, se muestra cómo se pasa un argumento por valor. La variable `x` se pasa al método `modificarValor`, y se copia su valor en una variable local llamada `valor`. Dentro del método, se modifica el valor de `valor`, pero esto no afecta el valor de `x` en el método `main`. Por lo tanto, después de llamar al método `modificarValor`, el valor de `x` sigue siendo 10.
+
+Si se pasa un objeto como argumento, se copia la referencia al objeto, pero no se copia el objeto en sí mismo. Esto significa que cualquier modificación al objeto dentro del método afectará al objeto original fuera del método. Por ejemplo:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Persona persona = new Persona("Juan", 25);
+        System.out.println("Antes del método: " + persona.getNombre()); //Output: Juan
+        modificarNombre(persona);
+        System.out.println("Después del método: " + persona.getNombre()); // Output: Pedro
+    }
+
+    public static void modificarNombre(Persona persona) {
+        persona.setNombre("Pedro");
+    }
+}
+```
+
+En este ejemplo, se muestra cómo se pasa un objeto como argumento. La variable `persona` se pasa al método `modificarNombre`, y se copia la referencia al objeto en una variable local llamada `persona`.
+
+## Métodos con argumentos variables
+
+Java soporta parámetros con argumentos variables. El método más famoso que requiere argumentos variables es el método `main`
