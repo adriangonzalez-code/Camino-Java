@@ -326,3 +326,151 @@ public class Sentencias {
     }
 }
 ```
+
+### Funciones
+
+Una función es un conjunto de instrucciones que realiza una tarea específica y puede devolver un valor, y puede ser ejecutado varias veces y en otras partes de un programa. En Java, las funciones se definen dentro de una clase y se conocen como métodos. Un método puede tener parámetros de entrada y un valor de retorno.
+
+```java
+// Ejemplo de una función en Java
+public class Funciones {
+    // Método que suma dos números enteros y devuelve el resultado
+    public static int sumar(int a, int b) { // Declaración del método sumar que recibe dos parámetros enteros a y b, y devuelve un valor entero. Está delimitado por llaves {}.
+        return a + b; // Devuelve la suma de a y b
+    } // Fin del método o función sumar
+    
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int resultado = sumar(5, 10); // Llamada al método sumar con los argumentos 5 y 10, y asignación del resultado a la variable resultado
+        System.out.println("El resultado de la suma es: " + resultado); // Imprime el resultado de la suma
+    } // Fin del método principal
+}
+```
+
+En la definición del lenguaje Java, se habla de parámetros formales y parámetros actuales. Los parámetros formales son los que se definen en la declaración del método, mientras que los parámetros actuales son los que se pasan al llamar al método. En el ejemplo anterior, `int a` y `int b` son parámetros formales, mientras que `5` y `10` son parámetros actuales.
+
+A los parámetros formales se les puede llamar también **parámetros**, mientras que a los parámetros actuales se les puede llamar **argumentos**.
+
+El nombre de parámetro definido en un método, no tiene nada que ver con el nombre de una variable que pudieras haber definido en otra parte del programa. Por ejemplo, en el siguiente código, el parámetro `a` del método `sumar` no tiene nada que ver con la variable `a` definida en el método `main`.
+
+La palabra return se utiliza para devolver un valor desde un método. Cuando se ejecuta una sentencia return, el control del programa vuelve al punto donde se llamó al método, y el valor devuelto puede ser utilizado en ese punto.
+
+```java
+// Ejemplo de la palabra return en Java
+public class ReturnEjemplo {
+    // Método que devuelve el valor absoluto de un número entero
+    public static int valorAbsoluto(int numero) { // Declaración del método valorAbsoluto que recibe un parámetro entero numero y devuelve un valor entero. Está delimitado por llaves {}.
+        if (numero < 0) { // Si el número es negativo
+            return -numero; // Devuelve el valor positivo del número
+        } else { // Si el número es positivo o cero
+            return numero; // Devuelve el número tal cual
+        }
+    } // Fin del método o función valorAbsoluto
+}
+```
+
+```java
+// Ejemplo de función que devuelve el promedio de 4 números en Java
+public class Promedio {
+    // Método que calcula el promedio de 4 números enteros y devuelve el resultado como un número decimal (double)
+    public static double calcularPromedio(int a, int b, int c, int d) { // Declaración del método calcularPromedio que recibe cuatro parámetros enteros a, b, c y d, y devuelve un valor decimal (double). Está delimitado por llaves {}.
+        return (a + b + c + d) / 4.0; // Devuelve el promedio de los cuatro números
+    } // Fin del método o función calcularPromedio
+    
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        double promedio = calcularPromedio(10, 20, 30, 40); // Llamada al método calcularPromedio con los argumentos 10, 20, 30 y 40, y asignación del resultado a la variable promedio
+        System.out.println("El promedio es: " + promedio); // Imprime el promedio calculado
+    } // Fin del método principal
+}
+```
+
+### Arreglos
+
+Un arreglo es una secuencia de variables del mismo tipo que se almacenan en memoria de manera contigua y se acceden mediante un índice. En Java, los arreglos son objetos que pueden contener elementos de cualquier tipo de dato, incluyendo tipos primitivos y objetos.
+
+```java
+// Ejemplo de un arreglo en Java
+public class Arreglos {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int[] numeros = {1, 2, 3, 4, 5}; // Declaración de un arreglo de enteros llamado numeros y asignación de valores
+        System.out.println("El primer número es: " + numeros[0]); // Imprime el primer número del arreglo (índice 0)
+        System.out.println("El segundo número es: " + numeros[1]); // Imprime el segundo número del arreglo (índice 1)
+        System.out.println("El tercer número es: " + numeros[2]); // Imprime el tercer número del arreglo (índice 2)
+        System.out.println("El cuarto número es: " + numeros[3]); // Imprime el cuarto número del arreglo (índice 3)
+        System.out.println("El quinto número es: " + numeros[4]); // Imprime el quinto número del arreglo (índice 4)
+    } // Fin del método principal
+}
+```
+
+No es posible usar un indice mas allá del tamaño del arreglo, ya que esto generará un error de ejecución llamado `ArrayIndexOutOfBoundsException`. Por ejemplo, si intentamos acceder al índice 5 del arreglo `numeros` declarado anteriormente, obtendremos un error, ya que el arreglo tiene un tamaño de 5 y los índices válidos son del 0 al 4.
+
+```java
+// Ejemplo de error de índice fuera de límites en Java
+public class ErrorIndice {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int[] numeros = {1, 2, 3, 4, 5}; // Declaración de un arreglo de enteros llamado numeros y asignación de valores
+        System.out.println("El sexto número es: " + numeros[5]); // Intento de acceder al índice 5 del arreglo, lo que generará un error de ejecución
+    } // Fin del método principal
+}
+```
+
+Como puedes observar, el indice inicia en 0 y termina en n-1, donde n es el tamaño del arreglo. Por lo tanto, si un arreglo tiene 5 elementos, los índices válidos son 0, 1, 2, 3 y 4. Intentar acceder a un índice fuera de este rango generará un error de ejecución.
+
+```java
+// Calcular el promedio de un arreglo de números en Java
+public class PromedioArreglo {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int[] numeros = {10, 20, 30, 40, 50}; // Declaración de un arreglo de enteros llamado numeros y asignación de valores
+        double promedio = (numeros[0] + numeros[1] + numeros[2] + numeros[3] + numeros[4]) / numeros.length; // Cálculo del promedio de los números del arreglo
+        System.out.println("El promedio es: " + promedio); // Imprime el promedio calculado
+    } // Fin del método principal
+}
+```
+
+Con el método `length` podemos obtener el tamaño del arreglo, lo que nos permite calcular el promedio de manera más flexible, sin necesidad de conocer el tamaño del arreglo de antemano. Esto es especialmente útil cuando trabajamos con arreglos de tamaño variable.
+
+#### Arreglos multidimensionales
+
+Un arreglo multidimensional es un arreglo que contiene otros arreglos como elementos. En Java, los arreglos multidimensionales se pueden declarar utilizando múltiples corchetes `[]`. Por ejemplo, un arreglo bidimensional se puede declarar como `int[][] matriz`.
+
+```java
+// Ejemplo de un arreglo bidimensional en Java
+public class ArregloBidimensional {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int[][] matriz = { // Declaración de un arreglo bidimensional llamado matriz y asignación de valores
+            {1, 2, 3}, // Primera fila
+            {4, 5, 6}, // Segunda fila
+            {7, 8, 9}  // Tercera fila
+        };
+        System.out.println("Elemento en la primera fila y primera columna: " + matriz[0][0]); // Imprime el elemento en la primera fila y primera columna (índice 0,0)
+        System.out.println("Elemento en la segunda fila y tercera columna: " + matriz[1][2]); // Imprime el elemento en la segunda fila y tercera columna (índice 1,2)
+        System.out.println("Elemento en la tercera fila y segunda columna: " + matriz[2][1]); // Imprime el elemento en la tercera fila y segunda columna (índice 2,1)
+    } // Fin del método principal
+}
+```
+
+Como Java trata a los arreglos multidimensionales como arreglos de arreglos, es posible tener filas de diferentes tamaños. Esto significa que no todas las filas de un arreglo bidimensional tienen que tener el mismo número de columnas. Por ejemplo, podemos declarar un arreglo bidimensional con filas de diferentes longitudes:
+
+```java
+// Ejemplo de un arreglo bidimensional con filas de diferentes longitudes en Java
+public class ArregloBidimensionalIrregular {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int[][] matrizIrregular = { // Declaración de un arreglo bidimensional irregular llamado matrizIrregular y asignación de valores
+            {1, 2, 3}, // Primera fila con 3 elementos
+            {4, 5},    // Segunda fila con 2 elementos
+            {6, 7, 8, 9} // Tercera fila con 4 elementos
+        };
+        System.out.println("Elemento en la primera fila y primera columna: " + matrizIrregular[0][0]); // Imprime el elemento en la primera fila y primera columna (índice 0,0)
+        System.out.println("Elemento en la segunda fila y segunda columna: " + matrizIrregular[1][1]); // Imprime el elemento en la segunda fila y segunda columna (índice 1,1)
+        System.out.println("Elemento en la tercera fila y cuarta columna: " + matrizIrregular[2][3]); // Imprime el elemento en la tercera fila y cuarta columna (índice 2,3)
+    } // Fin del método principal
+}
+```
+
+#### Copiando arreglos
+
+Java cuenta con una clase llamada System, dentro de esta clase se encuentran muchos métodos y variables útiles. Uno de estos métodos es `arraycopy()`, que nos permite copiar elementos de un arreglo a otro de manera eficiente. La sintaxis del método es la siguiente:
+
+```java
+System.arraycopy(Object src, int srcPos, Object dest, int destPos, int length); // Copia elementos de un arreglo a otro, los argumentos son: src (arreglo de origen), srcPos (posición inicial en el arreglo de origen), dest (arreglo de destino), destPos (posición inicial en el arreglo de destino) y length (número de elementos a copiar).
+```
+
