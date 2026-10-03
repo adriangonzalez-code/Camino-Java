@@ -474,3 +474,335 @@ Java cuenta con una clase llamada System, dentro de esta clase se encuentran muc
 System.arraycopy(Object src, int srcPos, Object dest, int destPos, int length); // Copia elementos de un arreglo a otro, los argumentos son: src (arreglo de origen), srcPos (posición inicial en el arreglo de origen), dest (arreglo de destino), destPos (posición inicial en el arreglo de destino) y length (número de elementos a copiar).
 ```
 
+### Ciclo For, for mejorado
+
+#### Ciclo For
+
+El ciclo `for` es una estructura de control que nos permite repetir un bloque de código un número determinado de veces. La sintaxis básica del ciclo `for` es la siguiente:
+
+```java
+for (inicialización; condición; actualización) {
+    // Bloque de código a repetir
+}
+```
+
+Ejemplo de un ciclo `for` que imprime los números del 1 al 5:
+
+```java
+// Ejemplo de un ciclo for en Java
+public class CicloFor {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        for (int i = 1; i <= 5; i++) { // Inicialización de la variable i, condición de repetición y actualización de i
+            System.out.println("Número: " + i); // Imprime el valor de i en cada iteración
+        }
+    } // Fin del método principal
+}
+```
+
+Ejemplo de un ciclo `for` que calcula el promedio de un arreglo de números:
+
+```java
+// Ejemplo de cálculo del promedio de un arreglo utilizando un ciclo for en Java
+public class PromedioArregloFor {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        double[] numeros = {10, 20, 30, 40, 50}; // Declaración de un arreglo de números decimales llamado numeros y asignación de valores
+        double promedio = promedio(numeros); // Llamada al método promedio con el arreglo numeros como argumento y asignación del resultado a la variable promedio
+        System.out.println("El promedio es: " + promedio); // Imprime el promedio calculado
+    } // Fin del método principal
+    
+    public static double promedio(double[] arreglo) { // Método que calcula el promedio de un arreglo de números decimales y devuelve el resultado como un número decimal (double)
+        double suma = 0; // Variable para almacenar la suma de los elementos del arreglo
+        for (int i = 0; i < arreglo.length; i++) { // Ciclo for que recorre el arreglo desde el índice 0 hasta el tamaño del arreglo
+            suma += arreglo[i]; // Suma el elemento actual del arreglo a la variable suma
+        }
+        return suma / arreglo.length; // Devuelve el promedio dividiendo la suma entre el tamaño del arreglo
+    } // Fin del método promedio
+}
+```
+
+#### Ciclo For mejorado
+
+A partir de Java 5, se introdujo el ciclo `for` mejorado, también conocido como "for-each". Este ciclo nos permite recorrer los elementos de un arreglo o una colección de manera más sencilla y legible. La sintaxis básica del ciclo `for` mejorado es la siguiente:
+
+```java
+for (tipo variable : arreglo) {
+    // Bloque de código a repetir
+}
+```
+
+Ejemplo de un ciclo `for` mejorado que imprime los elementos de un arreglo:
+
+```java
+// Ejemplo de un ciclo for mejorado en Java
+public class CicloForMejorado {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int[] numeros = {1, 2, 3, 4, 5}; // Declaración de un arreglo de enteros llamado numeros y asignación de valores
+        for (int numero : numeros) { // Ciclo for mejorado que recorre el arreglo numeros
+            System.out.println("Número: " + numero); // Imprime el valor de cada elemento del arreglo
+        }
+    } // Fin del método principal
+}
+```
+
+Ejemplo de un ciclo `for` mejorado que calcula el promedio de un arreglo de números:
+
+```java
+// Ejemplo de cálculo del promedio de un arreglo utilizando un ciclo for mejorado en Java
+public class PromedioArregloForMejorado {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        double[] numeros = {10, 20, 30, 40, 50}; // Declaración de un arreglo de números decimales llamado numeros y asignación de valores
+        double promedio = promedio(numeros); // Llamada al método promedio con el arreglo numeros como argumento y asignación del resultado a la variable promedio
+        System.out.println("El promedio es: " + promedio); // Imprime el promedio calculado
+    } // Fin del método principal
+
+    public static double promedio(double[] arreglo) { // Método que calcula el promedio de un arreglo de números decimales y devuelve el resultado como un número decimal (double)
+        double suma = 0; // Variable para almacenar la suma de los elementos del arreglo
+        for (double numero : arreglo) { // Ciclo for mejorado que recorre el arreglo desde el primer elemento hasta el último
+            suma += numero; // Suma el elemento actual del arreglo a la variable suma
+        }
+        return suma / arreglo.length; // Devuelve el promedio dividiendo la suma entre el tamaño del arreglo
+    } // Fin del método promedio
+}
+```
+
+#### La flexibilidad del ciclo for
+
+La sintaxis del ciclo `for` es muy flexible y nos permite omitir cualquiera de sus tres partes: inicialización, condición y actualización. Sin embargo, debemos tener cuidado al omitir la condición, ya que esto puede llevar a un bucle infinito si no se maneja correctamente.
+
+```java
+// Ejemplo de un ciclo for con inicialización y actualización omitida en Java
+public class CicloForCondicionOmitida {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int i = 0; // Inicialización de la variable i
+        for (; i < 5; ) { // Ciclo for con condición omitida, pero con una condición de salida que depende de la variable i
+            System.out.println("Número: " + i); // Imprime el valor de i en cada iteración
+            i++; // Incremento de i en 1
+        }
+    } // Fin del método principal
+}
+```
+
+### Sobrecarga de métodos, ciclos while y do-while, bloques
+
+#### Sobrecarga de métodos
+
+La sobrecarga de métodos (method overloading) es una característica de Java que nos permite definir múltiples métodos con el mismo nombre siempre y cuando el tipo de datos de sus parámetros o el número de parámetros sean diferentes. Esto nos permite crear métodos que realizan la misma operación pero con diferentes tipos o cantidades de datos.
+
+```java
+// Ejemplo de sobrecarga de métodos en Java
+public class SobrecargaMetodos {
+    // Método que suma dos números enteros
+    public static int sumar(int a, int b) { // Declaración del método sumar que recibe dos parámetros enteros a y b, y devuelve un valor entero. Está delimitado por llaves {}.
+        return a + b; // Devuelve la suma de a y b
+    } // Fin del método o función sumar
+
+    // Método que suma tres números enteros
+    public static int sumar(int a, int b, int c) { // Declaración del método sumar que recibe tres parámetros enteros a, b y c, y devuelve un valor entero. Está delimitado por llaves {}.
+        return a + b + c; // Devuelve la suma de a, b y c
+    } // Fin del método o función sumar
+
+    // Método que suma dos números decimales
+    public static double sumar(double a, double b) { // Declaración del método sumar que recibe dos parámetros decimales a y b, y devuelve un valor decimal (double). Está delimitado por llaves {}.
+        return a + b; // Devuelve la suma de a y b
+    } // Fin del método o función sumar
+
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        System.out.println("Suma de dos enteros: " + sumar(5, 10)); // Llamada al método sumar con dos enteros como argumentos
+        System.out.println("Suma de tres enteros: " + sumar(5, 10, 15)); // Llamada al método sumar con tres enteros como argumentos
+        System.out.println("Suma de dos decimales: " + sumar(5.5, 10.5)); // Llamada al método sumar con dos decimales como argumentos
+    } // Fin del método principal
+}
+```
+
+Técnicamente hablando, se podría decir que el identificador de una función es el nombre de la función junto con el tipo y número de sus parámetros. Esto significa que dos funciones pueden tener el mismo nombre siempre y cuando tengan diferentes tipos o cantidades de parámetros, lo que permite la sobrecarga de métodos en Java.
+
+Java cuenta con una clase que contiene métodos sobrecargados, es la clase System, que contiene métodos como `println()`, que puede recibir diferentes tipos de datos como argumentos, incluyendo enteros, decimales, cadenas de texto y objetos. Esto nos permite imprimir diferentes tipos de datos en la consola utilizando el mismo método `println()`.
+
+```java
+// Ejemplo de sobrecarga de métodos en la clase System en Java
+public class SobrecargaSystem {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        System.out.println("Hola, mundo!"); // Llamada al método println con una cadena de texto como argumento
+        System.out.println(42); // Llamada al método println con un número entero como argumento
+        System.out.println(3.14); // Llamada al método println con un número decimal como argumento
+        System.out.println(true); // Llamada al método println con un valor booleano como argumento
+    } // Fin del método principal
+}
+```
+
+
+#### Ciclo while
+
+El ciclo `while` es una estructura de control que nos permite repetir un bloque de código mientras se cumpla una condición determinada. La sintaxis básica del ciclo `while` es la siguiente:
+
+```java
+while (condición) {
+    // Bloque de código a repetir
+}
+```
+
+Ejemplo de un ciclo `while` de cálculo del promedio de un arreglo de números:
+
+```java
+// Ejemplo de cálculo del promedio de un arreglo utilizando un ciclo while en Java
+public class PromedioArregloWhile {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        double[] numeros = {10, 20, 30, 40, 50}; // Declaración de un arreglo de números decimales llamado numeros y asignación de valores
+        double promedio = promedio(numeros); // Llamada al método promedio con el arreglo numeros como argumento y asignación del resultado a la variable promedio
+        System.out.println("El promedio es: " + promedio); // Imprime el promedio calculado
+    } // Fin del método principal
+
+    public static double promedio(double[] arreglo) { // Método que calcula el promedio de un arreglo de números decimales y devuelve el resultado como un número decimal (double)
+        double suma = 0; // Variable para almacenar la suma de los elementos del arreglo
+        int i = 0; // Inicialización de la variable i para controlar el índice del arreglo
+        while (i < arreglo.length) { // Ciclo while que se ejecuta mientras i sea menor que el tamaño del arreglo
+            suma += arreglo[i]; // Suma el elemento actual del arreglo a la variable suma
+            i++; // Incremento de i en 1
+        }
+        return suma / arreglo.length; // Devuelve el promedio dividiendo la suma entre el tamaño del arreglo
+    } // Fin del método promedio
+}
+```
+
+#### Ciclo do-while
+
+El ciclo `do-while` es similar al ciclo `while`, pero la diferencia principal es que el bloque de código se ejecuta al menos una vez antes de evaluar la condición. La sintaxis básica del ciclo `do-while` es la siguiente:
+
+```java
+do {
+    // Bloque de código a repetir
+} while (condición);
+```
+
+Ejemplo de un ciclo `do-while` que imprime los números del 1 al 5:
+
+```java
+// Ejemplo de un ciclo do-while en Java
+public class CicloDoWhile {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int i = 1; // Inicialización de la variable i
+        do { // Inicio del ciclo do-while
+            System.out.println("Número: " + i); // Imprime el valor de i en cada iteración
+            i++; // Incremento de i en 1
+        } while (i <= 5); // Condición de repetición del ciclo do-while
+    } // Fin del método principal
+}
+```
+
+#### Bloques
+
+Los bloques son secciones de código delimitadas por llaves `{}` que agrupan varias sentencias. Los bloques se utilizan para definir el alcance de las variables y para organizar el código en estructuras de control como ciclos y condicionales. Un bloque puede contener declaraciones de variables, sentencias y otros bloques anidados.
+
+En Java, los bloques se utilizan en diferentes contextos, como en métodos, ciclos, condicionales y clases. Por ejemplo, un bloque dentro de un método puede contener varias sentencias que se ejecutan secuencialmente. De hecho, las condiciones y ciclos pueden no usar llaves si solo contienen una sentencia, pero es recomendable usarlas para mejorar la legibilidad del código y evitar errores al agregar más sentencias en el futuro.
+
+```java
+// Ejemplo de bloques en Java
+public class Bloques {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int a = 10; // Declaración de una variable entera a y asignación de valor 10
+        if (a > 5) { // Condicional que verifica si a es mayor que 5
+            System.out.println("a es mayor que 5"); // Imprime "a es mayor que 5" si la condición es verdadera
+            { // Inicio de un bloque anidado
+                int b = 20; // Declaración de una variable entera b y asignación de valor 20
+                System.out.println("b es: " + b); // Imprime el valor de b
+            } // Fin del bloque anidado
+            // System.out.println("b es: " + b); // Esto generaría un error de compilación, ya que b no está definido en este alcance
+        } // Fin del condicional
+    } // Fin del método principal
+}
+```
+
+### Condiciones
+
+Las condiciones son una parte del lenguaje de programación que nos permiten tomar decisiones en nuestro código. En Java, las condiciones se expresan mediante expresiones booleanas que pueden ser verdaderas (`true`) o falsas (`false`). Las condiciones se utilizan en estructuras de control como `if`, `else if`, `else` y `switch`.
+
+#### Condicional if
+
+El condicional `if` nos permite ejecutar un bloque de código si se cumple una condición determinada. La sintaxis básica del condicional `if` es la siguiente:
+
+```java
+if (condición) {
+    // Bloque de código a ejecutar si la condición es verdadera
+}
+```
+
+Ejemplo de una condición `if` que verifica si un número es positivo:
+
+```java
+// Ejemplo de un condicional if en Java
+public class CondicionalIf {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int numero = 10; // Declaración de una variable entera numero y asignación de valor 10
+        if (numero > 0) { // Condicional que verifica si numero es mayor que 0
+            System.out.println("El número es positivo"); // Imprime "El número es positivo" si la condición es verdadera
+        }
+    } // Fin del método principal
+}
+```
+
+#### Condicional if-else
+
+El condicional `if-else` nos permite ejecutar un bloque de código si se cumple una condición y otro bloque de código si no se cumple. La sintaxis básica del condicional `if-else` es la siguiente:
+
+```java
+if (condición) {
+    // Bloque de código a ejecutar si la condición es verdadera
+} else {
+    // Bloque de código a ejecutar si la condición es falsa
+}
+```
+
+Ejemplo de una condición `if-else` que verifica si un mes tiene 28, 30 o 31 días:
+
+```java
+// Ejemplo de un condicional if-else en Java
+public class CondicionalIfElse {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int mes = 2; // Declaración de una variable entera mes y asignación de valor 2 (febrero)
+        if (mes == 2) { // Condicional que verifica si mes es igual a 2 (febrero)
+            System.out.println("El mes tiene 28 o 29 días"); // Imprime "El mes tiene 28 o 29 días" si la condición es verdadera
+        } else if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) { // Condicional que verifica si mes es igual a 1, 3, 5, 7, 8, 10 o 12 (meses con 31 días)
+            System.out.println("El mes tiene 31 días"); // Imprime "El mes tiene 31 días" si la condición es verdadera
+        } else { // Si ninguna de las condiciones anteriores se cumple
+            System.out.println("El mes tiene 30 días"); // Imprime "El mes tiene 30 días"
+        }
+    } // Fin del método principal
+}
+```
+
+#### Conidicional if-else-if
+
+El condicional `if-else-if` nos permite evaluar múltiples condiciones de manera secuencial. Si la primera condición es falsa, se evalúa la siguiente, y así sucesivamente, hasta que se encuentre una condición verdadera o se llegue al bloque `else`. La sintaxis básica del condicional `if-else-if` es la siguiente:
+
+```java
+if (condición1) {
+    // Bloque de código a ejecutar si la condición1 es verdadera
+} else if (condición2) {
+    // Bloque de código a ejecutar si la condición2 es verdadera
+} else {
+    // Bloque de código a ejecutar si ninguna de las condiciones anteriores es verdadera
+}
+```
+
+Ejemplo de una condición `if-else-if` que verifica la calificación de un estudiante:
+
+```java
+// Ejemplo de un condicional if-else-if en Java
+public class CondicionalIfElseIf {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int calificacion = 85; // Declaración de una variable entera calificacion y asignación de valor 85
+        if (calificacion >= 90) { // Condicional que verifica si calificacion es mayor o igual a 90
+            System.out.println("Excelente"); // Imprime "Excelente" si la condición es verdadera
+        } else if (calificacion >= 80) { // Condicional que verifica si calificacion es mayor o igual a 80
+            System.out.println("Bueno"); // Imprime "Bueno" si la condición es verdadera
+        } else if (calificacion >= 70) { // Condicional que verifica si calificacion es mayor o igual a 70
+            System.out.println("Regular"); // Imprime "Regular" si la condición es verdadera
+        } else { // Si ninguna de las condiciones anteriores se cumple
+            System.out.println("Insuficiente"); // Imprime "Insuficiente"
+        }
+    } // Fin del método principal
+}
+```
+
+En el ejemplo anterior, podemos observar que se cumplen varias condiciones, pero Java ejecuta únicamente el bloque de código correspondiente a la primera condición verdadera que encuentra. En este caso, como la calificación es 85, se imprime "Bueno" y no se evalúan las condiciones siguientes. Esto demuestra cómo funciona la estructura `if-else-if` para tomar decisiones basadas en múltiples criterios.
+
