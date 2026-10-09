@@ -806,3 +806,128 @@ public class CondicionalIfElseIf {
 
 En el ejemplo anterior, podemos observar que se cumplen varias condiciones, pero Java ejecuta únicamente el bloque de código correspondiente a la primera condición verdadera que encuentra. En este caso, como la calificación es 85, se imprime "Bueno" y no se evalúan las condiciones siguientes. Esto demuestra cómo funciona la estructura `if-else-if` para tomar decisiones basadas en múltiples criterios.
 
+#### El operador condicional `? :`
+
+El operador condicional `? :`, también conocido como operador ternario, es una forma concisa de escribir una expresión condicional en Java. Este operador evalúa una condición y devuelve un valor si la condición es verdadera y otro valor si la condición es falsa. La sintaxis básica del operador condicional es la siguiente:
+
+```java
+// Ejemplo del operador en su forma if-else
+if (condición) {
+    valor1; // Valor si la condición es verdadera
+} else {
+    valor2; // Valor si la condición es falsa
+}
+
+// Equivalente con operador condicional ? :
+condición ? valor1 : valor2; // Devuelve valor1 si la condición es verdadera
+// Devuelve valor2 si la condición es falsa
+```
+
+Ejemplo de uso del operador condicional `? :` para determinar si un número es par o impar:
+
+```java
+// Ejemplo de uso del operador condicional ? : en Java
+public class OperadorCondicional {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int numero = 7; // Declaración de una variable entera numero y asignación de valor 7
+        String resultado = (numero % 2 == 0) ? "El número es par" : "El número es impar"; // Evaluación de la condición
+        System.out.println(resultado); // Imprime el resultado de la evaluación
+    } // Fin del método principal
+}
+```
+
+Ejemplo de una función que devuelve el número mayor entre 3 números utilizando el tradicional `if-else` y el operador condicional `? :`:
+
+```java
+// Ejemplo de una función que devuelve el número mayor entre 3 números utilizando if-else
+public class MayorIfElse {
+    public static int mayor(int a, int b, int c) { // Declaración del método mayor que recibe tres parámetros enteros a, b y c, y devuelve un valor entero.
+        if (a >= b && a >= c) { // Condicional que verifica si a es mayor o igual a b y c
+            return a; // Devuelve a si la condición es verdadera
+        } else if (b >= a && b >= c) { // Condicional que verifica si b es mayor o igual a a y c
+            return b; // Devuelve b si la condición es verdadera
+        } else { // Si ninguna de las condiciones anteriores se cumple
+            return c; // Devuelve c
+        }
+    } // Fin del método mayor
+} // Fin de la clase MayorIfElse
+
+// Ejemplo de una función que devuelve el número mayor entre 3 números utilizando el operador condicional ? :
+public class MayorOperadorCondicional {
+    public static int mayor(int a, int b, int c) { // Declaración del método mayor que recibe tres parámetros enteros a, b y c, y devuelve un valor entero.
+        return (a >= b && a >= c) ? a : (b >= a && b >= c) ? b : c; // Evaluación de la condición utilizando el operador condicional
+    } // Fin del método mayor
+} // Fin de la clase MayorOperadorCondicional
+```
+
+### Break y continue, switch
+
+#### Sentencias break y continue
+
+Ninguno de los ciclos o bucles que ya conocemos (for, while, do-while) necesita ejecutarse de principio a fin, porque hay situaciones en las que necesitamos interrumpir la ejecución de un ciclo antes de que termine, o saltar a la siguiente iteración del ciclo sin ejecutar el resto del bloque de código. Para esto, Java nos proporciona las sentencias `break` y `continue`.
+
+La sentencia `break` se utiliza para salir de un ciclo o bucle antes de que se cumpla la condición de finalización. Cuando se ejecuta una sentencia `break`, el control del programa salta inmediatamente fuera del ciclo, y la ejecución continúa con la siguiente instrucción después del ciclo. La sentencia `continue`, por otro lado, se utiliza para saltar a la siguiente iteración del ciclo sin ejecutar el resto del bloque de código dentro del ciclo. Cuando se ejecuta una sentencia `continue`, el control del programa salta inmediatamente a la siguiente iteración del ciclo, evaluando nuevamente la condición de repetición.
+
+Ejemplo de uso de la sentencia `continue` para calcular el promedio de un arreglo de números, ignorando los números negativos:
+
+```java
+// Ejemplo de cálculo del promedio de un arreglo utilizando un ciclo for y la sentencia continue en Java
+public class PromedioArregloContinue {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        double[] numeros = {10, -20, 30, -40, 50}; // Declaración de un arreglo de números decimales llamado numeros y asignación de valores, incluyendo números negativos
+        double promedio = promedio(numeros); // Llamada al método promedio con el arreglo numeros como argumento y asignación del resultado a la variable promedio
+        System.out.println("El promedio es: " + promedio); // Imprime el promedio calculado
+    } // Fin del método principal
+
+    public static double promedio(double[] arreglo) { // Método que calcula el promedio de un arreglo de números decimales y devuelve el resultado como un número decimal (double)
+        double suma = 0; // Variable para almacenar la suma de los elementos del arreglo
+        int contador = 0; // Variable para contar la cantidad de elementos válidos (no negativos)
+        int i = 0; // Inicialización del índice para el ciclo while
+        while (i < arreglo.length) { // Ciclo while que recorre el arreglo desde el primer elemento hasta el último
+            double numero = arreglo[i]; // Obtiene el elemento actual del arreglo
+            if (numero < 0) { // Condicional que verifica si el número es negativo
+                i++; // Incrementa el índice antes de continuar
+                continue; // Salta a la siguiente iteración del ciclo, ignorando el resto del bloque de código
+            }
+            suma += numero; // Suma el elemento actual del arreglo a la variable suma
+            contador++; // Incrementa el contador de elementos válidos
+            i++; // Incrementa el índice después de procesar el elemento actual
+        }
+        return (contador > 0) ? (suma / contador) : 0; // Devuelve el promedio dividiendo la suma entre la cantidad de elementos válidos, o 0 si no hay elementos válidos
+    } // Fin del método promedio
+}
+```
+
+#### Uso de etiquetas con break y continue
+
+Java permite el uso de etiquetas (labels) con las sentencias `break` y `continue`, lo que nos permite salir de o continuar con un ciclo específico en caso de tener ciclos anidados. Una etiqueta es un identificador seguido de dos puntos (`:`) que se coloca antes de un ciclo o bloque de código. Cuando se utiliza una sentencia `break` o `continue` con una etiqueta, el control del programa salta al ciclo o bloque de código etiquetado. Esto es útil cuando tenemos ciclos anidados y queremos salir de un ciclo externo o continuar con un ciclo externo desde un ciclo interno.
+
+Ejemplo de uso de etiquetas con la sentencia `break` para salir de un ciclo externo desde un ciclo interno:
+
+```java
+// Ejemplo de uso de etiquetas con la sentencia break en Java
+public class BreakConEtiqueta {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int[][] matriz = { // Declaración de un arreglo bidimensional llamado matriz y asignación de valores
+            {1, 2, 3}, // Primera fila
+            {4, 5, 6}, // Segunda fila
+            {7, 8, 9}  // Tercera fila
+        };
+        boolean encontrado = false; // Variable para indicar si se encontró el número 5
+        buscar: // Etiqueta para el ciclo externo
+        for (int i = 0; i < matriz.length; i++) { // Ciclo for que recorre las filas de la matriz
+            for (int j = 0; j < matriz[i].length; j++) { // Ciclo for que recorre las columnas de la matriz
+                if (matriz[i][j] == 5) { // Condicional que verifica si el elemento actual es igual a 5
+                    encontrado = true; // Se encontró el número 5
+                    break buscar; // Salta fuera del ciclo externo utilizando la etiqueta buscar
+                }
+            } // Fin del ciclo interno
+        } // Fin del ciclo externo
+        if (encontrado) { // Condicional que verifica si se encontró el número 5
+            System.out.println("Se encontró el número 5 en la matriz."); // Imprime un mensaje indicando que se encontró el número 5
+        } else { // Si no se encontró el número 5
+            System.out.println("No se encontró el número 5 en la matriz."); // Imprime un mensaje indicando que no se encontró el número 5
+        }
+    } // Fin del método principal
+}
+```
