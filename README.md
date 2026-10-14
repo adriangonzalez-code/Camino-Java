@@ -931,3 +931,238 @@ public class BreakConEtiqueta {
     } // Fin del método principal
 }
 ```
+Para el caso del uso de etiquetas con la sentencia `continue`, podemos utilizar un ejemplo similar al anterior, pero en lugar de salir del ciclo externo, continuaremos con la siguiente iteración del ciclo externo desde el ciclo interno.
+
+```java
+// Ejemplo de uso de etiquetas con la sentencia continue en Java
+public class ContinueConEtiqueta {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int[][] matriz = { // Declaración de un arreglo bidimensional llamado matriz y asignación de valores
+            {1, 2, 3}, // Primera fila
+            {4, 5, 6}, // Segunda fila
+            {7, 8, 9}  // Tercera fila
+        };
+        buscar: // Etiqueta para el ciclo externo
+        for (int i = 0; i < matriz.length; i++) { // Ciclo for que recorre las filas de la matriz
+            for (int j = 0; j < matriz[i].length; j++) { // Ciclo for que recorre las columnas de la matriz
+                if (matriz[i][j] == 5) { // Condicional que verifica si el elemento actual es igual a 5
+                    System.out.println("Se encontró el número 5 en la fila " + i + " y columna " + j); // Imprime un mensaje indicando la posición del número 5
+                    continue buscar; // Salta a la siguiente iteración del ciclo externo utilizando la etiqueta buscar
+                }
+                System.out.println("Elemento en la fila " + i + " y columna " + j + ": " + matriz[i][j]); // Imprime el elemento actual de la matriz
+            } // Fin del ciclo interno
+        } // Fin del ciclo externo
+    } // Fin del método principal
+}
+```
+
+#### Sentencia switch
+
+La sentencia `switch` es una estructura de control que nos permite ejecutar diferentes bloques de código según el valor de una expresión. La sintaxis básica de la sentencia `switch` es la siguiente:
+
+```java
+switch (expresión) {
+    case valor1:
+        // Bloque de código a ejecutar si la expresión es igual a valor1
+        break; // Salta fuera del switch
+    case valor2:
+        // Bloque de código a ejecutar si la expresión es igual a valor2
+        break; // Salta fuera del switch
+    // ...
+    default:
+        // Bloque de código a ejecutar si la expresión no coincide con ningún valor
+}
+```
+
+Ejemplo de uso de la sentencia `switch` para determinar el nombre del día de la semana según un número:
+
+```java
+// Ejemplo de uso de la sentencia switch en Java
+public class SwitchDiasSemana {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int dia = 3; // Declaración de una variable entera dia y asignación de valor 3 (miércoles)
+        switch (dia) { // Inicio de la sentencia switch que evalúa el valor de la variable dia
+            case 1: // Caso para el valor 1 (lunes)
+                System.out.println("Lunes"); // Imprime "Lunes"
+                break; // Salta fuera del switch
+            case 2: // Caso para el valor 2 (martes)
+                System.out.println("Martes"); // Imprime "Martes"
+                break; // Salta fuera del switch
+            case 3: // Caso para el valor 3 (miércoles)
+                System.out.println("Miércoles"); // Imprime "Miércoles"
+                break; // Salta fuera del switch
+            case 4: // Caso para el valor 4 (jueves)
+                System.out.println("Jueves"); // Imprime "Jueves"
+                break; // Salta fuera del switch
+            case 5: // Caso para el valor 5 (viernes)
+                System.out.println("Viernes"); // Imprime "Viernes"
+                break; // Salta fuera del switch
+            case 6: // Caso para el valor 6 (sábado)
+                System.out.println("Sábado"); // Imprime "Sábado"
+                break; // Salta fuera del switch
+            case 7: // Caso para el valor 7 (domingo)
+                System.out.println("Domingo"); // Imprime "Domingo"
+                break; // Salta fuera del switch
+            default: // Caso por defecto si el valor de dia no coincide con ningún caso anterior
+                System.out.println("Día inválido"); // Imprime "Día inválido"
+        } // Fin de la sentencia switch
+    } // Fin del método principal
+}
+```
+
+La sentencia `break` es opcional en cada caso del `switch`, pero es recomendable utilizarla para evitar que la ejecución continúe en los casos siguientes, lo que se conoce como "fall-through". Si no se incluye la sentencia `break`, el programa continuará ejecutando los bloques de código de los casos siguientes hasta encontrar un `break` o llegar al final del `switch`.
+
+Ejemplo de uso de la sentencia `switch` sin la sentencia `break`, lo que provoca un "fall-through":
+
+```java
+import java.time.LocalDate;
+
+// Ejemplo de uso de la sentencia switch omitiendo la sentencia break en varios casos en Java
+public class SwitchFallThrough {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int mes = 2; // Declaración de una variable entera mes y asignación de valor 2 (febrero)
+        switch (mes) { // Inicio de la sentencia switch que evalúa el valor de la variable mes
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12: // Casos para los meses con 31 días
+                System.out.println("El mes tiene 31 días"); // Imprime "El mes tiene 31 días"
+                break; // Salta fuera del switch
+            case 4:
+            case 6:
+            case 9:
+            case 11: // Casos para los meses con 30 días
+                System.out.println("El mes tiene 30 días"); // Imprime "El mes tiene 30 días"
+                break; // Salta fuera del switch
+            case 2: // Caso para el mes de febrero
+                int year = LocalDate.now().getYear(); // Obtiene el año actual utilizando la clase LocalDate
+                if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) { // Verifica si el año es bisiesto
+                    System.out.println("El mes tiene 29 días"); // Imprime "El mes tiene 29 días" si el año es bisiesto
+                } else {
+                    System.out.println("El mes tiene 28 días"); // Imprime "El mes tiene 28 días" si el año no es bisiesto
+                }
+                break; // Salta fuera del switch
+            default: // Caso por defecto si el valor de mes no coincide con ningún caso anterior
+                System.out.println("Mes inválido"); // Imprime "Mes inválido"
+        } // Fin de la sentencia switch
+    } // Fin del método principal
+}
+```
+
+### Clases, objetos y palabra reservada `null`
+
+#### Clases y objetos
+
+Una clase es una combinación de variables y métodos que representan un concepto o entidad en el mundo real. En Java, una clase es una plantilla o un modelo que define las propiedades (atributos) y comportamientos (métodos) de un objeto. Un objeto es una instancia de una clase, que representa una entidad concreta con sus propios valores para los atributos definidos en la clase. La creación de objetos a partir de clases nos permite organizar y estructurar nuestro código de manera más eficiente, facilitando la reutilización y el mantenimiento del mismo.
+
+La sintaxis básica para definir una clase en Java es la siguiente:
+
+```java
+public class NombreDeLaClase { // Declaración de la clase con el modificador de acceso
+    // Atributos (variables) de la clase
+    // Métodos (funciones) de la clase
+}
+```
+
+Ejemplo de una clase que nos permitirá calcular el promedio.
+
+```java
+// Ejemplo de una clase en Java que calcula el promedio
+public class Average { // Declaración de la clase Average con el modificador de acceso public
+    double sum; // Atributo para almacenar la suma de los números
+    int count; // Atributo para almacenar la cantidad de números
+    
+    public void addNumber(double number) { // Método para agregar un número al promedio
+        sum += number; // Suma el número al atributo sum
+        count++; // Incrementa el contador de números
+    } // Fin del método addNumber
+    
+    public double getAverage() { // Método para obtener el promedio
+        return (count == 0) ? 0 : sum / count; // Devuelve el promedio o 0 si no hay números
+    } // Fin del método getAverage
+} // Fin de la clase Average
+
+// Ejemplo de uso de la clase Average para calcular el promedio de varios números
+public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+    Average average = new Average(); // Creación de un objeto de la clase Average
+    average.addNumber(10); // Agrega el número 10 al promedio
+    average.addNumber(20); // Agrega el número 20 al promedio
+    average.addNumber(30); // Agrega el número 30 al promedio
+    System.out.println("El promedio es: " + average.getAverage()); // Imprime el promedio calculado
+} // Fin del método principalº
+```
+
+#### Las variables de objetos son referencias
+
+En Java, las variables de objetos no almacenan directamente los datos del objeto, sino que almacenan una referencia (o dirección de memoria) al objeto en el heap. Esto significa que cuando creamos un objeto y lo asignamos a una variable, la variable contiene una referencia al objeto, y no el objeto en sí. Por lo tanto, si asignamos una variable de objeto a otra variable, ambas variables apuntarán al mismo objeto en memoria.
+
+Cuando declaramos una variable de tipo primitiva sin inicializarla, Java asigna un valor predeterminado a esa variable. Por ejemplo, para los tipos primitivos numéricos (como `int`, `double`, etc.), el valor predeterminado es `0`. Para los tipos booleanos, el valor predeterminado es `false`. Sin embargo, para las variables de tipo objeto, el valor predeterminado es `null`, lo que indica que la variable no apunta a ningún objeto en memoria.
+
+Un claro ejemplo es crear un objeto de la clase `Average` y asignarlo a una variable, posteriormente crear un objeto de la clase `Average` y asignarle la referencia del primer objeto. Si modificamos el primer objeto, los cambios se reflejarán en el segundo objeto, ya que ambos apuntan al mismo objeto en memoria.
+
+```java
+// Ejemplo de referencia de objetos en Java
+public class ReferenciaObjetos {
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        Average average1 = new Average(); // Creación de un objeto de la clase Average y asignación a la variable average1
+        average1.addNumber(10); // Agrega el número 10 al promedio del objeto average1
+        average1.addNumber(20); // Agrega el número 20 al promedio del objeto average1
+        System.out.println("El promedio de average1 es: " + average1.getAverage()); // Imprime el promedio calculado del objeto average1
+        Average average2 = average1; // Asigna la referencia del objeto average1 a la variable average2
+        average2.addNumber(30); // Agrega el número 30 al promedio del objeto average2 (que es el mismo que average1)
+        System.out.println("El promedio de average1 es: " + average1.getAverage()); // Imprime el promedio calculado del objeto average1, que ahora incluye el número 30
+        System.out.println("El promedio de average2 es: " + average2.getAverage()); // Imprime el promedio calculado del objeto average2, que es el mismo que average1
+    } // Fin del método principal
+}
+```
+
+#### La palabra reservada `null`
+
+La palabra reservada `null` en Java se utiliza para indicar que una variable de tipo objeto no apunta a ningún objeto en memoria. Cuando una variable de tipo objeto se inicializa con `null`, significa que no tiene una referencia válida a un objeto, y cualquier intento de acceder a sus métodos o atributos resultará en un error de tiempo de ejecución conocido como `NullPointerException`.
+
+### Cómo borrar objetos en memoria, variables mutables e inmutables, this.
+
+#### ¿Cómo se libera la memoria usada por los objetos?
+
+En Java, la memoria utilizada por los objetos se libera automáticamente mediante un proceso llamado recolección de basura (garbage collection). El recolector de basura es un mecanismo que se encarga de identificar y eliminar los objetos que ya no son accesibles o referenciados por ninguna variable en el programa. Cuando un objeto ya no tiene referencias válidas, el recolector de basura lo marca para su eliminación y libera la memoria asociada a ese objeto.
+
+Java es lo suficientemente inteligente para determinar cuándo un objeto ya no es necesario y puede ser eliminado, lo que ayuda a prevenir fugas de memoria y optimizar el uso de recursos. Sin embargo, es importante tener en cuenta que la recolección de basura no garantiza una liberación inmediata de la memoria, ya que el recolector de basura se ejecuta en segundo plano y su comportamiento puede variar según la implementación de la máquina virtual de Java (JVM).
+
+#### Variables mutables e inmutables
+
+En Java, las variables mutables son aquellas cuyo valor puede cambiar después de haber sido inicializadas. Por ejemplo, los tipos primitivos como `int`, `double` y `boolean` son mutables, ya que podemos asignarles nuevos valores en cualquier momento. Además, los objetos de clases como `ArrayList` y `HashMap` también son mutables, ya que podemos modificar su contenido agregando, eliminando o cambiando elementos.
+
+Por otro lado, las variables inmutables son aquellas cuyo valor no puede cambiar después de haber sido inicializadas. Un ejemplo común de variables inmutables en Java son los objetos de la clase `String`. Una vez que se crea un objeto `String`, su valor no puede modificarse. Si intentamos cambiar el contenido de un `String`, en realidad estamos creando un nuevo objeto `String` con el nuevo valor, mientras que el objeto original permanece sin cambios.
+
+La inmutabilidad de una variable sirve para garantizar que su valor no se modifique accidentalmente, lo que puede ser útil en situaciones donde se requiere consistencia y seguridad en el manejo de datos. Además, las variables inmutables pueden mejorar el rendimiento y la eficiencia del programa, ya que permiten compartir referencias a objetos sin preocuparse por cambios inesperados en su estado.
+
+En situaciones concurrentes o donde se utilicen múltiples hilos de ejecución, las variables inmutables son especialmente valiosas, ya que no requieren sincronización adicional para garantizar la consistencia de los datos. Esto se debe a que, al ser inmutables, no pueden ser modificadas por otros hilos, lo que reduce el riesgo de condiciones de carrera y errores relacionados con la concurrencia.
+
+#### El identificador `this`
+
+El identificador `this` en Java es una referencia al objeto actual dentro de una clase. Se utiliza para acceder a los atributos y métodos del objeto en el que se encuentra el código. El uso de `this` es especialmente útil cuando hay ambigüedad entre los nombres de los parámetros de un método y los nombres de los atributos de la clase.
+
+```java
+// Ejemplo de uso del identificador this en Java
+public class Persona { // Declaración de la clase Persona con el modificador de acceso public
+    private String nombre; // Atributo privado para almacenar el nombre de la persona
+    private int edad; // Atributo privado para almacenar la edad de la persona
+    public Persona(String nombre, int edad) { // Constructor de la clase Persona que recibe dos parámetros: nombre y edad
+        this.nombre = nombre; // Asigna el valor del parámetro nombre al atributo nombre del objeto actual utilizando this
+        this.edad = edad; // Asigna el valor del parámetro edad al atributo edad del objeto actual utilizando this
+    } // Fin del constructor
+    public void mostrarInformacion() { // Método para mostrar la información de la persona
+        System.out.println("Nombre: " + this.nombre); // Imprime el nombre de la persona utilizando this
+        System.out.println("Edad: " + this.edad); // Imprime la edad de la persona utilizando this
+    } // Fin del método mostrarInformacion
+    
+    
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        Persona persona = new Persona("Juan", 25); // Creación de un objeto de la clase Persona con el nombre "Juan" y la edad 25
+        persona.mostrarInformacion(); // Llamada al método mostrarInformacion del objeto persona para mostrar su información
+    } // Fin del método principal
+} // Fin de la clase Persona
+```
