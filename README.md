@@ -1166,3 +1166,53 @@ public class Persona { // Declaración de la clase Persona con el modificador de
     } // Fin del método principal
 } // Fin de la clase Persona
 ```
+
+### Introducción a las excepciones
+
+#### Introducción a las excepciones
+
+Las excepciones son un mecanismo en Java creado para poder manejar errores y situaciones inesperadas que pueden ocurrir durante la ejecución de un programa. Una excepción es un evento que interrumpe el flujo normal de ejecución del programa y puede ser causada por diversos factores, como errores de programación, problemas de entrada/salida, errores de red, entre otros. Cuando ocurre una excepción, el programa genera un objeto de excepción que contiene información sobre el error, como el tipo de excepción, un mensaje descriptivo y, en algunos casos, la pila de llamadas (stack trace) que muestra el camino que llevó al error.
+
+El mecanismo de una excepción funciona de la siguiente manera: cuando un método detecta un error al momento de realizar alguna acción, genera un objeto especial de clase Exception y lo reporta a Java, el cual a su ves intentará encontrar un código que pueda manejar la excepción. Si no se encuentra un código adecuado para manejar la excepción, el programa se detendrá y mostrará un mensaje de error en la consola.
+
+Para que un programa pueda manejar excepciones, se utilizan bloques de código especiales llamados `try` y `catch`. El bloque `try` contiene el código que puede generar una excepción, mientras que el bloque `catch` contiene el código que maneja la excepción si ocurre. Finalmente, el programa puede incluir un bloque llamado `finally`, que contiene código que está garantizado que se ejecute, haya o no haya existido un error. La sintaxis básica para manejar excepciones en Java es la siguiente:
+
+```java
+try {
+    // Código que puede generar una excepción
+} catch (TipoDeExcepcion e) {
+    // Código para manejar la excepción
+} finally {
+    // Código que se ejecuta siempre, haya o no habido una excepción
+}
+```
+
+Todas las execpiones que un programa puede arrojar son objetos derivados de la clase `Throwable`, que es la clase base para todas las excepciones y errores en Java. La clase `Throwable` tiene dos subclases principales: `Exception` y `Error`. La clase `Exception` representa condiciones que un programa puede manejar, mientras que la clase `Error` representa problemas graves que generalmente no pueden ser manejados por el programa.
+
+Las excepciones se pueden clasificar en dos categorías principales: excepciones verificadas (checked exceptions) y excepciones no verificadas (unchecked exceptions). Las excepciones verificadas son aquellas que derivan de `Exeption` y que el compilador obliga a manejar, ya sea mediante un bloque `try-catch` o declarando la excepción en la firma del método con la palabra clave `throws`. Por otro lado, las excepciones no verificadas son aquellas que no requieren ser manejadas explícitamente, como las excepciones de tiempo de ejecución (RuntimeException) y sus subclases.
+
+```java
+void method1() {
+    method2();
+}
+
+void method2() {
+    method3();
+}
+
+void method3() {
+    int a = 0;
+    int b = 5 / a; // Esto generará una ArithmeticException (división por cero)
+}
+
+void main() {
+    try {
+        method1(); // Llamada al método que puede generar una excepción
+    } catch (ArithmeticException e) { // Captura de la excepción ArithmeticException
+        System.out.println("Se produjo un error: " + e.getMessage()); // Manejo de la excepción y mensaje de error
+    } finally {
+        System.out.println("Este bloque se ejecuta siempre, haya o no habido una excepción."); // Código que se ejecuta siempre
+    }
+}
+
+```
