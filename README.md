@@ -1481,3 +1481,184 @@ public class EjemploEnum { // Declaración de la clase EjemploEnum con el modifi
     } // Fin del método principal
 } // Fin de la clase EjemploEnum
 ```
+
+## Archivos Java
+
+Los programas de Java son en realidad un conjunto de clases que interactúan entre sí para producir el resultado deseado. El código fuente de una clase es un archivo de texto con extensión `.java`, que contiene la definición de la clase y sus miembros (atributos y métodos). Este código fuente es compilado por el compilador de Java (`javac`) para generar un archivo de bytecode con extensión `.class`, que puede ser ejecutado por la máquina virtual de Java (JVM).
+
+Uitlizando Notepad++ o cualquier editor de texto, podemos crear un archivo con extensión `.java` y escribir el código fuente de nuestra clase. Por ejemplo, podemos crear un archivo llamado `MiClase.java` con el siguiente contenido:
+
+```java
+public class MiClase { // Declaración de la clase MiClase con el modificador de acceso public usando la convención de nombrar las clases con la primera letra en mayúscula, y si son compuestas, la primera letra de cada palabra en mayúscula
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa, este método es estático y público, lo que significa que puede ser llamado sin crear una instancia de la clase y es accesible desde cualquier lugar. Este método es buscado por la JVM como punto de entrada del programa.
+        System.out.println("Hola, mundo!"); // Imprime el mensaje "Hola, mundo!" en la consola
+    } // Fin del método principal
+} // Fin de la clase MiClase
+```
+
+**Nota:** Es importante que el nombre del archivo coincida exactamente con el nombre de la clase pública que contiene, incluyendo mayúsculas y minúsculas. En este caso, el archivo debe llamarse `MiClase.java` porque la clase pública se llama `MiClase`. De igual manera, si el editor te lo permite, asegúrate de guardar el archivo con codificación UTF-8 para evitar problemas con caracteres especiales.
+
+Guarda el archivo con extensión `.java` y luego compílalo utilizando el compilador de Java (`javac`) desde la línea de comandos. Aseguráte de encontrarte en el directorio donde guardaste el archivo `MiClase.java` en la terminal y ejecuta el siguiente comando:
+
+```batch
+C:\myPath>javac MiClase.java
+```
+
+```mac
+$ javac MiClase.java
+```
+
+Si la compilación es exitosa, se generará un archivo llamado `MiClase.class` en el mismo directorio. Este archivo contiene el bytecode que puede ser ejecutado por la JVM.
+
+Para ejecutar el programa, utiliza el comando `java` seguido del nombre de la clase (sin la extensión `.class`):
+
+```batch
+C:\myPath>java MiClase
+```
+
+```mac
+$ java MiClase
+```
+
+**Nota:** Asegúrate de encontrarte en el directorio donde se encuentran los archivos `.java` y `.class` desde tu terminal, ya que de lo contrario, la JVM no podrá encontrar la clase y se producirá un error de ejecución, para ello debes utilizar el comando `cd` para cambiar al directorio correcto antes de ejecutar el programa.
+
+### Ejercicio de dibujo de árbol de Navidad
+
+El siguiente ejercicio consiste en dibujar un árbol de Navidad utilizando caracteres en la consola. El árbol tendrá una altura determinada estará compuesto por asteriscos (`*`) para representar las ramas y un tronco representado por el carácter `| |`. La salida del programa será un árbol de Navidad simétrico y centrado en la consola.
+
+```console
+         *
+        ***
+       *****
+      *******
+     *********
+    ***********
+   *************
+  ***************
+        | |
+        | |
+```
+
+#### Algoritmo para dibujar el árbol de Navidad
+
+1. Para cada nivel del árbol (desde 1 hasta la altura deseada):
+   - Calcular el número de espacios en blanco necesarios para centrar los asteriscos.
+   - Calcular el número de asteriscos que se deben imprimir en ese nivel.
+   - Imprimir los espacios en blanco seguidos de los asteriscos.
+2. Después de dibujar todas las ramas del árbol, imprimir el tronco del árbol centrado en la consola.
+3. Repetir el proceso para el número de niveles deseado para crear un árbol de Navidad completo.
+4. Asegurarse de que el tronco del árbol esté alineado con el centro del árbol para mantener la simetría.
+
+### Comentarios, el concepto de máquina virtual de Java
+
+#### Comentarios
+
+Un comentario es cualquier texto que se escribe en el programa y funciona como ayuda para que otros programadores (o uno mismo en el futuro) puedan entender mejor el código. Los comentarios no son ejecutados por la máquina virtual de Java (JVM) y no afectan el funcionamiento del programa. En Java, existen tres tipos principales de comentarios:
+
+1. **Comentarios de una sola línea**: Se utilizan para agregar comentarios breves en una sola línea. Se escriben utilizando dos barras diagonales (`//`). Todo el texto después de `//` en esa línea se considera un comentario y no se ejecutará.
+
+   ```java
+   // Este es un comentario de una sola línea
+   int x = 5; // Esto también es un comentario
+   ```
+   
+2. **Comentarios de varias líneas**: Se utilizan para agregar comentarios que abarcan varias líneas. Se escriben utilizando `/*` al inicio del comentario y `*/` al final. Todo el texto entre estos delimitadores se considera un comentario y no se ejecutará.
+
+   ```java
+   /* Este es un comentario de varias líneas
+      que puede abarcar varias líneas de texto.
+      Es útil para explicar secciones más grandes de código. */
+   int y = 10; /* Esto también es un comentario de varias líneas */
+   ```
+
+3. **Comentarios de documentación (Javadoc)**: Se utilizan para generar documentación automática del código fuente. Se escriben utilizando `/**` al inicio del comentario y `*/` al final. Los comentarios de Javadoc se colocan generalmente antes de la declaración de clases, métodos o atributos, y pueden incluir etiquetas especiales para describir parámetros, valores de retorno y excepciones.
+
+   ```java
+   /**
+    * Esta es una clase de ejemplo que representa una persona.
+    * Contiene atributos como nombre y edad, y métodos para mostrar información.
+    */
+   public class Persona {
+       private String nombre; // Atributo para almacenar el nombre de la persona
+       private int edad; // Atributo para almacenar la edad de la persona
+   }
+   ```
+   
+#### El concepto de máquina virtual de Java (JVM)
+
+La máquina virtual de Java (JVM) es un componente fundamental del entorno de ejecución de Java que permite ejecutar programas escritos en el lenguaje de programación Java. La JVM actúa como una capa de abstracción entre el código Java y el sistema operativo subyacente, lo que permite que los programas Java sean portátiles y puedan ejecutarse en diferentes plataformas sin necesidad de modificaciones.
+
+Java funciona bajo el concepto de compatilidad universal, también conocido como "write once, run anywhere" (WORA), lo que significa que el mismo código Java puede ejecutarse en diferentes sistemas operativos y arquitecturas de hardware sin cambios. Esto se logra mediante la compilación del código fuente Java en un formato intermedio llamado bytecode, que es independiente de la plataforma. El bytecode es interpretado y ejecutado por la JVM, que traduce las instrucciones del bytecode en instrucciones específicas del sistema operativo y hardware en tiempo de ejecución.
+
+Podríamos pensar que un programa en Java, al ser compilado y posteriormente interpretado por la JVM, sería más lento que un programa escrito en un lenguaje compilado directamente a código máquina, como C o C++. Sin embargo, la JVM utiliza técnicas de optimización y compilación just-in-time (JIT) para mejorar el rendimiento de los programas Java. La compilación JIT traduce partes del bytecode en código máquina nativo en tiempo de ejecución, lo que permite que el programa se ejecute más rápido después de la primera ejecución. De hecho, en muchos casos, los programas Java pueden alcanzar un rendimiento comparable o mejor al de los programas escritos en lenguajes compilados directamente a código máquina como C o C++.
+
+### El classpath y package
+
+El classpath es un indicador que le dije a Java dónde buscar las clases y paquetes necesarios para ejecutar un programa. Es una lista de directorios y archivos JAR que contienen las clases y recursos que el programa necesita para funcionar correctamente. El classpath puede configurarse mediante la variable de entorno `CLASSPATH` o mediante la opción `-cp` o `-classpath` al ejecutar el comando `java` o `javac`.
+
+Todos los programas se rigen bajo las reglas del classpath, y si no se encuentra una clase o paquete necesario para ejecutar el programa, se producirá un error de ejecución. Por ejemplo, si intentamos ejecutar un programa que utiliza una clase que no está en el classpath, obtendremos un error como "ClassNotFoundException" o "NoClassDefFoundError".
+
+Hoy en día, existen editores de Java muy poderosos que nos permiten crear proyectos de Java y manejar el classpath de manera automática, como Eclipse, NetBeans o IntelliJ IDEA, pero entre todo ese poder ocultan los detalles de cómo funciona el classpath y los paquetes, por lo que es importante entender estos conceptos para poder trabajar con Java de manera efectiva.
+
+Es importante tener en cuenta que el classpath no solo afecta la ejecución de los programas, sino también la compilación de los mismos. Si una clase o paquete necesario para compilar un programa no está en el classpath, obtendremos un error de compilación. Por lo tanto, es importante asegurarse de que el classpath esté configurado correctamente tanto para la compilación como para la ejecución de los programas.
+
+Ejemplo, supongamos que tenemos un proyecto de Java con la siguiente estructura de directorios:
+
+```
+MiProyecto/
+├── src/
+│   ├── com/
+│   │   └── ejemplo/
+│   │       └── MiClase.java
+├── lib/
+│   └── miBiblioteca.jar
+```
+
+En este ejemplo, el proyecto tiene un directorio `src` que contiene el código fuente de la clase `MiClase` dentro del paquete `com.ejemplo`, y un directorio `lib` que contiene un archivo JAR llamado `miBiblioteca.jar` que contiene clases adicionales necesarias para el proyecto.
+
+Para compilar y ejecutar el programa, debemos asegurarnos de que el classpath incluya tanto el directorio `src` como el archivo JAR `miBiblioteca.jar`. Podemos hacerlo utilizando la opción `-cp` o `-classpath` al ejecutar los comandos `javac` y `java`. Por ejemplo, para compilar la clase `MiClase`, podemos utilizar el siguiente comando:
+
+```bash
+javac -cp src:lib/miBiblioteca.jar src/com/ejemplo/MiClase.java
+```
+
+Las clases se pueden encontrar en dos lugares, en directorios y en archivos JAR. Los directorios contienen archivos `.class` que representan las clases compiladas, mientras que los archivos JAR son archivos comprimidos que contienen múltiples clases y recursos. Al configurar el classpath, podemos incluir tanto directorios como archivos JAR para que Java pueda encontrar todas las clases necesarias para ejecutar el programa.
+
+#### Paquetes (Packages)
+
+Los paquetes en Java son una forma de organizar y agrupar clases relacionadas en un espacio de nombres común. Un paquete es un contenedor que permite evitar conflictos de nombres entre clases y facilita la gestión del código fuente. Los paquetes también proporcionan un nivel adicional de control de acceso, ya que las clases dentro de un paquete pueden acceder a otras clases del mismo paquete sin necesidad de ser públicas.
+
+Ejemplo, supongamos que tenemos un proyecto de Java con la siguiente estructura de directorios:
+
+```
+MiProyecto/
+├── src/
+│   ├── com/
+│   │   └── ejemplo/
+│   │       └── MiClase.java
+```
+
+En este ejemplo, la clase `MiClase` está ubicada dentro del paquete `com.ejemplo`. Para declarar que la clase pertenece a este paquete, debemos incluir la declaración del paquete al inicio del archivo `MiClase.java`:
+
+```java
+package com.ejemplo; // Declaración del paquete al que pertenece la clase MiClase
+public class MiClase { // Declaración de la clase MiClase con el modificador de acceso public
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        System.out.println("Hola desde el paquete com.ejemplo!"); // Imprime un mensaje indicando que el programa se ejecuta desde el paquete com.ejemplo
+    } // Fin del método principal
+} // Fin de la clase MiClase
+```
+
+Podríamos pensar que el nombre correcto de la clase es `MiClase`, pero en realidad, el nombre completo de la clase es `com.ejemplo.MiClase`, ya que pertenece al paquete `com.ejemplo`. Esto significa que para ejecutar la clase desde la línea de comandos, debemos utilizar el nombre completo del paquete y la clase:
+
+```bash
+java -cp src com.ejemplo.MiClase
+```
+
+**Nota:** Es importante asegurarse de que en la terminal nos encontremos en el directorio raíz del proyecto (`MiProyecto`) antes de ejecutar el comando, ya que de lo contrario, la JVM no podrá encontrar la clase y se producirá un error de ejecución.
+
+¿El archivo `MiClase.java` debe estar ubicado en el directorio correspondiente al paquete, es decir, en `src/com/ejemplo/MiClase.java`? Si no lo hacemos, la compilación se realizará correctamente, pero al momento de ejecutar el programa, la JVM no podrá encontrar la clase y se producirá un error de ejecución. Por lo tanto, es importante seguir la convención de ubicar los archivos de clase en directorios que reflejen la estructura del paquete al que pertenecen.
+
+### Relación entre el classpath y packages
+
+El classpath y los paquetes están estrechamente relacionados en Java, ya que el classpath determina dónde la JVM busca las clases y paquetes necesarios para ejecutar un programa. Cuando se utiliza un paquete, la estructura de directorios debe reflejar la jerarquía del paquete, y el classpath debe incluir el directorio raíz que contiene esa estructura. Por ejemplo, si tenemos un paquete `com.ejemplo` y la clase `MiClase` dentro de ese paquete, la estructura de directorios debe ser `src/com/ejemplo/MiClase.java`, y el classpath debe incluir el directorio `src` para que la JVM pueda encontrar la clase correctamente.
