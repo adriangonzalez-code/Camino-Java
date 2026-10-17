@@ -1216,3 +1216,268 @@ void main() {
 }
 
 ```
+
+Para explicar mejor la funcionalidad del bloque `finally`, podemos utilizar un ejemplo práctico que simule la apertura y cierre de un archivo. Suponiendo que existen 3 métodos, uno para abrir un archivo, otro para leerlo y otro para cerrarlo, podemos estructurar el código de la siguiente manera:
+
+```java
+try {
+    abrirArchivo(); // Intento de abrir el archivo
+    leerArchivo(); // Intento de leer el archivo
+    cerrarArchivo(); // Cierre del archivo, garantizado que se ejecute siempre
+} catch (IOException e) { // Captura de la excepción IOException
+    System.out.println("Se produjo un error al abrir o leer el archivo: " + e.getMessage()); // Manejo de la excepción y mensaje de error
+}
+```
+
+Si se llegara a presentar alguna excepción durante la apertura o lectura del archivo, el bloque `catch` se ejecutará para manejar la excepción y mostrar un mensaje de error. Pero el método `cerrarArchivo()` no se ejecutará, ya que el flujo del programa se interrumpirá al entrar al bloque `catch`. Para garantizar que el archivo se cierre correctamente, podemos utilizar un bloque `finally` de la siguiente manera:
+
+```java
+try {
+    abrirArchivo(); // Intento de abrir el archivo
+    leerArchivo(); // Intento de leer el archivo
+} catch (IOException e) { // Captura de la excepción IOException
+    System.out.println("Se produjo un error al abrir o leer el archivo: " + e.getMessage()); // Manejo de la excepción y mensaje de error
+} finally {
+    cerrarArchivo(); // Cierre del archivo, garantizado que se ejecute siempre, no importa si hubo una excepción o no
+}
+```
+
+#### Uso de `throw` y `throws`
+
+La palabra clave `throw` en Java se utiliza para lanzar una excepción de manera explícita dentro de un método o bloque de código. Cuando se utiliza `throw`, se crea un objeto de excepción y se lanza, lo que interrumpe el flujo normal del programa y transfiere el control a un bloque `catch` correspondiente, si existe. La sintaxis básica para utilizar `throw` es la siguiente:
+
+```java
+throw new TipoDeExcepcion("Mensaje de error"); // Lanza una nueva excepción del tipo especificado con un mensaje de error
+```
+
+Por otro lado, la palabra clave `throws` se utiliza en la declaración de un método para indicar que el método puede lanzar una o más excepciones durante su ejecución. Esto permite que el método informe a los llamadores que deben manejar esas excepciones, ya sea mediante un bloque `try-catch` o propagando la excepción hacia arriba en la cadena de llamadas. La sintaxis básica para utilizar `throws` es la siguiente:
+
+```java
+public void nombreDelMetodo() throws TipoDeExcepcion1, TipoDeExcepcion2 {
+    // Código del método que puede lanzar excepciones
+}
+```
+
+Ejemplo de uso de `throw` y `throws` en Java:
+
+```java
+// Ejemplo de uso de throw y throws en Java
+public class EjemploThrowThrows { // Declaración de la clase EjemploThrowThrows con el modificador de acceso public
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        try { // Bloque try para manejar posibles excepciones
+            dividir(10, 0); // Llamada al método dividir con un divisor de cero, lo que generará una ArithmeticException
+        } catch (ArithmeticException e) { // Bloque catch para capturar la excepción ArithmeticException
+            System.out.println("Se produjo un error: " + e.getMessage()); // Manejo de la excepción y mensaje de error
+        }
+    } // Fin del método principal
+    
+    public static int dividir(int a, int b) throws ArithmeticException { // Declaración del método dividir que puede lanzar una ArithmeticException
+        if (b == 0) { // Condicional que verifica si el divisor es cero
+            throw new ArithmeticException("División por cero no permitida"); // Lanza una nueva excepción ArithmeticException con un mensaje de error
+        }
+        return a / b; // Retorna el resultado de la división si el divisor no es cero
+    } // Fin del método dividir
+} // Fin de la clase EjemploThrowThrows
+```
+
+#### Múltiples bloques `catch` y la jerarquía de excepciones
+
+Un bloque `try` puede manejar múltiples tipos de excepciones utilizando varios bloques `catch`. Cada bloque `catch` se encarga de capturar un tipo específico de excepción, lo que permite manejar diferentes errores de manera individualizada. Las excepciones más generales deben ser capturadas después de las excepciones más específicas, ya que si se colocan primero, las excepciones más específicas nunca serán alcanzadas. Esto se debe a que la jerarquía de excepciones en Java permite que una excepción más general capture también las excepciones más específicas que heredan de ella.
+
+La sintaxis básica para utilizar múltiples bloques `catch` es la siguiente:
+
+```java
+try {
+    // Código que puede generar una excepción
+} catch (IOException e) {
+    // Código para manejar la excepción TipoDeExcepcion1
+} catch (NullPointerException e) {
+    // Código para manejar la excepción TipoDeExcepcion2
+} catch (Exception e) {
+    // Código para manejar la excepción TipoDeExcepcion3
+}
+```
+
+### Métodos y campos estáticos, variables finales
+
+#### Métodos y campos estáticos
+
+En Java, los métodos y campos estáticos pertenecen a la clase en sí misma, en lugar de a una instancia específica de la clase. Esto significa que se pueden acceder a ellos sin necesidad de crear un objeto de la clase. Los métodos y campos estáticos se declaran utilizando la palabra clave `static`.
+
+Un ejemplo de campos y métodos estáticos es la clase `Math` de Java, que proporciona métodos para realizar operaciones matemáticas comunes, como el cálculo de raíces cuadradas, potencias y funciones trigonométricas. Los métodos de la clase `Math` son estáticos, lo que permite llamarlos directamente desde la clase sin necesidad de crear un objeto.
+
+```java
+// Ejemplo de uso de métodos y campos estáticos en Java
+public class EjemploStatic { // Declaración de la clase EjemploStatic con el modificador de acceso public
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        double numero = 16; // Declaración de una variable double para almacenar el número 16
+        double raizCuadrada = Math.sqrt(numero); // Llamada al método estático sqrt de la clase Math para calcular la raíz cuadrada del número
+        System.out.println("La raíz cuadrada de " + numero + " es: " + raizCuadrada); // Imprime el resultado de la raíz cuadrada
+        double potencia = Math.pow(2, 3); // Llamada al método estático pow de la clase Math para calcular 2 elevado a la potencia de 3
+        System.out.println("2 elevado a la potencia de 3 es: " + potencia); // Imprime el resultado de la potencia
+    } // Fin del método principal
+} // Fin de la clase EjemploStatic
+```
+
+Ejemplo de un campo estático que mantiene un contador de instancias creadas de una clase:
+
+```java
+// Ejemplo de un campo estático que mantiene un contador de instancias creadas de una clase en Java
+public class ContadorInstancias { // Declaración de la clase ContadorInstancias con el modificador de acceso public
+    private static int contador = 0; // Campo estático para contar el número de instancias creadas de la clase, inicializado en 0
+    public ContadorInstancias() { // Constructor de la clase ContadorInstancias
+        contador++; // Incrementa el contador cada vez que se crea una nueva instancia de la clase
+    } // Fin del constructor
+    public static int obtenerContador() { // Método estático para obtener el valor del contador
+        return contador; // Retorna el valor actual del contador
+    } // Fin del método obtenerContador
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        ContadorInstancias obj1 = new ContadorInstancias(); // Creación de la primera instancia de la clase ContadorInstancias
+        ContadorInstancias obj2 = new ContadorInstancias(); // Creación de la segunda instancia de la clase ContadorInstancias
+        ContadorInstancias obj3 = new ContadorInstancias(); // Creación de la tercera instancia de la clase ContadorInstancias
+        System.out.println("Número de instancias creadas: " + ContadorInstancias.obtenerContador()); // Imprime el número total de instancias creadas utilizando el método estático obtenerContador
+    } // Fin del método principal
+} // Fin de la clase ContadorInstancias
+```
+
+#### Variables finales
+
+Las variables finales son aquellas cuyo valor inicial nunca cambia después de haber sido asignado. En Java, se utiliza la palabra clave `final` para declarar una variable como final. Una vez que se le asigna un valor a una variable final, no se puede modificar ni reasignar. Esto es útil para definir constantes o valores que deben permanecer inalterables a lo largo del programa.
+
+```java
+// Ejemplo de uso de variables finales en Java
+public class EjemploFinal { // Declaración de la clase EjemploFinal con el modificador de acceso public
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        final double PI = 3.14159; // Declaración de una variable final PI con un valor constante de 3.14159
+        System.out.println("El valor de PI es: " + PI); // Imprime el valor de la constante PI
+        // PI = 3.14; // Esto generará un error de compilación, ya que no se puede reasignar un valor a una variable final
+    } // Fin del método principal
+} // Fin de la clase EjemploFinal
+```
+
+### Constantes, control de acceso, tipos Enum
+
+#### Constantes
+
+Todos los programas necesitan valores que no cambian durante la ejecución del programa, como el valor de PI, la velocidad de la luz o el número de días en una semana. En Java, podemos definir constantes utilizando la palabra clave `final`, lo que indica que el valor de la variable no puede cambiar después de haber sido asignado. Además, es común utilizar la convención de nombrar las constantes en mayúsculas para diferenciarlas de las variables normales.
+
+En Java no existe una palabra clave específica para declarar constantes, pero podemos combinar `final` con `static` para crear constantes de clase que sean compartidas por todas las instancias de la clase. Esto es útil cuando queremos definir valores que son universales y no dependen de un objeto específico.
+
+```java
+// Ejemplo de uso de constantes en Java
+public class Constantes { // Declaración de la clase Constantes con el modificador de acceso public
+    public static final double PI = 3.14159; // Declaración de una constante PI con un valor de 3.14159 utilizando final y static
+    public static final int DIAS_EN_SEMANA = 7; // Declaración de una constante DIAS_EN_SEMANA con un valor de 7 utilizando final y static
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        System.out.println("El valor de PI es: " + PI); // Imprime el valor de la constante PI
+        System.out.println("El número de días en una semana es: " + DIAS_EN_SEMANA); // Imprime el valor de la constante DIAS_EN_SEMANA
+        // PI = 3.14; // Esto generará un error de compilación, ya que no se puede reasignar un valor a una constante final
+    } // Fin del método principal
+} // Fin de la clase Constantes
+```
+
+Un ejemplo de las ventajas de usar constantes es cuando evaluamos el valor de una constante en una condicional `if-else`. Por ejemplo:
+
+```java
+// Ejemplo de uso de constantes en una condicional if-else en Java
+public class ConstantesIfElse { // Declaración de la clase ConstantesIfElse con el modificador de acceso public
+    public static final int EDAD_MINIMA = 18; // Declaración de una constante EDAD_MINIMA con un valor de 18 utilizando final y static
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        int edad = 20; // Declaración de una variable edad con un valor de 20
+        if (edad >= EDAD_MINIMA) { // Condicional que verifica si la edad es mayor o igual a la constante EDAD_MINIMA
+            System.out.println("Eres mayor de edad."); // Imprime un mensaje indicando que la persona es mayor de edad
+        } else { // Bloque else que se ejecuta si la condición anterior no se cumple
+            System.out.println("Eres menor de edad."); // Imprime un mensaje indicando que la persona es menor de edad
+        } // Fin del bloque if-else
+    } // Fin del método principal
+} // Fin de la clase ConstantesIfElse
+```
+
+Aunque incialmente nuestro código se ve de esa manera, el compilador de Java elimina el bloque donde se cumpla la condición y el código se ve de la siguiente manera:
+
+```java
+public static final int EDAD_MINIMA = 18;
+System.out.println("Eres mayor de edad."); // Imprime un mensaje indicando que la persona es mayor de edad
+```
+
+#### Control de acceso a los miembros de una clase
+
+En Java, el control de acceso a los miembros de una clase se refiere a la capacidad de restringir o permitir el acceso a los atributos y métodos de una clase desde otras clases o paquetes. Esto se logra mediante el uso de modificadores de acceso, que determinan la visibilidad y accesibilidad de los miembros de la clase. Los modificadores de acceso más comunes en Java son:
+
+- `public`: Los miembros declarados como `public` son accesibles desde cualquier clase o paquete. No hay restricciones de acceso, lo que significa que cualquier código puede acceder a ellos.
+- `private`: Los miembros declarados como `private` son accesibles únicamente dentro de la misma clase. No pueden ser accedidos desde otras clases, incluso si están en el mismo paquete. Esto proporciona encapsulamiento y protege los datos internos de la clase.
+- `protected`: Los miembros declarados como `protected` son accesibles dentro de la misma clase, en subclases (clases que heredan de la clase) y en clases del mismo paquete. Esto permite un nivel de acceso intermedio entre `public` y `private`.
+- `default` (sin modificador): Si no se especifica ningún modificador de acceso, los miembros tienen un acceso por defecto, lo que significa que son accesibles únicamente dentro del mismo paquete.
+
+#### Constructores
+
+Los constructores son métodos especiales en Java que se utilizan para inicializar objetos de una clase. Se llaman automáticamente cuando se crea un objeto y tienen el mismo nombre que la clase. Los constructores no tienen un tipo de retorno, ni siquiera `void`, y pueden aceptar parámetros para permitir la inicialización de los atributos del objeto con valores específicos.
+
+```java
+// Ejemplo de uso de constructores en Java
+public class Persona { // Declaración de la clase Persona con el modificador de acceso public
+    private String nombre; // Atributo privado para almacenar el nombre de la persona
+    private int edad; // Atributo privado para almacenar la edad de la persona
+    
+    public Persona(String nombre, int edad) { // Constructor de la clase Persona que recibe dos parámetros: nombre y edad
+        this.nombre = nombre; // Asigna el valor del parámetro nombre al atributo nombre del objeto actual utilizando this
+        this.edad = edad; // Asigna el valor del parámetro edad al atributo edad del objeto actual utilizando this
+    } // Fin del constructor
+    
+    public void mostrarInformacion() { // Método para mostrar la información de la persona
+        System.out.println("Nombre: " + this.nombre); // Imprime el nombre de la persona utilizando this
+        System.out.println("Edad: " + this.edad); // Imprime la edad de la persona utilizando this
+    } // Fin del método mostrarInformacion
+    
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        Persona persona = new Persona("Juan", 25); // Creación de un objeto de la clase Persona con el nombre "Juan" y la edad 25
+        persona.mostrarInformacion(); // Llamada al método mostrarInformacion del objeto persona para mostrar su información
+    } // Fin del método principal
+} // Fin de la clase Persona
+```
+
+#### Tipos Enum
+
+Los tipos Enum (enumeraciones) en Java son un tipo de dato especial que permite definir un conjunto de constantes con nombre. Cada constante en un Enum es una instancia de la clase Enum y puede tener propiedades y métodos asociados. Los Enums se utilizan para representar un conjunto fijo de valores posibles, lo que mejora la legibilidad del código y reduce la posibilidad de errores al utilizar valores literales.
+
+```java
+// Ejemplo de uso de tipos Enum en Java
+public class EjemploEnum { // Declaración de la clase EjemploEnum con el modificador de acceso public
+    enum DiaDeLaSemana { // Declaración del Enum DiaDeLaSemana
+        LUNES, // Constante que representa el día lunes
+        MARTES, // Constante que representa el día martes
+        MIERCOLES, // Constante que representa el día miércoles
+        JUEVES, // Constante que representa el día jueves
+        VIERNES, // Constante que representa el día viernes
+        SABADO, // Constante que representa el día sábado
+        DOMINGO // Constante que representa el día domingo
+    } // Fin del Enum DiaDeLaSemana
+    
+    public static void main(String[] args) { // Método principal que se ejecuta al iniciar el programa
+        DiaDeLaSemana dia = DiaDeLaSemana.LUNES; // Asignación de la constante LUNES del Enum DiaDeLaSemana a la variable dia
+        switch (dia) { // Estructura switch para evaluar el valor de la variable dia
+            case LUNES: // Caso para el día lunes
+                System.out.println("Hoy es lunes."); // Imprime un mensaje indicando que hoy es lunes
+                break; // Salta fuera del switch
+            case MARTES: // Caso para el día martes
+                System.out.println("Hoy es martes."); // Imprime un mensaje indicando que hoy es martes
+                break; // Salta fuera del switch
+            case MIERCOLES: // Caso para el día miércoles
+                System.out.println("Hoy es miércoles."); // Imprime un mensaje indicando que hoy es miércoles
+                break; // Salta fuera del switch
+            case JUEVES: // Caso para el día jueves
+                System.out.println("Hoy es jueves."); // Imprime un mensaje indicando que hoy es jueves
+                break; // Salta fuera del switch
+            case VIERNES: // Caso para el día viernes
+                System.out.println("Hoy es viernes."); // Imprime un mensaje indicando que hoy es viernes
+                break; // Salta fuera del switch
+            case SABADO: // Caso para el día sábado
+                System.out.println("Hoy es sábado."); // Imprime un mensaje indicando que hoy es sábado
+                break; // Salta fuera del switch
+            case DOMINGO: // Caso para el día domingo
+                System.out.println("Hoy es domingo."); // Imprime un mensaje indicando que hoy es domingo
+                break; // Salta fuera del switch
+        } // Fin de la estructura switch
+    } // Fin del método principal
+} // Fin de la clase EjemploEnum
+```
