@@ -1662,3 +1662,167 @@ java -cp src com.ejemplo.MiClase
 ### Relación entre el classpath y packages
 
 El classpath y los paquetes están estrechamente relacionados en Java, ya que el classpath determina dónde la JVM busca las clases y paquetes necesarios para ejecutar un programa. Cuando se utiliza un paquete, la estructura de directorios debe reflejar la jerarquía del paquete, y el classpath debe incluir el directorio raíz que contiene esa estructura. Por ejemplo, si tenemos un paquete `com.ejemplo` y la clase `MiClase` dentro de ese paquete, la estructura de directorios debe ser `src/com/ejemplo/MiClase.java`, y el classpath debe incluir el directorio `src` para que la JVM pueda encontrar la clase correctamente.
+
+## El API de Java (Parte 1)
+
+### Documentación oficial de Java
+
+#### El API de Java
+
+El API de Java (Application Programming Interface) es un conjunto de clases, interfaces y paquetes que proporcionan funcionalidades predefinidas para facilitar el desarrollo de aplicaciones en Java. El API de Java está organizado en diferentes paquetes, cada uno con un propósito específico, y abarca una amplia gama de áreas, como estructuras de datos, entrada/salida, redes, concurrencia, seguridad y más.
+
+#### Documentación oficial de Java
+
+La documentación oficial de Java es una fuente fundamental para aprender y utilizar el API de Java. Proporciona información detallada sobre las clases, interfaces y métodos disponibles, así como ejemplos de uso y guías de referencia. La documentación oficial de Java se encuentra en la página web de Oracle, en la sección de Java SE Documentation. La documentación está disponible en línea y se puede acceder a ella de forma gratuita. Además, la documentación oficial de Java se actualiza regularmente para reflejar las nuevas características y mejoras del lenguaje.
+
+### La clase `java.lang.Sytem`
+
+La clase `java.lang.System` es una clase final que forma parte del paquete `java.lang`, el cual se importa automáticamente en todos los programas de Java. Esta clase proporciona métodos y campos estáticos que permiten interactuar con el entorno de ejecución de Java, como la entrada/salida estándar, la gestión de propiedades del sistema, la obtención de información sobre el entorno y la finalización del programa.
+
+La clase `System` tiene 3 variables de clase (estáticas) que son muy útiles para la entrada y salida de datos:
+
+1. `System.out`: Es un objeto de la clase `PrintStream` que representa la salida estándar del programa, generalmente la consola. Se utiliza para imprimir mensajes y resultados en la consola utilizando métodos como `print()`, `println()` y `printf()`.
+2. `System.in`: Es un objeto de la clase `InputStream` que representa la entrada estándar del programa, generalmente el teclado. Se utiliza para leer datos de entrada desde la consola utilizando clases como `Scanner` o `BufferedReader`.
+3. `System.err`: Es un objeto de la clase `PrintStream` que representa la salida de error estándar del programa, generalmente la consola.
+
+Ejemplo de uso de `System.in` para leer datos desde la entrada estándar (teclado):
+
+```java
+package com.driagon;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class SystemInTest {
+    public static void main(String[] args) {
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); // Crea un BufferedReader para leer la entrada estándar (teclado)
+            System.out.print("Ingrese su nombre: "); // Solicita al usuario que ingrese su nombre
+            String nombre = reader.readLine(); // Lee la línea ingresada por el usuario y la almacena en la variable nombre
+            System.out.println("Hola, " + nombre + "!"); // Imprime un saludo personalizado utilizando el nombre ingresado
+        } catch (Exception e) { // Captura cualquier excepción que pueda ocurrir durante la lectura de la entrada
+            System.err.println("Error al leer la entrada: " + e.getMessage()); // Imprime un mensaje de error en la salida de error estándar
+        }
+    }
+}
+```
+
+Ejemplo para leer las propiedades del sistema utilizando la clase `System`:
+
+```java
+package com.driagon;
+
+import java.util.Properties;
+
+public class SystemPropertiesTest {
+    public static void main(String[] args) {
+        Properties propiedades = System.getProperties(); // Obtiene las propiedades del sistema utilizando el método getProperties() de la clase System
+        for (String key : propiedades.stringPropertyNames()) { // Itera sobre todas las claves de las propiedades del sistema
+            String value = propiedades.getProperty(key); // Obtiene el valor de la propiedad correspondiente a la clave actual
+            System.out.println(key + ": " + value); // Imprime la clave y el valor de la propiedad en la salida estándar (consola)
+        }
+    }
+}
+```
+
+### Clases para primitivos, autoboxing, Strings
+
+#### Clases para tipos de datos primitivos
+
+En Java, cada tipo de dato primitivo tiene una clase envolvente (wrapper class) correspondiente que proporciona métodos y funcionalidades adicionales para trabajar con esos tipos de datos. Estas clases envolventes permiten tratar los tipos de datos primitivos como objetos y proporcionan métodos para convertir entre tipos de datos, realizar operaciones y manipular valores. Las clases envolventes para los tipos de datos primitivos en Java son las siguientes:
+
+| Tipo de dato primitivo | Clase envolvente (Wrapper Class)           |
+|------------------------|--------------------------------------------|
+| byte                   | java.lang.Byte                             |
+| short                  | java.lang.Short                            |
+| int                    | java.lang.Integer                          |
+| long                   | java.lang.Long                             |
+| float                  | java.lang.Float                            |
+| double                 | java.lang.Double                           |
+| char                   | java.lang.Character                        |
+| boolean                | java.lang.Boolean                          |
+
+Como puedes observar en la tabla, cada tipo de dato primitivo tiene una clase envolvente correspondiente en el paquete `java.lang`. Estas clases proporcionan métodos y funcionalidades adicionales para trabajar con los tipos de datos primitivos, como la conversión entre tipos, la comparación de valores y la manipulación de cadenas de caracteres.
+
+Cada clase tiene definidos las constantes `MIN_VALUE` y `MAX_VALUE`, que representan los valores mínimo y máximo que puede almacenar el tipo de dato primitivo correspondiente. Por ejemplo, la clase `Integer` tiene las constantes `Integer.MIN_VALUE` y `Integer.MAX_VALUE`, que representan el valor mínimo y máximo que puede almacenar un entero en Java.
+
+Cada clase también tiene definidos métodos estáticos para convertir entre tipos de datos primitivos y objetos, como `valueOf()` y `parseX()`, donde `X` es el tipo de dato primitivo correspondiente. Estos métodos permiten convertir fácilmente entre tipos de datos primitivos y objetos, lo que facilita la manipulación y el procesamiento de datos en Java.
+
+Ejemplo que imprime el valor mínimo y máximo de cada tipo de dato primitivo utilizando las clases envolventes:
+
+```java
+package com.driagon;
+
+public class PrimitivosYClasesEnvolventes {
+    public static void main(String[] args) {
+        System.out.println("Valores mínimo y máximo de los tipos de datos primitivos en Java:");
+        System.out.println("byte: " + Byte.MIN_VALUE + " a " + Byte.MAX_VALUE);
+        System.out.println("short: " + Short.MIN_VALUE + " a " + Short.MAX_VALUE);
+        System.out.println("int: " + Integer.MIN_VALUE + " a " + Integer.MAX_VALUE);
+        System.out.println("long: " + Long.MIN_VALUE + " a " + Long.MAX_VALUE);
+        System.out.println("float: " + Float.MIN_VALUE + " a " + Float.MAX_VALUE);
+        System.out.println("double: " + Double.MIN_VALUE + " a " + Double.MAX_VALUE);
+        System.out.println("char: " + (int) Character.MIN_VALUE + " a " + (int) Character.MAX_VALUE);
+        System.out.println("boolean: false o true");
+    }
+}
+```
+
+#### Autoboxing
+
+Autoboxing es el proceso automático de conversión de un tipo de dato primitivo a su clase envolvente correspondiente. Por ejemplo, cuando asignamos un valor entero a una variable de tipo `Integer`, Java realiza automáticamente la conversión de `int` a `Integer`. Esto permite trabajar con tipos de datos primitivos como objetos sin necesidad de realizar conversiones explícitas.
+
+Convertir un primitivo a clase se llama boxing, y convertir una clase a primitivo se llama unboxing. Por ejemplo, si tenemos un `int` y lo asignamos a un `Integer`, Java realiza boxing automáticamente. De manera similar, si tenemos un `Integer` y lo asignamos a un `int`, Java realiza unboxing automáticamente.
+
+Ejemplo de autoboxing y unboxing en Java:
+
+```java
+package com.driagon;
+
+public class AutoboxingUnboxing {
+    public static void main(String[] args) {
+        // Boxing: conversión automática de int a Integer
+        int primitivo = 10; // Declaración de un tipo de dato primitivo int
+        Integer objeto = primitivo; // Conversión automática de int a Integer (boxing)
+        
+        // Unboxing: conversión automática de Integer a int
+        Integer otroObjeto = 20; // Declaración de un objeto Integer
+        int otroPrimitivo = otroObjeto; // Conversión automática de Integer a int (unboxing)
+        
+        System.out.println("Valor del primitivo: " + primitivo); // Imprime el valor del primitivo
+        System.out.println("Valor del objeto: " + objeto); // Imprime el valor del objeto
+        System.out.println("Valor del otro objeto: " + otroObjeto); // Imprime el valor del otro objeto
+        System.out.println("Valor del otro primitivo: " + otroPrimitivo); // Imprime el valor del otro primitivo
+    }
+}
+```
+
+#### Strings
+
+En Java, un `String` es un objeto que representa una secuencia de caracteres. Los `String` son inmutables, lo que significa que una vez creado un objeto `String`, su valor no puede cambiar. Si se realiza una operación que modifica un `String`, se crea un nuevo objeto `String` con el valor modificado, mientras que el objeto original permanece sin cambios. El tipo de datos `String` se llama alfanumérico, ya que puede contener letras, números y caracteres especiales. Los `String` se utilizan ampliamente en Java para representar texto y realizar operaciones de manipulación de cadenas.
+
+Declaración de un String en Java:
+
+```java
+String mensaje = "Hola, mundo!"; // Declaración de un objeto String llamado mensaje con el valor "Hola, mundo!"
+```
+
+Como se había comentado, un objeto String es inmutable, es decir, su valor original no cambia. Por ejemplo, si concatenamos un String con otro, se crea un nuevo objeto String con el valor concatenado, mientras que el objeto original permanece sin cambios.
+
+Ejemplo de inmutabilidad de los Strings en Java:
+
+```java
+package com.driagon;
+
+public class InmutabilidadString {
+    public static void main(String[] args) {
+        String original = "Hola"; // Declaración de un objeto String llamado original con el valor "Hola"
+        String concatenado = original + ", mundo!"; // Concatenación de original con ", mundo!" y asignación a un nuevo objeto String llamado concatenado
+        
+        System.out.println("Original: " + original); // Imprime el valor del objeto original
+        System.out.println("Concatenado: " + concatenado); // Imprime el valor del objeto concatenado
+    }
+}
+```
+
+Java puede convertir números a su contraparte String automáticamente, y viceversa, utilizando métodos de la clase `String` y las clases envolventes correspondientes. Por ejemplo, podemos convertir un número entero a un String utilizando el método `String.valueOf()` o la concatenación con una cadena vacía. Para convertir un String a un número entero, podemos utilizar el método `Integer.parseInt()`.
