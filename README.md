@@ -1826,3 +1826,94 @@ public class InmutabilidadString {
 ```
 
 Java puede convertir números a su contraparte String automáticamente, y viceversa, utilizando métodos de la clase `String` y las clases envolventes correspondientes. Por ejemplo, podemos convertir un número entero a un String utilizando el método `String.valueOf()` o la concatenación con una cadena vacía. Para convertir un String a un número entero, podemos utilizar el método `Integer.parseInt()`.
+
+Java también puede realizar el autoboxing al concatenar un número con un String. Por ejemplo, si concatenamos un número entero con un String, Java convierte automáticamente el número a su representación en cadena antes de realizar la concatenación.
+
+Ejemplo de conversión entre números y Strings en Java:
+
+```java
+package com.driagon;
+
+public class ConversionNumerosStrings {
+    public static void main(String[] args) {
+        int i = 42; // Declaración de un tipo de dato primitivo int
+       int j = 10;
+       
+       String s = "" + (i + j); // Concatenación de i y j con una cadena vacía, lo que convierte automáticamente el resultado a un String
+       System.out.println(s); // Imprime el resultado de la suma como un String
+       
+       s = "" + i + j; // Concatenación de i y j con una cadena vacía, lo que convierte automáticamente el resultado a un String
+       System.out.println(s); // Imprime el valor de i y j como un String concatenado
+    }
+}
+```
+
+Ejemplo conversión de String a número y viceversa en Java:
+
+```java
+package com.driagon;
+
+public class ConversionStringNumeros {
+    public static void main(String[] args) {
+        String s = "2020";
+        
+        int res = 0;
+        for (int n = 0; n < s.length(); n++) {
+            int digit = s.charAt(n) - '0';
+            res = res * 10 + digit;
+        }
+        System.out.println(res); // Imprime el valor numérico convertido desde el String
+    }
+}
+```
+
+### La clase StringBuilder
+
+La clase `StringBuilder` en Java es una clase mutable que se utiliza para crear y manipular cadenas de caracteres de manera eficiente. A diferencia de los objetos `String`, que son inmutables, los objetos `StringBuilder` permiten modificar el contenido de la cadena sin crear nuevos objetos, eds decir, son mutables. Esto hace que `StringBuilder` sea más eficiente en términos de rendimiento cuando se realizan múltiples operaciones de concatenación o modificación de cadenas.
+
+El método que se utiliza para concatenar cadenas en `StringBuilder` es el método `append()`. Este método agrega el contenido especificado al final de la cadena existente en el objeto `StringBuilder`. Además, `StringBuilder` proporciona otros métodos útiles, como `insert()`, `delete()`, `replace()` y `reverse()`, que permiten realizar diversas operaciones de manipulación de cadenas de manera eficiente.
+
+```java
+package com.driagon;
+
+public class StringBuilderTest {
+    public static void main(String[] args) {
+        String total = "10";
+        String nombre = "Juan";
+        String s = "El total es: " + total + " y el nombre es: " + nombre; // Concatenación de cadenas utilizando el operador +
+        System.out.println(s); // Imprime el resultado de la concatenación de cadenas
+       
+        StringBuilder sb = new StringBuilder(); // Creación de un objeto StringBuilder vacío
+        sb.append("El total es: "); // Agrega la cadena "El total es: " al objeto StringBuilder
+        sb.append(total); // Agrega el valor de la variable total al objeto StringBuilder
+        sb.append(" y el nombre es: "); // Agrega la cadena " y el nombre es: " al objeto StringBuilder
+        sb.append(nombre); // Agrega el valor de la variable nombre al objeto StringBuilder
+        System.out.println(sb.toString()); // Convierte el objeto StringBuilder a un String y lo imprime en la consola
+    }
+}
+```
+
+### La clase StringTokenizer y ejemplo: Lineas de texto con tamaño límite
+
+La clase `StringTokenizer` en Java es una clase que se utiliza para dividir una cadena de texto en tokens o subcadenas basadas en un delimitador específico. Esta clase proporciona métodos para iterar sobre los tokens y obtener cada uno de ellos de manera individual. La clase `StringTokenizer` es útil cuando se necesita procesar cadenas de texto que contienen múltiples elementos separados por un delimitador, como espacios, comas o cualquier otro carácter.
+
+Ejemplo, tenemos un String con datos numéricos separados por comas, y queremos dividirlo en tokens individuales utilizando la clase `StringTokenizer`. A continuación, se muestra un ejemplo de cómo hacerlo:
+
+```java
+package com.driagon;
+
+import java.util.StringTokenizer;
+
+public class StringTokenizerTest {
+    public static void main(String[] args) {
+        String datos = "10,20,30,40,50"; // Cadena de texto con datos numéricos separados por comas
+        StringTokenizer tokenizer = new StringTokenizer(datos, ","); // Crea un objeto StringTokenizer con el delimitador ","
+        
+        System.out.println("Tokens individuales:");
+        while (tokenizer.hasMoreTokens()) { // Itera mientras haya más tokens disponibles
+            String token = tokenizer.nextToken(); // Obtiene el siguiente token
+            System.out.println(token); // Imprime el token en la consola
+        }
+    }
+}
+```
