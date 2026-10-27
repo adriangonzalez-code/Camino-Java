@@ -1917,3 +1917,132 @@ public class StringTokenizerTest {
     }
 }
 ```
+
+### `String.format()` y `System.out.printf()`
+
+La clase `String.format()` y el método `System.out.printf()` en Java son utilizados para formatear cadenas de texto y mostrarlas en la consola. Ambos métodos permiten especificar un formato personalizado para la cadena de texto, incluyendo el tipo de datos, el ancho y la precisión de los valores numéricos, entre otros.
+
+La clase `String.format()` devuelve una cadena formateada según el formato especificado, mientras que el método `System.out.printf()` muestra directamente la cadena formateada en la consola.
+
+Ejemplo de uso de `String.format()` y `System.out.printf()`:
+
+```java
+package com.driagon;
+
+public class FormateoCadenas {
+    public static void main(String[] args) {
+        int numero = 42; // Declaración de un tipo de dato primitivo int
+        double decimal = 3.14159; // Declaración de un tipo de dato primitivo double
+        String texto = "Hola, mundo!"; // Declaración de un objeto String
+
+       System.out.println("Número: " + numero + ", Decimal: " + decimal + ", Texto: " + texto); // Salida usando System.out.println() de manera tradicional
+        
+        // Uso de String.format() para formatear una cadena
+        String mensajeFormateado = String.format("Número: %d, Decimal: %.2f, Texto: %s", numero, decimal, texto);
+        System.out.println(mensajeFormateado); // Imprime la cadena formateada en la consola
+        
+        // Uso de System.out.printf() para mostrar una cadena formateada directamente en la consola
+        System.out.printf("Número: %d, Decimal: %.2f, Texto: %s%n", numero, decimal, texto);
+    }
+}
+```
+
+En el ejemplo anterior, se utiliza `%d` para formatear un número entero, `%.2f` para formatear un número decimal con dos decimales y `%s` para formatear una cadena de texto. El resultado se muestra en la consola utilizando ambos métodos.
+
+### Conversión de datos
+
+En Java, la conversión de datos se refiere al proceso de cambiar un valor de un tipo de dato a otro. Esto puede ser necesario cuando se trabaja con diferentes tipos de datos y se requiere realizar operaciones o asignaciones entre ellos. La conversión de datos puede ser implícita (automática) o explícita (manual).
+
+```java
+String s = "123456";
+int i;
+
+try{
+    i = Integer.parseInt(s); // Convierte el String s a un entero utilizando el método parseInt() de la clase Integer
+    System.out.println("El valor convertido es: " + i); // Imprime el valor convertido en la consola
+} catch(NumberFormatException e) {
+    System.err.println("Error: El valor no es un número válido."); // Imprime un mensaje de error en la salida de error estándar si la conversión falla
+}
+```
+
+#### Manejo de fechas
+
+El manejo de fechas es mas complejo de lo que parece, ya que existen diferentes formatos de fechas y horas, y es importante tener en cuenta la zona horaria y el calendario utilizado. En Java, existen varias clases para trabajar con fechas y horas, como `java.util.Date`, `java.util.Calendar`, `java.time.LocalDate`, `java.time.LocalTime`, `java.time.LocalDateTime`, entre otras.
+
+Por ejemplo, si tenemos `01/02/03`, ¿Cómo lo interpretamos? ¿Es el 1 de febrero de 2003, o el 2 de enero de 2003, o el 3 de febrero de 2001? La interpretación depende del formato de fecha utilizado y del contexto en el que se encuentra. Por lo tanto, es importante especificar claramente el formato de fecha y hora al trabajar con fechas en Java.
+
+Para poder manejar fechas, podemos apoyarnos del formato, ya sea que lo hagamos de manera manual, o utilizando la clase `SimpleDateFormat` de Java, que nos permite definir un patrón de formato para las fechas y horas. Por ejemplo, podemos utilizar el patrón `dd/MM/yyyy` para representar una fecha en el formato día/mes/año.
+
+Podemos crear nuestra propia implementación de manejo de fechas, de modo que nos permitirá reforzar los conocimientos adquiridos en el curso, y nos permitirá tener un mejor control sobre el manejo de fechas y horas en nuestras aplicaciones Java. A continuación, se muestra un ejemplo de cómo podríamos implementar una clase `Fecha` que nos permita manejar fechas de manera más sencilla:
+
+```java
+String srtDate = "01/02/2003"; // Fecha en formato dd/MM/yyyyy
+int date, month, year;
+
+String tmp = srtDate.substring(0, 2); // Extrae el día de la fecha utilizando el método substring()
+date = Integer.parseInt(tmp); // Convierte el día a un entero utilizando el método parseInt() de la clase Integer
+tmp = srtDate.substring(3, 5); // Extrae el mes de la fecha utilizando el método substring()
+month = Integer.parseInt(tmp); // Convierte el mes a un entero utilizando el método parseInt() de la clase Integer
+tmp = srtDate.substring(6, 10); // Extrae el año de la fecha utilizando el método substring()
+year = Integer.parseInt(tmp); // Convierte el año a un entero utilizando el método parseInt() de la clase Integer
+
+Calendar cal = Calendar.getInstance();
+cal.set(Calendar.DATE, date); // Establece el día en el objeto Calendar
+cal.set(Calendar.MONTH, month - 1); // Establece el mes en el objeto Calendar (restando 1 ya que los meses en Calendar son indexados desde 0)
+cal.set(Calendar.YEAR, year); // Establece el año en el objeto Calendar
+cal.set(Calendar.HOUR_OF_DAY, 0); // Establece la hora en el objeto Calendar a 0 (medianoche)
+cal.set(Calendar.MINUTE, 0); // Establece los minutos en el objeto Calendar a 0
+cal.set(Calendar.SECOND, 0); // Establece los segundos en el objeto Calendar
+cal.set(Calendar.MILLISECOND, 0); // Establece los milisegundos en el objeto Calendar a 0
+
+Date result = cal.getTime(); // Obtiene la fecha completa como un objeto Date
+System.out.println("Fecha: " + fecha); // Imprime la fecha en la consola
+```
+
+No obstante, este código es un ejemplo simple y no considera casos complejos como validar si la cadena está en el formato correcto, si la fecha es válida (por ejemplo, 30 de febrero no es una fecha válida), o si se deben manejar diferentes formatos de fecha. Para un manejo más robusto de fechas y horas, se recomienda utilizar las clases del paquete `java.time` introducidas en Java 8, como `LocalDate`, `LocalTime`, `LocalDateTime`, y `DateTimeFormatter`, que proporcionan una API más moderna y segura para trabajar con fechas y horas.
+
+Ejemplo de manejo de fechas utilizando `Date` realizando validaciones necesarias:
+
+```java
+package com.driagon;
+
+import java.util.Date;
+
+public class DateParser {
+    
+    public static Date parseDate(String strDate) {
+        if (strDate == null || strDate.length() == 0) {
+            return null; // Retorna null si la cadena de fecha es nula o vacía
+        }
+
+        int date, month, year;
+        int idx0 = strDate.indexOf('/');
+        if (idx0 == -1) {
+            return null; // Retorna null si no se encuentra el primer separador '/'
+        }
+        
+        String tmp = strDate.substring(0, idx0);
+        date = Integer.parseInt(tmp); // Convierte el día a un entero utilizando el método parseInt() de la clase Integer
+        int idx1 = strDate.indexOf('/', idx0 + 1);
+        if (idx1 == -1) {
+            return null; // Retorna null si no se encuentra el segundo separador '/'
+        }
+        tmp = strDate.substring(idx0 + 1, idx1);
+        month = Integer.parseInt(tmp); // Convierte el mes a un entero utilizando el método parseInt() de la clase Integer
+        
+       tmp = strDate.substring(idx1 + 1);
+        year = Integer.parseInt(tmp); // Convierte el año a un entero utilizando el método parseInt() de la clase Integer
+       
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DATE, date); // Establece el día en el objeto Calendar
+        cal.set(Calendar.MONTH, month - 1); // Establece el mes en el objeto Calendar (restando 1 ya que los meses en Calendar son indexados desde 0)
+        cal.set(Calendar.YEAR, year); // Establece el año en el objeto Calendar
+        cal.set(Calendar.HOUR_OF_DAY, 0); // Establece la hora en el objeto Calendar a 0 (medianoche)
+        cal.set(Calendar.MINUTE, 0); // Establece los minutos en el objeto Calendar a 0
+        cal.set(Calendar.SECOND, 0); // Establece los segundos en el objeto Calendar a 0
+        cal.set(Calendar.MILLISECOND, 0); // Establece los milisegundos en el objeto Calendar a 0
+       
+        return cal.getTime(); // Retorna la fecha completa como un objeto Date
+    }
+}
+```
