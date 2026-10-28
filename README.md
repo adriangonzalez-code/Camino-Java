@@ -2046,3 +2046,118 @@ public class DateParser {
     }
 }
 ```
+
+### Manejo de fechas
+
+En Java, el manejo de fechas se puede realizar utilizando diferentes clases y métodos proporcionados por la API de Java. A continuación, se presentan algunos ejemplos de cómo trabajar con fechas en Java utilizando las clases `Date`, `Calendar` y `SimpleDateFormat`.
+
+```java
+package com.driagon;
+
+import java.util.Date;
+
+public class DateTest {
+    public static void main(String[] args) {
+        Date fechaActual = new Date(); // Crea un objeto Date con la fecha y hora actual
+        System.out.println("Fecha y hora actual: " + fechaActual); // Imprime la fecha y hora actual en la consola
+    }
+}
+```
+
+La mayoría de los métodos de la clase `Date` están obsoletos desde Java 7, y se recomienda utilizar la clase `Calendar` para realizar operaciones más complejas con fechas. La clase `Calendar` proporciona métodos para obtener y establecer diferentes componentes de la fecha, como el año, mes, día, hora, minuto y segundo.
+
+```java
+package com.driagon;
+
+import java.util.Calendar;
+
+public class CalendarTest {
+    public static void main(String[] args) {
+        Calendar cal = Calendar.getInstance(); // Crea un objeto Calendar con la fecha y hora actual
+       System.out.println(cal.getTime()); // Imprime la fecha y hora actual en la consola utilizando el método getTime() de Calendar
+       cal.add(Calendar.DAY_OF_MONTH, 1); // Agrega un día a la fecha actual
+       System.out.println(cal.getTime()); // Imprime la nueva fecha y hora en la consola
+       cal.add(Calendar.HOUR, 2); // Agrega dos horas a la fecha actual
+       System.out.println(cal.getTime()); // Imprime la nueva fecha y hora en la consola
+    }
+}
+```
+
+Como pudiste ver en el código, `Calendar.getInstance()` nos devuelve un objeto `Calendar`, aunque si bien pudimos utilizar `new GregorianCalendar()`, es recomendable utilizar `Calendar.getInstance()` ya que nos devuelve un objeto `Calendar` con la configuración regional y de zona horaria del sistema, dado que existen muchas zonas horarias y calendarios diferentes en el mundo, y es importante tener en cuenta estas diferencias al trabajar con fechas y horas en aplicaciones Java. `Calendar.getInstance()` nos devuelve un objeto `Calendar` que representa la fecha y hora actual en la zona horaria y configuración regional del sistema, lo que nos permite trabajar con fechas y horas de manera más precisa y consistente.
+
+Una vez creado el objeto `Calendar`, podemos utilizar los métodos `add()` y `set()` para modificar la fecha y hora según nuestras necesidades. El método `add()` nos permite agregar o restar unidades de tiempo específicas, como días, horas, minutos, etc., mientras que el método `set()` nos permite establecer valores específicos para los diferentes componentes de la fecha y hora.
+
+También podemos extraer información específica de la fecha y hora utilizando los métodos `get()`, `getTime()`, `getTimeInMillis()`, entre otros. Por ejemplo, podemos obtener el año, mes, día, hora, minuto y segundo utilizando los métodos `get(Calendar.YEAR)`, `get(Calendar.MONTH)`, `get(Calendar.DAY_OF_MONTH)`, `get(Calendar.HOUR_OF_DAY)`, `get(Calendar.MINUTE)` y `get(Calendar.SECOND)` respectivamente.
+
+```java
+package com.driagon;
+
+import java.util.Calendar;
+
+public class CalendarInfo {
+    public static void main(String[] args) {
+        Calendar cal = Calendar.getInstance(); // Crea un objeto Calendar con la fecha y hora actual
+        System.out.println("Año: " + cal.get(Calendar.YEAR)); // Imprime el año actual en la consola
+        System.out.println("Mes: " + (cal.get(Calendar.MONTH) + 1)); // Imprime el mes actual en la consola (sumando 1 ya que los meses en Calendar son indexados desde 0)
+        System.out.println("Día: " + cal.get(Calendar.DATE)); // Imprime el día del mes actual en la consola
+        System.out.println("Hora: " + cal.get(Calendar.HOUR)); // Imprime la hora actual en formato de 24 horas en la consola
+        System.out.println("Minuto: " + cal.get(Calendar.MINUTE)); // Imprime el minuto actual en la consola
+        System.out.println("Segundo: " + cal.get(Calendar.SECOND)); // Imprime el segundo actual en la consola
+    }
+}
+```
+
+Hay algunas particularidades a tener en cuenta al trabajar con fechas y horas en Java. Por ejemplo, los meses en la clase `Calendar` están indexados desde 0, lo que significa que enero es el mes 0, febrero es el mes 1, y así sucesivamente. Por lo tanto, al obtener el mes actual utilizando `cal.get(Calendar.MONTH)`, debemos sumar 1 para obtener el valor correcto del mes.
+
+```java
+package com.driagon;
+
+import java.util.Calendar;
+
+public class Mes {
+
+   public static void main() {
+       String[] meses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}; // Arreglo de nombres de los meses
+       Calendar cal = Calendar.getInstance(); // Crea un objeto Calendar con la fecha y hora actual
+       int mesActual = cal.get(Calendar.MONTH); // Obtiene el mes actual (indexado desde 0) utilizando el método get() de Calendar
+       System.out.println("Mes actual: " + meses[mesActual]); // Imprime el nombre del mes actual en la consola utilizando el arreglo de nombres de los meses
+   }
+}
+```
+
+La clase `Calendar` también nos permite comparar, sumar y restar fechas, así como calcular diferencias entre fechas utilizando los métodos `compareTo()`, `before()`, `after()`, `add()`, `roll()`, entre otros. Esto nos permite realizar operaciones más complejas con fechas y horas en nuestras aplicaciones Java.
+
+```java
+package com.driagon;
+
+import java.util.Calendar;
+
+public class Fecha {
+
+   public static void main(String[] args) {
+         Calendar cal1 = Calendar.getInstance(); // Crea un objeto Calendar con la fecha y hora actual
+         Calendar cal2 = Calendar.getInstance(); // Crea otro objeto Calendar con la fecha y hora actual
+         
+         cal2.add(Calendar.DAY_OF_MONTH, 5); // Agrega 5 días a la fecha del segundo objeto Calendar
+         
+        // Compara las fechas de ambos objetos Calendar utilizando los métodos before() y after()
+         if (cal1.before(cal2)) { // Compara si la fecha del primer objeto Calendar es anterior a la del segundo objeto Calendar
+              System.out.println("La fecha del primer calendario es anterior a la del segundo calendario."); // Imprime un mensaje indicando que la primera fecha es anterior
+         } else if (cal1.after(cal2)) { // Compara si la fecha del primer objeto Calendar es posterior a la del segundo objeto Calendar
+              System.out.println("La fecha del primer calendario es posterior a la del segundo calendario."); // Imprime un mensaje indicando que la primera fecha es posterior
+         } else {
+              System.out.println("Ambas fechas son iguales."); // Imprime un mensaje indicando que ambas fechas son iguales
+         }
+         
+         // También comparar usando compareTo()
+         int comparacion = cal1.compareTo(cal2); // Compara las fechas de ambos objetos Calendar utilizando el método compareTo()
+         if (comparacion < 0) { // Si el resultado es negativo, la primera fecha es anterior a la segunda
+              System.out.println("La fecha del primer calendario es anterior a la del segundo calendario (usando compareTo())."); // Imprime un mensaje indicando que la primera fecha es anterior
+         } else if (comparacion > 0) { // Si el resultado es positivo, la primera fecha es posterior a la segunda
+              System.out.println("La fecha del primer calendario es posterior a la del segundo calendario (usando compareTo())."); // Imprime un mensaje indicando que la primera fecha es posterior
+         } else {
+              System.out.println("Ambas fechas son iguales (usando compareTo())."); // Imprime un mensaje indicando que ambas fechas son iguales
+         }
+   }
+}
+```

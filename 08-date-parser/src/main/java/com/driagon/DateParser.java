@@ -18,6 +18,11 @@ public class DateParser {
 
         String tmp = strDate.substring(0, idx0);
         date = Integer.parseInt(tmp); // Convierte el día a un entero utilizando el método parseInt() de la clase Integer
+
+        if (date < 0 || date > 31) {
+            return null; // Retorna null si el día no está en el rango válido (1-31)
+        }
+
         int idx1 = strDate.indexOf('/', idx0 + 1);
         if (idx1 == -1) {
             return null; // Retorna null si no se encuentra el segundo separador '/'
@@ -25,8 +30,16 @@ public class DateParser {
         tmp = strDate.substring(idx0 + 1, idx1);
         month = Integer.parseInt(tmp); // Convierte el mes a un entero utilizando el método parseInt() de la clase Integer
 
+        if ((month < 1 || month > 12)) {
+            return null; // Retorna null si el mes no está en el rango válido (1-12)
+        }
+
         tmp = strDate.substring(idx1 + 1);
         year = Integer.parseInt(tmp); // Convierte el año a un entero utilizando el método parseInt() de la clase Integer
+
+        if (year < 1970 || year > 2099) {
+            return null; // Retorna null si el año no está en el rango válido (1970-2100)
+        }
 
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DATE, date); // Establece el día en el objeto Calendar
@@ -41,7 +54,7 @@ public class DateParser {
     }
 
     static void main() {
-        String strDate = "15/08/2023"; // Ejemplo de cadena de fecha en formato "dd/MM/yyyy"
+        String strDate = "15/10/2026"; // Ejemplo de cadena de fecha en formato "dd/MM/yyyy"
         Date date = parseDate(strDate); // Llama al método parseDate() para convertir la cadena de fecha a un objeto Date
 
         System.out.println(date); // Imprime la fecha resultante en la consola
