@@ -1,8 +1,14 @@
-# Fundamentos del Lenguaje
+# El Camino de Java
 
-## Convenciones, primitivos, expresiones, precedencia de operadores
+En este repositorio encontrarás una serie de ejemplos y explicaciones sobre los fundamentos del lenguaje de programación
+Java. El objetivo es proporcionar una guía práctica para aprender y comprender los conceptos básicos de Java, desde la
+sintaxis hasta las estructuras de control y las funciones.
 
-### Convenciones utilizadas en Java
+## Fundamentos del Lenguaje
+
+### Convenciones, primitivos, expresiones, precedencia de operadores
+
+#### Convenciones utilizadas en Java
 
 La convención más utilizada es siempre comenzar con mayúscula el nombre de una clase y con minúscula el nombre de un
 método o variable. Por ejemplo, `MiClase` para una clase y `miMetodo()` para un método. A esta convención se le conoce
@@ -2580,7 +2586,7 @@ public class Fecha {
 }
 ```
 
-### Programación Orientada a Objetos (POO)
+## Programación Orientada a Objetos (POO)
 
 Durante el curso, hemos hablado sobre las clases y los objetos, que son los conceptos fundamentales de la Programación
 Orientada a Objetos (POO). La POO es un paradigma de programación que se basa en el concepto de "objetos", que son
@@ -2621,7 +2627,7 @@ piensa y se aborda la resolución de problemas utilizando este paradigma. La par
 que se trata de aprender la sintaxis y las reglas del lenguaje, mientras que la parte filosófica requiere un cambio de
 mentalidad y una comprensión más profunda de los conceptos de la POO.
 
-#### La parte técnica de la POO
+### La parte técnica de la POO
 
 La parte técnica de la POO se centra en la implementación de clases y objetos, así como en la utilización de los
 conceptos de encapsulamiento, herencia y polimorfismo.
