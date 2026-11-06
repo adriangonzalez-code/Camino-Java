@@ -3219,3 +3219,311 @@ deben ser implementados por las clases que implementen la interfaz, y no para al
 recomienda utilizar clases abstractas o clases concretas para almacenar datos y proporcionar métodos para acceder a
 ellos. Las interfaces deben centrarse en definir el comportamiento que se espera de las clases que las implementan, y no
 en almacenar datos.
+
+### Clases Anidadas (Inner & Nested Classes)
+
+Una clase anidada es una clase declarada dentro de otra clase. Las clases anidadas no están relacionadas con la
+jerarquía de herencia de la clase a la que pertenecen, pero si están enlazadas con esta.
+
+Ejemplo para declarar una clase anidada:
+
+```java
+package com.driagon;
+
+public class Base { // Clase externa
+    private int baseField; // Campo privado de la clase externa
+
+    public class Nested { // Clase anidada (interna)
+        private int nestedField; // Campo privado de la clase anidada
+
+        public void nestedMethod() { // Método público de la clase anidada
+            baseField = 10; // Accede al campo de la clase externa
+            System.out.println("Campo de la clase externa: " + baseField); // Imprime el valor del campo de la clase externa
+        }
+    }
+}
+```
+
+Las clases anidadas pueden ser de dos tipos: clases no estáticas (inner classes) y clases estáticas (static nested
+classes). Las clases internas (no estáticas) son aquellas que no tienen el modificador `static`, y pueden acceder a los
+miembros de la clase externa, incluyendo los campos y métodos privados. Las clases estáticas son aquellas que tienen el
+modificador `static`, y no pueden acceder a los miembros de la clase externa directamente, sino que deben hacerlo a
+través de una instancia de la clase externa. Las clases anidadas son útiles para organizar el código y encapsular la
+funcionalidad relacionada dentro de una clase, y pueden ser utilizadas para implementar patrones de diseño como el
+patrón de fábrica (factory pattern) o el patrón de observador (observer pattern).
+
+El nombre de una clase anidada se compone del package, seguido del nombre de la clase externa y el nombre de la clase
+anidada:
+
+```java
+com.driagon.Base.Nested;
+```
+
+#### Clases anidadas: Niveles de acceso
+
+En el ejemplo anterior, la clase base y la clase anidada tienen un nivel de acceso `public`, lo que significa que pueden
+ser accedidas desde cualquier clase en cualquier paquete. Sin embargo, las clases anidadas pueden tener diferentes
+niveles de acceso, como `private`, `protected` o `default` (sin modificador de acceso), lo que significa que pueden ser
+accedidas desde diferentes contextos. Por ejemplo, una clase anidada con nivel de acceso `private` solo puede ser
+accedida desde la clase externa, mientras que una clase anidada con nivel de acceso `protected` puede ser accedida desde
+la clase externa y sus subclases, y una clase anidada con nivel de acceso `default` (sin modificador de acceso) puede
+ser accedida desde cualquier clase en el mismo paquete.
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Base base = new Base(); // Crea un objeto de la clase externa Base
+        // Base.Nested nested = new Base.Nested(); Esto generará un error de compilación, ya que la clase anidada Nested no es estática y no puede ser instanciada directamente
+        Base.Nested nested = base.new Nested(); // Esto es correcto, ya que estamos creando un objeto de la clase anidada Nested a través de un objeto ya existente de la clase externa Base llamado base
+        nested.nestedMethod(); // Llama al método de la clase anidada
+    }
+}
+```
+
+Dentro de la clase base, podemos crear un campo del tipo de la clase anidada, y mediante el constructor de la clase
+base, podemos inicializar el campo de la clase anidada mediante la instanciación.
+
+```java
+package com.driagon;
+
+public class Base { // Clase externa
+    private int baseField; // Campo privado de la clase externa
+    private Nested nested; // Campo privado de la clase anidada
+
+    public Base() { // Constructor de la clase externa
+        this.nested = new Nested(); // Inicializa el campo de la clase anidada mediante la instanciación
+    }
+
+    public class Nested { // Clase anidada (interna)
+        private int nestedField; // Campo privado de la clase anidada
+
+        public void nestedMethod() { // Método público de la clase anidada
+            baseField = 10; // Accede al campo de la clase externa
+            System.out.println("Campo de la clase externa: " + baseField); // Imprime el valor del campo de la clase externa
+        }
+    }
+}
+```
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Base base = new Base(); // Crea un objeto de la clase externa Base
+        Base.Nested nested = base.nested; // OK, ya que estamos accediendo al campo de la clase anidada Nested a través de un objeto ya existente de la clase externa Base llamado base
+    }
+}
+```
+
+Si la clase anidada es privada, no podemos acceder a ella desde fuera de la clase externa, por lo que no podemos crear
+un objeto de la clase anidada directamente, ni acceder a sus métodos o campos.
+
+#### Clases anidadas: Las clases anidadas tienen acceso a los campos de su clase base
+
+Las clases anidadas tienen acceso a los campos y métodos de su clase base, incluso si estos son privados. Esto se debe a
+que las clases anidadas son consideradas parte de la clase externa, y por lo tanto, pueden acceder a sus miembros
+privados. Esto permite que las clases anidadas puedan interactuar con la clase externa de manera más estrecha, y
+facilita la encapsulación de la funcionalidad relacionada dentro de la clase externa. Por ejemplo, en el ejemplo
+anterior, la clase anidada `Nested` puede acceder al campo privado `baseField` de la clase externa `Base`, y modificar
+su valor sin necesidad de utilizar métodos públicos o getters y setters. Esto permite que la clase anidada pueda
+interactuar con la clase externa de manera más directa y eficiente, y facilita la implementación de patrones de diseño
+como el patrón de fábrica (factory pattern) o el patrón de observador (observer pattern).
+
+```java
+package com.driagon;
+
+public class Base { // Clase externa
+    private int baseField; // Campo privado de la clase externa
+
+    public Base() { // Constructor de la clase externa}
+        baseField = 5; // Inicializa el campo de la clase externa
+        System.out.println("Constructor de la clase externa Base, campo baseField inicializado en: " + baseField); // Imprime el valor inicial del campo de la clase externa
+    }
+
+    public class Nested { // Clase anidada (interna)
+        private int nestedField; // Campo privado de la clase anidada
+
+        public void nestedMethod() { // Método público de la clase anidada
+            baseField = 10; // Accede al campo de la clase externa y lo modifica
+            System.out.println("Campo de la clase externa: " + baseField); // Imprime el nuevo valor del campo de la clase externa
+        }
+    }
+}
+```
+
+#### Clases anidadas: Las clases anidadas estáticas
+
+Las clases anidadas estáticas son aquellas que tienen el modificador `static`, y no pueden acceder a los miembros de la
+clase externa directamente, sino que deben hacerlo a través de una instancia de la clase externa. Esto se debe a que las
+clases anidadas estáticas no tienen una referencia implícita a una instancia de la clase externa, y por lo tanto, no
+pueden acceder a sus miembros no estáticos.
+
+```java
+package com.driagon;
+
+public class Base { // Clase externa
+    private int baseField; // Campo privado de la clase externa
+
+    public Base() { // Constructor de la clase externa
+        baseField = 5; // Inicializa el campo de la clase externa
+        System.out.println("Constructor de la clase externa Base, campo baseField inicializado en: " + baseField); // Imprime el valor inicial del campo de la clase externa
+    }
+
+    public static class Nested { // Clase anidada estática
+        private int nestedField; // Campo privado de la clase anidada
+
+        public void nestedMethod() { // Método público de la clase anidada
+            // baseField = 10; Esto generará un error de compilación, ya que no se puede acceder al campo de la clase externa directamente desde una clase anidada estática
+            System.out.println("No se puede acceder al campo de la clase externa directamente desde una clase anidada estática"); // Imprime un mensaje indicando que no se puede acceder al campo de la clase externa directamente desde una clase anidada estática
+        }
+    }
+}
+```
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Base base = new Base(); // Crea un objeto de la clase externa Base
+        // Base.Nested nested = base.new Nested(); Esto generará un error de compilación, ya que la clase anidada Nested es estática y no puede ser instanciada a través de un objeto de la clase externa Base
+        Base.Nested nested = new Base.Nested(); // Crea un objeto de la clase anidada estática Nested directamente, sin necesidad de una instancia de la clase externa Base
+        nested.nestedMethod(); // Llama al método de la clase anidada estática
+    }
+}
+```
+
+#### Clases anidadas: Uso de las clases anidadas
+
+Estos son los motivos principales para utilizar clases anidadas:
+
+- Para agrupar clases que se usarán en un solo lugar. Si la clase es útil solo para otra clase, es más fácil tenerlas
+  juntas.
+- Para aumentar la encapsulación. Si tienes una clase con campos privados que deseas mantener privados, es más fácil
+  crear una clase anidada que pueda accesarlos, de otro modo tendrías que declararlos como package.
+- Para producir código más claro de entender y mantener. Definir una clase pequeña como uyna clase anidada hace que sea
+  más fácil de localizar que si estuviera en otro archivo. Además, si la clase anidada es pequeña, es más fácil de
+  entender que si estuviera en otro archivo.
+
+### Alcance de variables
+
+El uso de una variable no está limitado a un método donde se encuentre definida. Las variables que están definidas
+dentro de una clase pueden ser accedidas desde cualquier método de la clase, mientras que las variables definidas dentro
+de un método solo pueden ser accedidas desde ese método. Esto se debe a que las variables definidas dentro de un método
+tienen un alcance local, mientras que las variables definidas dentro de una clase tienen un alcance de instancia. Por lo
+tanto, si queremos acceder a una variable definida dentro de un método desde otro método, debemos pasarla como parámetro
+o almacenarla en un campo de la clase.
+
+Mencionaremos 5 alcances diferentes que puede tener una variable, comenzando desde el alcance más amplio hasta el más
+limitado:
+
+1. **Alcance estático (static scope)**: Una variable estática es accesible a cualquier nivel siempre y cuando esté
+   declarada como pública. Y también es accesible desde otras clases.
+2. **Alcance de instancia (instance scope)**: Una variable de instancia es accesible desde cualquier método de la clase
+   donde está definida, pero no es accesible desde otras clases a menos que sea declarada como pública.
+3. **Alcance de método (method scope)**: Una variable definida dentro de un método es accesible solo desde ese método, y
+   no es accesible desde otros métodos de la misma clase.
+4. **Alcance de bucle o sentencia (block loop/)**: Una variable definida dentro de un bucle o sentencia (como un `if`,
+   `for`, `while`, etc.) es accesible solo desde ese bucle o sentencia, y no es accesible desde otros bucles o
+   sentencias de la misma clase.
+5. **Alcance de bloque (block scope)**: Una variable definida dentro de un bloque de código (como un bloque de
+   inicialización, un bloque `try-catch`, etc.) es accesible solo desde ese bloque, y no es accesible desde otros
+   bloques de la misma clase.
+
+```java
+public class ScopeExample {
+    public static int staticVariable = 10; // Variable estática con alcance público
+    private String str; // Variable de instancia con alcance privado
+
+    public void method() {
+        String localVariable = 5; // Variable local con alcance de método
+        str = "Hello, World!"; // Accede a la variable de instancia desde un método de la clase
+        if (localVariable.equals("Hello, World!")) {
+            boolean statementVariable = true; // Variable de bucle/sentencia con alcance de bucle/sentencia
+
+            for (int i = 0; i < 100; i++) {
+                System.out.println("Valor de la variable de bucle/sentencia: " + statementVariable); // Accede a la variable de bucle/sentencia desde dentro del bucle
+                System.out.println(i); // Accede a la variable de bucle/sentencia desde dentro del bucle
+            }
+
+            // System.out.println(i); Esto generará un error de compilación, ya que la variable i no es accesible desde fuera del bucle
+        }
+
+        // System.out.println(blockVariable); Esto generará un error de compilación, ya que la variable blockVariable no es accesible desde fuera del bucle/sentencia
+    }
+
+    public void method2() {
+        // System.out.println(localVariable); Esto generará un error de compilación, ya que la variable localVariable no es accesible desde otro método
+        boolean methodVariable = true; // Variable de bloque con alcance de método
+
+        try {
+            int blockVariable = 20; // Variable de bloque con alcance de bloque
+            System.out.println("Valor de la variable de bloque: " + blockVariable); // Accede a la variable de bloque desde dentro del bloque
+        } catch (Exception e) {
+            // System.out.println(blockVariable); Esto generará un error de compilación, ya que la variable blockVariable no es accesible desde fuera del bloque
+        }
+
+        // System.out.println(blockVariable); Esto generará un error de compilación, ya que la variable blockVariable no es accesible desde fuera del bloque
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println("Valor de la variable estática: " + staticVariable); // Accede a la variable estática desde el método main
+        anotherMethod(); // Llama a otro método que también puede acceder a la variable estática
+    }
+
+    public static void anotherMethod() {
+        System.out.println("Accediendo a la variable estática desde otro método: " + staticVariable); // Accede a la variable estática desde otro método
+    }
+}
+```
+
+#### Métodos y clases abstractas
+
+Las clases y métodos abstractos son clases y métodos que se diseñaron para ser utilizados como base para otras clases, y
+no pueden ser instanciados directamente. Este tipo de clases se utiliza cuando se desea implementar clases muy
+parecidas, de tal manera que las subclases puedan implementar o sobrescribir los métodos de la clase abstracta según sus
+necesidades. Una clase abstracta puede contener métodos abstractos y métodos concretos, mientras que un método abstracto
+no tiene implementación y debe ser implementado por las subclases.
+
+Una clase abstracta también puede definir campos, métodos estáticos y variables estáticas, y puede implementar
+interfaces. A diferencia de las interfaces, solo se puede derivar de una clase abstracta.
+
+Ejemplo, tenemos una clase que realiza las operaciónes básicas en una base de datos (CRUD), y queremos crear una clase que se encargue de realizar las operaciones en una base de datos específica, como MySQL o PostgreSQL. En este caso, podemos definir una clase abstracta llamada `Database` que contenga los métodos abstractos para realizar las operaciones básicas, y luego crear subclases concretas que implementen estos métodos según la base de datos específica.
+
+```java
+public abstract class Database { // Clase abstracta que define los métodos para realizar operaciones básicas en una base de datos
+    public abstract void create(String data); // Método abstracto para crear un registro
+    public abstract String read(int id); // Método abstracto para leer un registro
+    public abstract void update(int id, String data); // Método abstracto para actualizar un registro
+    public abstract void delete(int id); // Método abstracto para eliminar un registro
+}
+```
+
+```java
+public class MySQLDatabase extends Database { // Clase concreta que implementa los métodos de la clase abstracta Database para una base de datos MySQL
+    @Override
+    public void create(String data) { // Implementación del método create() para MySQL
+        System.out.println("Creando un registro en MySQL con los datos: " + data); // Imprime un mensaje indicando que se está creando un registro en MySQL con los datos proporcionados
+    }
+
+    @Override
+    public String read(int id) { // Implementación del método read() para MySQL 
+        System.out.println("Leyendo un registro de MySQL con el id: " + id); // Imprime un mensaje indicando que se está leyendo un registro de MySQL con el id proporcionado
+        return "Registro de MySQL con id: " + id; // Retorna un mensaje indicando que se ha leído un registro de MySQL con el id proporcionado
+    }
+
+    @Override
+    public void update(int id, String data) { // Implementación del método update() para MySQL
+        System.out.println("Actualizando un registro de MySQL con el id: " + id + " y los datos: " + data); // Imprime un mensaje indicando que se está actualizando un registro de MySQL con el id y los datos proporcionados
+    }
+
+    @Override
+    public void delete(int id) { // Implementación del método delete() para MySQL
+        System.out.println("Eliminando un registro de MySQL con el id: " + id); // Imprime un mensaje indicando que se está eliminando un registro de MySQL con el id proporcionado
+    }
+}
+```
+
+#### Diferencia entre clases abstractas e interfaces
+
+Una interface es similar a una clase abstracta, porque no puedes crear una instancia de esta y los métodos pueden ser declarados con o sin una implementación. Una clase abstracta puede definir campos que no son estáticos y finales, mientras que una interface todos los campos son automáticamente públicos, estáticos y finales y todos los métodos son públicos. Una clase abstracta puede implementar interfaces, mientras que una interface no puede implementar otra interface. Una clase abstracta puede tener constructores, mientras que una interface no puede tener constructores. Una clase abstracta puede tener métodos concretos, mientras que una interface solo puede tener métodos abstractos o métodos con implementación predeterminada (default methods). Una clase abstracta puede tener variables de instancia, mientras que una interface solo puede tener variables estáticas y finales. Una clase abstracta puede heredar de otra clase abstracta, mientras que una interface no puede heredar de otra interface.
+
+Considera utilizar una clase abstracta cuando quieras desarrollar una funcionalidad común para clases muy similares, o cuando necesitas implementar campos o métodos privados. Considera utilizar una interface cuando quieras que sea utilizada por muchas clases que no están relacionadas entre sí, o cuando quieras definir un contrato que las clases deben cumplir. En general, si necesitas herencia múltiple, utiliza interfaces, y si necesitas herencia simple, utiliza clases abstractas.
