@@ -3402,7 +3402,9 @@ Estos son los motivos principales para utilizar clases anidadas:
   más fácil de localizar que si estuviera en otro archivo. Además, si la clase anidada es pequeña, es más fácil de
   entender que si estuviera en otro archivo.
 
-### Alcance de variables
+### Alcance de variables, métodos y clases abstractas
+
+#### Alcance de variables
 
 El uso de una variable no está limitado a un método donde se encuentre definida. Las variables que están definidas
 dentro de una clase pueden ser accedidas desde cualquier método de la clase, mientras que las variables definidas dentro
@@ -3486,13 +3488,19 @@ no tiene implementación y debe ser implementado por las subclases.
 Una clase abstracta también puede definir campos, métodos estáticos y variables estáticas, y puede implementar
 interfaces. A diferencia de las interfaces, solo se puede derivar de una clase abstracta.
 
-Ejemplo, tenemos una clase que realiza las operaciónes básicas en una base de datos (CRUD), y queremos crear una clase que se encargue de realizar las operaciones en una base de datos específica, como MySQL o PostgreSQL. En este caso, podemos definir una clase abstracta llamada `Database` que contenga los métodos abstractos para realizar las operaciones básicas, y luego crear subclases concretas que implementen estos métodos según la base de datos específica.
+Ejemplo, tenemos una clase que realiza las operaciónes básicas en una base de datos (CRUD), y queremos crear una clase
+que se encargue de realizar las operaciones en una base de datos específica, como MySQL o PostgreSQL. En este caso,
+podemos definir una clase abstracta llamada `Database` que contenga los métodos abstractos para realizar las operaciones
+básicas, y luego crear subclases concretas que implementen estos métodos según la base de datos específica.
 
 ```java
 public abstract class Database { // Clase abstracta que define los métodos para realizar operaciones básicas en una base de datos
     public abstract void create(String data); // Método abstracto para crear un registro
+
     public abstract String read(int id); // Método abstracto para leer un registro
+
     public abstract void update(int id, String data); // Método abstracto para actualizar un registro
+
     public abstract void delete(int id); // Método abstracto para eliminar un registro
 }
 ```
@@ -3524,6 +3532,267 @@ public class MySQLDatabase extends Database { // Clase concreta que implementa l
 
 #### Diferencia entre clases abstractas e interfaces
 
-Una interface es similar a una clase abstracta, porque no puedes crear una instancia de esta y los métodos pueden ser declarados con o sin una implementación. Una clase abstracta puede definir campos que no son estáticos y finales, mientras que una interface todos los campos son automáticamente públicos, estáticos y finales y todos los métodos son públicos. Una clase abstracta puede implementar interfaces, mientras que una interface no puede implementar otra interface. Una clase abstracta puede tener constructores, mientras que una interface no puede tener constructores. Una clase abstracta puede tener métodos concretos, mientras que una interface solo puede tener métodos abstractos o métodos con implementación predeterminada (default methods). Una clase abstracta puede tener variables de instancia, mientras que una interface solo puede tener variables estáticas y finales. Una clase abstracta puede heredar de otra clase abstracta, mientras que una interface no puede heredar de otra interface.
+Una interface es similar a una clase abstracta, porque no puedes crear una instancia de esta y los métodos pueden ser
+declarados con o sin una implementación. Una clase abstracta puede definir campos que no son estáticos y finales,
+mientras que una interface todos los campos son automáticamente públicos, estáticos y finales y todos los métodos son
+públicos. Una clase abstracta puede implementar interfaces, mientras que una interface no puede implementar otra
+interface. Una clase abstracta puede tener constructores, mientras que una interface no puede tener constructores. Una
+clase abstracta puede tener métodos concretos, mientras que una interface solo puede tener métodos abstractos o métodos
+con implementación predeterminada (default methods). Una clase abstracta puede tener variables de instancia, mientras
+que una interface solo puede tener variables estáticas y finales. Una clase abstracta puede heredar de otra clase
+abstracta, mientras que una interface no puede heredar de otra interface.
 
-Considera utilizar una clase abstracta cuando quieras desarrollar una funcionalidad común para clases muy similares, o cuando necesitas implementar campos o métodos privados. Considera utilizar una interface cuando quieras que sea utilizada por muchas clases que no están relacionadas entre sí, o cuando quieras definir un contrato que las clases deben cumplir. En general, si necesitas herencia múltiple, utiliza interfaces, y si necesitas herencia simple, utiliza clases abstractas.
+Considera utilizar una clase abstracta cuando quieras desarrollar una funcionalidad común para clases muy similares, o
+cuando necesitas implementar campos o métodos privados. Considera utilizar una interface cuando quieras que sea
+utilizada por muchas clases que no están relacionadas entre sí, o cuando quieras definir un contrato que las clases
+deben cumplir. En general, si necesitas herencia múltiple, utiliza interfaces, y si necesitas herencia simple, utiliza
+clases abstractas.
+
+### Argumentos en métodos y métodos con argumentos variables
+
+#### Argumentos en métodos
+
+Los métodos pueden recibir argumentos, que son valores que se pasan al método cuando se llama. Los argumentos pueden ser
+de cualquier tipo de dato, incluyendo tipos primitivos, objetos y arrays. Los argumentos se definen en la lista de
+parámetros del método, y se separan por comas. Cuando se llama a un método, los argumentos se pasan en el mismo orden en
+que se definen en la lista de parámetros.
+
+##### Argumentos por valor y por referencia
+
+¿Qué pasa si al invocar un método, le pasamos un objeto como argumento y dentro del método modificamos el objeto? ¿Se
+modificará el objeto original o se creará una copia del objeto y se modificará la copia? La respuesta es que se
+modificará el objeto original, ya que en Java, los objetos se pasan por referencia. Esto significa que cuando se pasa un
+objeto como argumento a un método, se pasa una referencia al objeto original, y cualquier modificación realizada al
+objeto dentro del método afectará al objeto original.
+
+En el paso de argumentos por valor, se pasa una copia del valor del argumento al método y no la variable original. Esto
+significa que cualquier modificación realizada al argumento dentro del método no afectará a la variable original.
+
+```java
+public class ArgumentPassingExample {
+    public static void main(String[] args) {
+        int x = 10; // Variable primitiva
+        System.out.println("Valor de x antes de llamar al método: " + x); // Imprime el valor de x antes de llamar al método
+        modifyPrimitive(x); // Llama al método que modifica la variable primitiva
+        System.out.println("Valor de x después de llamar al método: " + x); // Imprime el valor de x después de llamar al método
+
+        MyObject obj = new MyObject(); // Crea un objeto de la clase MyObject
+        obj.value = 20; // Inicializa el campo value del objeto
+        System.out.println("Valor del objeto antes de llamar al método: " + obj.value); // Imprime el valor del campo value del objeto antes de llamar al método
+        modifyObject(obj); // Llama al método que modifica el objeto
+        System.out.println("Valor del objeto después de llamar al método: " + obj.value); // Imprime el valor del campo value del objeto después de llamar al método
+    }
+
+    public static void modifyPrimitive(int num) { // Método que recibe un argumento primitivo
+        num = 30; // Modifica el valor del argumento primitivo
+        System.out.println("Valor del argumento primitivo dentro del método: " + num); // Imprime el valor del argumento primitivo dentro del método
+    }
+
+    public static void modifyObject(MyObject obj) { // Método que recibe un argumento objeto
+        obj.value = 40; // Modifica el valor del campo value del objeto
+        System.out.println("Valor del argumento objeto dentro del método: " + obj.value); // Imprime el valor del campo value del objeto dentro del método
+    }
+}
+```
+
+La salida del programa será:
+
+```java
+Valor de
+x antes
+de llamar
+al método:10
+Valor del
+argumento primitivo
+dentro del
+método:30
+Valor de
+x después
+de llamar
+al método:10
+Valor del
+objeto antes
+de llamar
+al método:20
+Valor del
+argumento objeto
+dentro del
+método:40
+Valor del
+objeto después
+de llamar
+al método:40
+```
+
+#### Métodos con argumentos variables
+
+Java soporta métodos con argumentos variables, uno de los métodos más famosos de Java es `System.out.printf()` que
+permite imprimir texto en la consola con formato. Este método puede recibir un número variable de argumentos, lo que
+significa que podemos pasar cualquier cantidad de argumentos al método, y el método se encargará de procesarlos
+correctamente. Para declarar un método con argumentos variables, utilizamos el operador `...` (tres puntos) después del
+tipo de dato del argumento. Esto indica que el método puede recibir cero o más argumentos de ese tipo de dato.
+
+```java
+public class VarArgsExample {
+    public static void main(String[] args) {
+        printNumbers(1, 2, 3); // Llama al método con tres argumentos
+        printNumbers(4, 5); // Llama al método con dos argumentos
+        printNumbers(); // Llama al método sin argumentos
+    }
+
+    public static void printNumbers(int... numbers) { // Método con argumentos variables
+        System.out.println("Números recibidos: " + Arrays.toString(numbers)); // Imprime los números recibidos como un arreglo
+    }
+}
+```
+
+Como regla general a considerar, al definir un método con argumentos variables, solo se puede incluir un argumento
+variable en la lista de parámetros del método, y debe ser el último argumento de la lista. Esto se debe a que el
+compilador necesita saber cuántos argumentos se han pasado al método, y si hay más de un argumento variable, no puede
+determinar cuántos argumentos pertenecen a cada argumento variable. Por lo tanto, si necesitamos pasar más de un tipo de
+dato como argumento variable, debemos utilizar un arreglo o una clase que contenga los diferentes tipos de datos.
+
+Al final el argumento variable es tratado como un arreglo, por lo que podemos acceder a los elementos del argumento
+variable como si fueran elementos de un arreglo. Por ejemplo, podemos utilizar un bucle `for` para iterar sobre los
+elementos del argumento variable y procesarlos uno por uno.
+
+```java
+public class VarArgsExample {
+    public static void main(String[] args) {
+        printNumbers(1, 2, 3); // Llama al método con tres argumentos
+        printNumbers(4, 5); // Llama al método con dos argumentos
+        printNumbers(); // Llama al método sin argumentos
+    }
+
+    public static void printNumbers(int... numbers) { // Método con argumentos variables
+        if (numbers == null)
+            System.out.println("No se recibieron números."); // Imprime un mensaje indicando que no se recibieron números
+        else if (numbers.length == 0) {
+            System.out.println("No se recibieron números."); // Imprime un mensaje indicando que no se recibieron números
+        } else {
+            System.out.println("Números recibidos: " + Arrays.toString(numbers)); // Imprime los números recibidos como un arreglo
+            for (int i = 0; i < numbers.length; i++) { // Itera sobre los elementos del argumento variable
+                System.out.println("Número " + (i + 1) + ": " + numbers[i]); // Imprime cada número recibido
+            }
+        }
+    }
+}
+```
+
+Consideremos los siguientes casos al trabajar con argumentos variables:
+
+1. **Caso 1**: Si se invoca el método sin pasar ningún argumento, el argumento variable será un arreglo de longitud
+   cero, y podemos verificar si el arreglo está vacío utilizando la propiedad `length` del arreglo.
+2. **Caso 2**: Si se invoca el método pasando null como argumento, el argumento variable será null, y podemos verificar
+   si el argumento variable es null utilizando el operador `==`.
+3. **Caso 3**: Si se invoca el método pasando solo un argumento, el argumento variable será un arreglo de longitud uno,
+   y podemos acceder al único elemento del arreglo utilizando el índice 0.
+4. **Caso 4**: Si se invoca el método pasando varios argumentos entre ellos null, el argumento variable será un arreglo
+   que contiene todos los argumentos pasados, incluyendo null en la posición correspondiente. Podemos verificar si algún
+   elemento del arreglo es null utilizando un bucle `for` o un bucle `for-each`.
+5. **Caso 5**: Si se invoca el método pasando un objeto con valor null como argumento, el argumento variable será un
+   arreglo que contiene un elemento con valor null en la posición correspondiente. Podemos verificar si algún elemento
+   del arreglo es null utilizando un bucle `for` o un bucle `for-each`.
+6. **Caso 6**: Si se invoca el método pasando un arreglo como argumento, el argumento variable será un arreglo que
+   contiene todos los elementos del arreglo pasado como argumento. Podemos acceder a los elementos del arreglo
+   utilizando un bucle `for` o un bucle `for-each`.
+
+### Anotaciones (Annotations)
+
+Las anotaciones son información adicional que se puede agregar al código fuente de un programa Java, y que puede ser
+utilizada por el compilador, el entorno de desarrollo o las herramientas de análisis de código para realizar tareas
+específicas. Las anotaciones se definen utilizando el símbolo `@` seguido del nombre de la anotación, y pueden ser
+aplicadas a clases, métodos, campos, parámetros y otros elementos del código fuente.
+
+Las anotaciones se declaran de manera similar a las interfaces, utilizando la palabra clave `@interface`. Una anotación
+puede contener elementos que definen los valores que se pueden asignar a la anotación, y estos elementos pueden tener
+valores predeterminados. Las anotaciones pueden ser procesadas en tiempo de compilación o en tiempo de ejecución,
+dependiendo de cómo se definan y se utilicen.
+
+```java
+package com.driagon;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Retention(RetentionPolicy.RUNTIME) // Indica que la anotación estará disponible en tiempo de ejecución
+@interface Info { // Definición de la anotación Info
+    String author(); // Elemento que define el autor de la clase o método
+
+    String date(); // Elemento que define la fecha de creación de la clase o método
+
+    int version() default 1; // Elemento que define la versión de la clase o método, con un valor predeterminado de 1
+}
+```
+
+Vamos a aplicar la anotación `Info` a una clase y a un método, y luego vamos a acceder a los valores de la anotación
+utilizando reflexión en tiempo de ejecución.
+
+```java
+package com.driagon;
+
+@Info(author = "John Doe", date = "2023-01-01", version = 2) // Aplica la anotación Info a la clase Example
+public class Example {
+    @Info(author = "Jane Doe", date = "2023-02-01") // Aplica la anotación Info al método exampleMethod
+    public void exampleMethod() {
+        System.out.println("Este es un método de ejemplo."); // Imprime un mensaje indicando que este es un método de ejemplo
+    }
+}
+
+package com.driagon;
+
+import java.lang.reflect.Method; // Importa la clase Method de la biblioteca de reflexión
+
+public class Main {
+    public static void main(String[] args) {
+        Class<Example> exampleClass = Example.class; // Obtiene la clase Example utilizando reflexión
+        Info classInfo = exampleClass.getAnnotation(Info.class); // Obtiene la anotación Info de la clase Example
+        System.out.println("Autor de la clase: " + classInfo.author()); // Imprime el autor de la clase Example
+        System.out.println("Fecha de creación de la clase: " + classInfo.date()); // Imprime la fecha de creación de la clase Example
+        System.out.println("Versión de la clase: " + classInfo.version()); // Imprime la versión de la clase Example
+    }
+}
+```
+
+Algunas de las anotaciones más comunes en Java son:
+
+- `@Override`: Indica que un método sobrescribe un método de la superclase.
+- `@Deprecated`: Indica que un elemento del código está obsoleto y no debe ser utilizado. Es una manera de alertar a los
+  desarrolladores de que un método, clase o campo ya no es recomendable y puede ser eliminado en futuras versiones.
+- `@SafeVarargs`: Indica que un método con argumentos variables es seguro para su uso con tipos genéricos.
+- `@SuppressWarnings`: Indica que se deben suprimir ciertas advertencias del compilador.
+- `@FunctionalInterface`: Indica que una interfaz es una interfaz funcional, es decir, que tiene un solo método
+  abstracto y puede ser utilizada como una expresión lambda.
+- `@Retention`: Indica cuánto tiempo debe conservarse la anotación, ya sea en tiempo de compilación, en tiempo de
+  ejecución o en ambos.
+- `@Target`: Indica a qué elementos del código puede aplicarse la anotación, como clases, métodos, campos, parámetros,
+  etc.
+- `@Documented`: Indica que la anotación debe ser incluida en la documentación generada por Javadoc.
+- `@Inherited`: Indica que una anotación puede ser heredada por las subclases de una clase anotada.
+
+### Clases anónimas e información de clases
+
+#### Clases anónimas
+
+Las clases anónimas son clases que no tienen un nombre y se definen en el lugar donde se necesitan. Se utilizan para
+crear instancias de clases que implementan una interfaz o extienden una clase abstracta, sin necesidad de crear una
+clase separada. Las clases anónimas normalmente se utilizan como argumentos. Las clases anónimas se definen utilizando
+la palabra clave `new` seguida del nombre de la interfaz o clase abstracta, y luego se implementan los métodos
+necesarios dentro de un bloque de código.
+
+```java
+package com.driagon;
+
+public class Main {
+    public static void main(String[] args) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() { // Implementa el método run() de la interfaz Runnable
+                System.out.println("Este es un ejemplo de clase anónima."); // Imprime un mensaje indicando que este es un ejemplo de clase anónima
+            }
+        }); // Crea un hilo utilizando la instancia de la interfaz Runnable
+        thread.start(); // Inicia el hilo, lo que ejecutará el método run() de la clase anónima
+    }
+}
+```
+
