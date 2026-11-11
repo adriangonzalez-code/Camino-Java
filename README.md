@@ -536,8 +536,8 @@ La sintaxis básica del ciclo `for` es la siguiente:
 
 ```java
 for(inicialización;condición;actualización){
-        // Bloque de código a repetir
-        }
+    // Bloque de código a repetir
+}
 ```
 
 Ejemplo de un ciclo `for` que imprime los números del 1 al 5:
@@ -582,8 +582,8 @@ recorrer los elementos de un arreglo o una colección de manera más sencilla y 
 
 ```java
 for(tipo variable :arreglo){
-        // Bloque de código a repetir
-        }
+    // Bloque de código a repetir
+}
 ```
 
 Ejemplo de un ciclo `for` mejorado que imprime los elementos de un arreglo:
@@ -701,8 +701,8 @@ condición determinada. La sintaxis básica del ciclo `while` es la siguiente:
 
 ```java
 while(condición){
-        // Bloque de código a repetir
-        }
+    // Bloque de código a repetir
+}
 ```
 
 Ejemplo de un ciclo `while` de cálculo del promedio de un arreglo de números:
@@ -734,9 +734,9 @@ El ciclo `do-while` es similar al ciclo `while`, pero la diferencia principal es
 menos una vez antes de evaluar la condición. La sintaxis básica del ciclo `do-while` es la siguiente:
 
 ```java
-do{
-        // Bloque de código a repetir
-        }while(condición);
+do {
+    // Bloque de código a repetir
+} while(condición);
 ```
 
 Ejemplo de un ciclo `do-while` que imprime los números del 1 al 5:
@@ -795,8 +795,8 @@ del condicional `if` es la siguiente:
 
 ```java
 if(condición){
-        // Bloque de código a ejecutar si la condición es verdadera
-        }
+    // Bloque de código a ejecutar si la condición es verdadera
+}
 ```
 
 Ejemplo de una condición `if` que verifica si un número es positivo:
@@ -819,11 +819,11 @@ El condicional `if-else` nos permite ejecutar un bloque de código si se cumple 
 no se cumple. La sintaxis básica del condicional `if-else` es la siguiente:
 
 ```java
-if(condición){
-        // Bloque de código a ejecutar si la condición es verdadera
-        }else{
-        // Bloque de código a ejecutar si la condición es falsa
-        }
+if (condición){
+    // Bloque de código a ejecutar si la condición es verdadera
+} else{
+    // Bloque de código a ejecutar si la condición es falsa
+}
 ```
 
 Ejemplo de una condición `if-else` que verifica si un mes tiene 28, 30 o 31 días:
@@ -851,13 +851,13 @@ falsa, se evalúa la siguiente, y así sucesivamente, hasta que se encuentre una
 `else`. La sintaxis básica del condicional `if-else-if` es la siguiente:
 
 ```java
-if(condición1){
-        // Bloque de código a ejecutar si la condición1 es verdadera
-        }else if(condición2){
-        // Bloque de código a ejecutar si la condición2 es verdadera
-        }else{
-        // Bloque de código a ejecutar si ninguna de las condiciones anteriores es verdadera
-        }
+if(condición1) {
+    // Bloque de código a ejecutar si la condición1 es verdadera
+} else if(condición2) {
+    // Bloque de código a ejecutar si la condición2 es verdadera
+} else {
+    // Bloque de código a ejecutar si ninguna de las condiciones anteriores es verdadera
+}
 ```
 
 Ejemplo de una condición `if-else-if` que verifica la calificación de un estudiante:
@@ -893,14 +893,14 @@ la condición es falsa. La sintaxis básica del operador condicional es la sigui
 
 ```java
 // Ejemplo del operador en su forma if-else
-if(condición){
-valor1; // Valor si la condición es verdadera
-}else{
-valor2; // Valor si la condición es falsa
+if (condición) {
+    valor1; // Valor si la condición es verdadera
+} else {
+    valor2; // Valor si la condición es falsa
 }
 
 // Equivalente con operador condicional ? :
-condición ?valor1 :valor2; // Devuelve valor1 si la condición es verdadera
+condición ? valor1 : valor2; // Devuelve valor1 si la condición es verdadera
 // Devuelve valor2 si la condición es falsa
 ```
 
@@ -1062,16 +1062,16 @@ de una expresión. La sintaxis básica de la sentencia `switch` es la siguiente:
 
 ```java
 switch(expresión){
-        case valor1:
+    case valor1:
         // Bloque de código a ejecutar si la expresión es igual a valor1
         break; // Salta fuera del switch
-        case valor2:
+    case valor2:
         // Bloque de código a ejecutar si la expresión es igual a valor2
         break; // Salta fuera del switch
-// ...
-default:
+    // ...
+    default:
         // Bloque de código a ejecutar si la expresión no coincide con ningún valor
-        }
+}
 ```
 
 Ejemplo de uso de la sentencia `switch` para determinar el nombre del día de la semana según un número:
@@ -1330,13 +1330,13 @@ que está garantizado que se ejecute, haya o no haya existido un error. La sinta
 Java es la siguiente:
 
 ```java
-try{
-        // Código que puede generar una excepción
-        }catch(TipoDeExcepcion e){
-        // Código para manejar la excepción
-        }finally{
-        // Código que se ejecuta siempre, haya o no habido una excepción
-        }
+try {
+    // Código que puede generar una excepción
+} catch(TipoDeExcepcion e) {
+    // Código para manejar la excepción
+} finally {
+    // Código que se ejecuta siempre, haya o no habido una excepción
+}
 ```
 
 Todas las execpiones que un programa puede arrojar son objetos derivados de la clase `Throwable`, que es la clase base
@@ -1381,18 +1381,15 @@ cierre de un archivo. Suponiendo que existen 3 métodos, uno para abrir un archi
 cerrarlo, podemos estructurar el código de la siguiente manera:
 
 ```java
-try{
-abrirArchivo(); // Intento de abrir el archivo
-
-leerArchivo(); // Intento de leer el archivo
-
-cerrarArchivo(); // Cierre del archivo, garantizado que se ejecute siempre
-}catch(
-IOException e){ // Captura de la excepción IOException
-        System.out.
-
-println("Se produjo un error al abrir o leer el archivo: "+e.getMessage()); // Manejo de la excepción y mensaje de error
-        }
+try {
+    abrirArchivo(); // Intento de abrir el archivo
+    
+    leerArchivo(); // Intento de leer el archivo
+    
+    cerrarArchivo(); // Cierre del archivo, garantizado que se ejecute siempre
+} catch(IOException e) { // Captura de la excepción IOException
+    System.out.println("Se produjo un error al abrir o leer el archivo: "+e.getMessage()); // Manejo de la excepción y mensaje de error
+}
 ```
 
 Si se llegara a presentar alguna excepción durante la apertura o lectura del archivo, el bloque `catch` se ejecutará
@@ -1401,18 +1398,14 @@ flujo del programa se interrumpirá al entrar al bloque `catch`. Para garantizar
 podemos utilizar un bloque `finally` de la siguiente manera:
 
 ```java
-try{
-abrirArchivo(); // Intento de abrir el archivo
-
-leerArchivo(); // Intento de leer el archivo
-}catch(
-IOException e){ // Captura de la excepción IOException
-        System.out.
-
-println("Se produjo un error al abrir o leer el archivo: "+e.getMessage()); // Manejo de la excepción y mensaje de error
-        }finally{
-
-cerrarArchivo(); // Cierre del archivo, garantizado que se ejecute siempre, no importa si hubo una excepción o no
+try {
+    abrirArchivo(); // Intento de abrir el archivo
+    
+    leerArchivo(); // Intento de leer el archivo
+} catch(IOException e) { // Captura de la excepción IOException
+    System.out.println("Se produjo un error al abrir o leer el archivo: "+e.getMessage()); // Manejo de la excepción y mensaje de error
+} finally {
+    cerrarArchivo(); // Cierre del archivo, garantizado que se ejecute siempre, no importa si hubo una excepción o no
 }
 ```
 
@@ -1472,17 +1465,15 @@ ella.
 La sintaxis básica para utilizar múltiples bloques `catch` es la siguiente:
 
 ```java
-try{
-        // Código que puede generar una excepción
-        }catch(IOException e){
-        // Código para manejar la excepción TipoDeExcepcion1
-        }catch(
-NullPointerException e){
-        // Código para manejar la excepción TipoDeExcepcion2
-        }catch(
-Exception e){
-        // Código para manejar la excepción TipoDeExcepcion3
-        }
+try {
+    // Código que puede generar una excepción
+} catch(IOException e) {
+    // Código para manejar la excepción TipoDeExcepcion1
+} catch(NullPointerException e) {
+    // Código para manejar la excepción TipoDeExcepcion2
+} catch(Exception e) {
+    // Código para manejar la excepción TipoDeExcepcion3
+}
 ```
 
 ### Métodos y campos estáticos, variables finales
@@ -1603,9 +1594,7 @@ condición y el código se ve de la siguiente manera:
 
 ```java
 public static final int EDAD_MINIMA = 18;
-System.out.
-
-println("Eres mayor de edad."); // Imprime un mensaje indicando que la persona es mayor de edad
+System.out.println("Eres mayor de edad."); // Imprime un mensaje indicando que la persona es mayor de edad
 ```
 
 #### Control de acceso a los miembros de una clase
@@ -2309,18 +2298,12 @@ La conversión de datos puede ser implícita (automática) o explícita (manual)
 String s = "123456";
 int i;
 
-try{
-i =Integer.
-
-parseInt(s); // Convierte el String s a un entero utilizando el método parseInt() de la clase Integer
-    System.out.
-
-println("El valor convertido es: "+i); // Imprime el valor convertido en la consola
-}catch(
-NumberFormatException e){
-        System.err.
-
-println("Error: El valor no es un número válido."); // Imprime un mensaje de error en la salida de error estándar si la conversión falla
+try {
+    i =Integer.
+    parseInt(s); // Convierte el String s a un entero utilizando el método parseInt() de la clase Integer
+    System.out.println("El valor convertido es: "+i); // Imprime el valor convertido en la consola
+} catch(NumberFormatException e) {
+        System.err.println("Error: El valor no es un número válido."); // Imprime un mensaje de error en la salida de error estándar si la conversión falla
 }
 ```
 
@@ -2346,56 +2329,26 @@ manejar fechas de manera más sencilla:
 
 ```java
 String srtDate = "01/02/2003"; // Fecha en formato dd/MM/yyyyy
-        int date, month, year;
+int date, month, year;
 
 String tmp = srtDate.substring(0, 2); // Extrae el día de la fecha utilizando el método substring()
-date =Integer.
-
-parseInt(tmp); // Convierte el día a un entero utilizando el método parseInt() de la clase Integer
-
-tmp =srtDate.
-
-substring(3,5); // Extrae el mes de la fecha utilizando el método substring()
-
-month =Integer.
-
-parseInt(tmp); // Convierte el mes a un entero utilizando el método parseInt() de la clase Integer
-
-tmp =srtDate.
-
-substring(6,10); // Extrae el año de la fecha utilizando el método substring()
-
-year =Integer.
-
-parseInt(tmp); // Convierte el año a un entero utilizando el método parseInt() de la clase Integer
+date =Integer.parseInt(tmp); // Convierte el día a un entero utilizando el método parseInt() de la clase Integer
+tmp =srtDate.substring(3,5); // Extrae el mes de la fecha utilizando el método substring()
+month =Integer.parseInt(tmp); // Convierte el mes a un entero utilizando el método parseInt() de la clase Integer
+tmp =srtDate.substring(6,10); // Extrae el año de la fecha utilizando el método substring()
+year =Integer.parseInt(tmp); // Convierte el año a un entero utilizando el método parseInt() de la clase Integer
 
 Calendar cal = Calendar.getInstance();
-cal.
-
-set(Calendar.DATE, date); // Establece el día en el objeto Calendar
-cal.
-
-set(Calendar.MONTH, month -1); // Establece el mes en el objeto Calendar (restando 1 ya que los meses en Calendar son indexados desde 0)
-cal.
-
-set(Calendar.YEAR, year); // Establece el año en el objeto Calendar
-cal.
-
-set(Calendar.HOUR_OF_DAY, 0); // Establece la hora en el objeto Calendar a 0 (medianoche)
-cal.
-
-set(Calendar.MINUTE, 0); // Establece los minutos en el objeto Calendar a 0
-cal.
-
-set(Calendar.SECOND, 0); // Establece los segundos en el objeto Calendar
-cal.
-
-set(Calendar.MILLISECOND, 0); // Establece los milisegundos en el objeto Calendar a 0
+cal.set(Calendar.DATE, date); // Establece el día en el objeto Calendar
+cal.set(Calendar.MONTH, month -1); // Establece el mes en el objeto Calendar (restando 1 ya que los meses en Calendar son indexados desde 0)
+cal.set(Calendar.YEAR, year); // Establece el año en el objeto Calendar
+cal.set(Calendar.HOUR_OF_DAY, 0); // Establece la hora en el objeto Calendar a 0 (medianoche)
+cal.set(Calendar.MINUTE, 0); // Establece los minutos en el objeto Calendar a 0
+cal.set(Calendar.SECOND, 0); // Establece los segundos en el objeto Calendar
+cal.set(Calendar.MILLISECOND, 0); // Establece los milisegundos en el objeto Calendar a 0
 
 Date result = cal.getTime(); // Obtiene la fecha completa como un objeto Date
-System.out.
-
-println("Fecha: "+fecha); // Imprime la fecha en la consola
+System.out.println("Fecha: "+fecha); // Imprime la fecha en la consola
 ```
 
 No obstante, este código es un ejemplo simple y no considera casos complejos como validar si la cadena está en el
@@ -3598,30 +3551,12 @@ public class ArgumentPassingExample {
 La salida del programa será:
 
 ```java
-Valor de
-x antes
-de llamar
-al método:10
-Valor del
-argumento primitivo
-dentro del
-método:30
-Valor de
-x después
-de llamar
-al método:10
-Valor del
-objeto antes
-de llamar
-al método:20
-Valor del
-argumento objeto
-dentro del
-método:40
-Valor del
-objeto después
-de llamar
-al método:40
+Valor de x antes de llamar al método:10
+Valor del argumento primitivo dentro del método:30
+Valor de x después de llamar al método:10
+Valor del objeto antes de llamar al método:20
+Valor del argumento objeto dentro del método:40
+Valor del objeto después de llamar al método:40
 ```
 
 #### Métodos con argumentos variables
@@ -3796,3 +3731,113 @@ public class Main {
 }
 ```
 
+La clase anónima puede invocar métodos de la clase donde se encuentra definida. La clase anónima puede también tener
+acceso a las variables del método donde se invoca, siempre y cuando estas variables sean finales o efectivamente
+finales. Esto significa que la variable no puede ser modificada después de su inicialización, y su valor no puede
+cambiar durante la ejecución del método. Esto se debe a que las clases anónimas pueden ser ejecutadas en un hilo
+diferente al hilo principal, y si la variable fuera modificada, podría causar problemas de concurrencia.
+
+```java
+package com.driagon;
+
+public class Example {
+    public void largeMethod() {
+        // Código del método grande
+    }
+
+    public void run() {
+        int localVariable = 10; // Variable local con alcance de método
+        Button button = new Button(); // Crea un objeto de la clase Button
+        button.setOnClickListener(new OnClickListener() { // Crea una clase anónima que implementa la interfaz OnClickListener
+            @Override
+            public void onClick() { // Implementa el método onClick() de la interfaz OnClickListener
+                System.out.println("El botón ha sido presionado."); // Imprime un mensaje indicando que el botón ha sido presionado
+                System.out.println("Valor de la variable local: " + localVariable); // Imprime el valor de la variable local, que es accesible desde la clase anónima
+            }
+        }); // Asigna la clase anónima como listener del botón
+
+        // localVariable = 20; // Esto generará un error de compilación al hacer uso de la variable local dentro de la clase anónima, ya que la variable local no es final ni efectivamente final
+    }
+}
+```
+
+Como puede observarse, la clase anónima puede acceder a la variable local `localVariable` del método `run()`, siempre y
+cuando esta variable sea final o efectivamente final. Si intentamos modificar el valor de la variable local después de
+su inicialización, obtendremos un error de compilación, la explicación es que al crear la clase anónima, se crea una
+copia de la variable local en el contexto de la clase anónima, y si la variable local fuera modificada, la copia en la
+clase anónima no reflejaría el cambio, lo que podría causar inconsistencias y errores en tiempo de ejecución.
+
+Otra de las características de las clases anónimas es que pueden ser utilizadas como una variable.
+
+```java
+public class Example {
+    public void run() {
+        Action a = new Action() { // Crea una clase anónima que implementa la interfaz Action y la asigna a la variable a
+            @Override
+            public void perform() { // Implementa el método perform() de la interfaz Action
+                System.out.println("Acción realizada."); // Imprime un mensaje indicando que la acción ha sido realizada
+            }
+        }; // Asigna la clase anónima como valor de la variable a
+        Button button = new Button(); // Crea un objeto de la clase Button
+        button.setAction(a); // La variable declarada como clase anónima puede ser utilizada como argumento en un método, en este caso se pasa la variable a como argumento al método setAction() del objeto button
+    }
+}
+```
+
+#### Información de clases
+
+En algunas ocasiones, es útil conocer el tipo de un objeto para poder implementar algún algoritmo o lógica de negocio.
+Por ejemplo, si tenemos un método que recibe un objeto como argumento, pero en realidad solo deberíamos aceptar ciertos
+tipos de objetos. Existen algunas formas de especificar el tipo de objeto, las siguientes son las más comunes:
+
+1. **Tipo Class**: Todos los objetos pertenecen a una clase, y cada clase tiene un objeto de tipo `Class` que representa
+   la clase a la que pertenece el objeto. Podemos obtener el objeto `Class` de un objeto utilizando el método
+   `getClass()`, y luego podemos comparar el objeto `Class` con otros objetos `Class` utilizando el método `equals`.
+
+```java
+package com.driagon;
+
+public class MiClase {
+    private String name;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false; // Si el objeto es null, no es igual
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false; // Si el objeto no es de la misma clase, no es igual
+        }
+        MiClase other = (MiClase) obj; // Castea el objeto a MiClase
+        return this.name.equals(other.name); // Compara los nombres de los objetos
+    }
+}
+```
+
+##### Operador `instanceof`
+
+En ocasiones, puede no ser suficiente conocer el tipo de una clase, sino que también necesitamos conocer si un objeto es
+una instancia de una clase o de una subclase. Por ejemplo, si queremos saber si una clase es cualquier tipo de número,
+podemos utilizar el operador `instanceof` para verificar si un objeto es una instancia de la clase `Number` o de alguna
+de sus subclases, como `Integer`, `Double`, `Float`, etc. El operador `instanceof` devuelve un valor booleano que indica
+si el objeto es una instancia de la clase especificada o de alguna de sus subclases.
+
+```java
+package com.driagon;
+
+public class Main {
+    public static void main(String[] args) {
+        Object obj1 = new Integer(10); // Crea un objeto de tipo Integer
+        Object obj2 = new Double(10.0); // Crea un objeto de tipo Double
+        Object obj3 = new String("Hello"); // Crea un objeto de tipo String
+        Object obj4 = null; // Crea un objeto nulo
+        Object obj5 = new Boolean(true); // Crea un objeto de tipo Boolean
+
+        System.out.println(obj1 instanceof Number); // true, ya que Integer es una subclase de Number
+        System.out.println(obj2 instanceof Number); // true, ya que Double es una subclase de Number
+        System.out.println(obj3 instanceof Number); // false, ya que String no es una subclase de Number
+        System.out.println(obj4 instanceof Number); // false, ya que obj4 es null y no es una instancia de ninguna clase
+        System.out.println(obj5 instanceof Number); // false, ya que Boolean no es una subclase de Number
+    }
+}
+```
