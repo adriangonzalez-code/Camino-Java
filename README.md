@@ -3841,3 +3841,128 @@ public class Main {
     }
 }
 ```
+
+## El API de Java (Parte 2)
+
+### Archivos
+
+Los archivos en Java se representan mediante la clase `File`, que se encuentra en el paquete `java.io`. Esta clase
+permite crear, eliminar, renombrar y obtener información sobre archivos y directorios en el sistema de archivos. La
+clase `File` no permite leer ni escribir datos en los archivos, para eso se utilizan otras clases como `FileReader`,
+`FileWriter`, `BufferedReader`, `BufferedWriter`, entre otras. La clase `File` proporciona métodos para obtener
+información sobre el archivo, como su nombre, ruta, tamaño, fecha de última modificación, permisos de lectura y
+escritura, entre otros. También permite crear y eliminar archivos y directorios, así como listar los archivos y
+directorios contenidos en un directorio.
+
+```java
+File f = new File("ruta/del/archivo.txt"); // Crea un objeto File que representa el archivo "archivo.txt" en la ruta especificada
+System.out.println("Tamaño del archivo: " + f.length() + " bytes"); // Imprime el tamaño del archivo en bytes
+```
+
+Cabe aclarar que el objeto `File` no es un archivo, es solamente una representación de un archivo o directorio en el
+sistema de archivos.
+
+```java
+File folder = new File("c:\\"):
+File list[] = folder.listFiles(); // Obtiene un arreglo de objetos File que representan los archivos y directorios contenidos en el directorio "c:\"
+for (File f : list) { // Itera sobre el arreglo de objetos File
+    System.out.println(f.getName()); // Imprime el nombre de cada archivo o directorio
+}
+```
+
+Para borrar un archivo, se utiliza el método `delete()`, que devuelve un valor booleano que indica si el archivo fue
+borrado correctamente o no. Si el archivo no existe, el método devuelve `false`.
+
+```java
+File f = new File("ruta/del/archivo.txt"); // Crea un objeto File que representa el archivo "archivo.txt" en la ruta especificada
+if (f.delete()) { // Intenta borrar el archivo y verifica si fue borrado correctamente
+    System.out.println("Archivo borrado correctamente."); // Imprime un mensaje indicando que el archivo fue borrado correctamente
+} else {
+    System.out.println("No se pudo borrar el archivo."); // Imprime un mensaje indicando que no se pudo borrar el archivo
+}
+```
+
+#### Separadores de directorio en diferentes sistemas operativos
+
+Hoy en día, prácticamente solo hay dos variantes de sistemas operativos, Windows y Linux, y cada uno tiene su propio
+separador de directorio. En Windows, el separador de directorio es la barra invertida `\`, mientras que en Linux, el
+separador de directorio es la barra diagonal `/`. Esto puede causar problemas al escribir rutas de archivos en Java, ya
+que si escribimos una ruta con el separador de directorio incorrecto, el programa no podrá encontrar el archivo o
+directorio. Para evitar este problema, Java proporciona la constante `File.separator` y `File.separatorChar`, que 
+contiene el separador de directorio correcto para el sistema operativo en el que se está ejecutando el programa. De esta
+manera, podemos escribir rutas de archivos de manera independiente del sistema operativo, y el programa funcionará 
+correctamente en cualquier sistema operativo.
+
+Por ejemplo, si queremos crear un archivo en el directorio "C:\Users\Usuario\Documents" en Windows, podemos escribir la
+ruta de la siguiente manera:
+
+```java
+String path = "C:" + File.separatorChar + "Users" + File.separatorChar + "Usuario" + File.separatorChar + "Documents" + File.separatorChar + "archivo.txt"; // Crea la ruta del archivo utilizando el separador de directorio correcto para el sistema operativo
+```
+
+Pero estamos de acuerdo que en Linux, la ruta sería diferente, y si escribimos la ruta de la misma manera, el programa
+no podrá encontrar el archivo. Ya que en Linux, la ruta sería "/home/usuario/Documents/archivo.txt".
+
+```java
+String path = File.separatorChar + "home" + File.separatorChar + "usuario" + File.separatorChar + "Documents" + File.separatorChar + "archivo.txt"; // Crea la ruta del archivo utilizando el separador de directorio correcto para el sistema operativo
+```
+
+Para resolver este problema, podemos utilizar el método `File.listRoots()`, que devuelve un arreglo de objetos `File`
+que representan las raíces del sistema de archivos, y luego podemos iterar sobre el arreglo y buscar el directorio que
+necesitamos. De esta manera, podemos escribir rutas de archivos de manera independiente del sistema operativo, y el
+programa funcionará correctamente en cualquier sistema operativo. En Windows, el método `File.listRoots()` devuelve un
+arreglo con las unidades de disco disponibles, como "C:\", "D:\", etc. En Linux, el método devuelve un arreglo con la
+raíz del sistema de archivos, que es "/".
+
+```java
+File[] roots = File.listRoots(); // Obtiene un arreglo de objetos File que representan las raíces del sistema de archivos
+for (File root : roots) { // Itera sobre el arreglo de objetos File
+    System.out.println("Raíz del sistema de archivos: " + root.getAbsolutePath()); // Imprime la ruta absoluta de cada raíz del sistema de archivos
+}
+```
+
+### Información de archivos, crear y borrar folders, ejemplo: Listar un directorio
+
+#### Información de un archivo
+
+Como hemos mencionado anteriormente, un objeto `File` representa un archivo o directorio en el sistema de archivos, y
+proporciona métodos para obtener información sobre el archivo o directorio, como su nombre, ruta, tamaño, fecha de
+última modificación, permisos de lectura y escritura, entre otros. A continuación, se presentan algunos de los métodos
+más comunes para obtener información sobre un archivo o directorio:
+
+```java
+System.out.println("Nombre del archivo: " + f.getName()); // Imprime el nombre del archivo
+System.out.println("Ruta absoluta del archivo: " + f.getAbsolutePath()); // Imprime la ruta absoluta del archivo
+System.out.println("Ruta del archivo: " + f.getPath()); // Imprime la ruta del archivo
+System.out.println("¿Es un directorio?: " + f.isDirectory()); // Imprime si el archivo es un directorio o no
+System.out.println("¿Existe el archivo?: " + f.exists()); // Imprime si el archivo existe
+System.out.println("Tamaño del archivo: " + f.length() + " bytes"); // Imprime el tamaño del archivo en bytes
+System.out.println("¿Es archivo?: " + f.isFile()); // Imprime si el archivo es un archivo o no
+
+// Para listar los archivos y directorios contenidos en un directorio, podemos utilizar el método list() o listFiles() de la clase File. El método list() devuelve un arreglo de cadenas con los nombres de los archivos y directorios contenidos en el directorio, mientras que el método listFiles() devuelve un arreglo de objetos File que representan los archivos y directorios contenidos en el directorio.
+
+File files[] = f.listFiles(); // Obtiene un arreglo de objetos File que representan los archivos y directorios contenidos en el directorio
+for (File file : files) { // Itera sobre el arreglo de objetos File
+    System.out.println("Nombre del archivo o directorio: " + file.getName()); // Imprime el nombre de cada archivo o directorio contenido en el directorio
+}
+```
+
+#### ¿Cómo crear y borrar directorios?
+
+Para crear un directorio, primero debemos crear un objeto `File` con la ruta del directorio que queremos crear, y luego podemos utilizar el método `mkdir()` o `mkdirs()` de la clase `File`. El método `mkdir()` crea un solo directorio, mientras que el método `mkdirs()` crea todos los directorios necesarios en la ruta especificada. Ambos métodos devuelven un valor booleano que indica si el directorio fue creado correctamente o no. Si el directorio ya existe, los métodos devolverán `false`.
+
+```java
+File dir = new File("ruta/del/directorio"); // Crea un objeto File que representa el directorio que queremos crear
+
+if (dir.mkdir()) { // Intenta crear el directorio y verifica si fue creado correctamente
+    System.out.println("Directorio creado correctamente."); // Imprime un mensaje indicando que el directorio fue creado correctamente
+} else {
+    System.out.println("No se pudo crear el directorio."); // Imprime un mensaje indicando que no se pudo crear el directorio
+}
+
+if (dir.mkdirs()) { // Intenta crear todos los directorios necesarios en la ruta especificada y verifica si fueron creados correctamente
+    System.out.println("Directorios creados correctamente."); // Imprime un mensaje indicando que los directorios fueron creados correctamente
+} else {
+    System.out.println("No se pudieron crear los directorios."); // Imprime un mensaje indicando que no se pudieron crear los directorios
+}
+```
