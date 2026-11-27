@@ -3949,7 +3949,11 @@ for (File file : files) { // Itera sobre el arreglo de objetos File
 
 #### ¿Cómo crear y borrar directorios?
 
-Para crear un directorio, primero debemos crear un objeto `File` con la ruta del directorio que queremos crear, y luego podemos utilizar el método `mkdir()` o `mkdirs()` de la clase `File`. El método `mkdir()` crea un solo directorio, mientras que el método `mkdirs()` crea todos los directorios necesarios en la ruta especificada. Ambos métodos devuelven un valor booleano que indica si el directorio fue creado correctamente o no. Si el directorio ya existe, los métodos devolverán `false`.
+Para crear un directorio, primero debemos crear un objeto `File` con la ruta del directorio que queremos crear, y luego
+podemos utilizar el método `mkdir()` o `mkdirs()` de la clase `File`. El método `mkdir()` crea un solo directorio,
+mientras que el método `mkdirs()` crea todos los directorios necesarios en la ruta especificada. Ambos métodos devuelven
+un valor booleano que indica si el directorio fue creado correctamente o no. Si el directorio ya existe, los métodos
+devolverán `false`.
 
 ```java
 File dir = new File("ruta/del/directorio"); // Crea un objeto File que representa el directorio que queremos crear
@@ -3965,4 +3969,21 @@ if (dir.mkdirs()) { // Intenta crear todos los directorios necesarios en la ruta
 } else {
     System.out.println("No se pudieron crear los directorios."); // Imprime un mensaje indicando que no se pudieron crear los directorios
 }
+```
+
+### Streams
+
+Los streams son un conjunto de clases que permiten leer y escribir datos en diferentes fuentes y destinos, como
+archivos, sockets, consola, etc. En Java, los streams se implementan mediante clases que heredan de las clases
+`InputStream` y `OutputStream`. Los streams de entrada (`InputStream`) se utilizan para leer datos de una fuente,
+mientras que los streams de salida (`OutputStream`) se utilizan para escribir datos en un destino.
+
+La clase mas genérica para escrbir es `OutputStream`, y la que deriva de ella es `FileOutputStream`, que permite escribir datos en un archivo.
+
+```java
+File f = new File("ruta/del/archivo.txt"); // Crea un objeto File que representa el archivo donde se escribirán los datos
+int i = 0; // Variable que se utilizará para almacenar el valor del byte que se leerá del archivo
+OutputStream os = new FileOutputStream(f); // Crea un objeto FileOutputStream que representa el archivo donde se escribirán los datos
+os.write(i); // Escribe el valor del byte en el archivo
+os.close(); // Cierra el stream de salida, liberando los recursos asociados al archivo
 ```
